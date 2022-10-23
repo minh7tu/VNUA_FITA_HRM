@@ -6,9 +6,13 @@ using System.Text;
 
 namespace VNUA.FITA.MQTT.HRM.Data.Model
 {
+    /// <summary>
+    /// Nguyễn Đình Thuyết - K64CNPM - 646372
+    /// </summary>
     [Table("BaoHiem")]
     public class BaoHiem
     {
+        [Key]
         public int MaBaoHiem { get; set; }
 
         [StringLength(100)]
@@ -25,7 +29,7 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
         public DateTime ThoiGianKT { get; set; }
 
         public double ChiPhi { get; set; }
-        public NhanVien NhanVien { get; set; }
+        public IList<NhanVien> NhanVien { get; set; }
 
     }
 }

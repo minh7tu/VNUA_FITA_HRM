@@ -6,6 +6,9 @@ using System.Text;
 
 namespace VNUA.FITA.MQTT.HRM.Data.Model
 {
+    /// <summary>
+    /// Nguyễn Đình Thuyết - K64CNPM - 646372
+    /// </summary>
     [Table("NhanVien")]
     public class NhanVien
     {
@@ -62,11 +65,19 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
         public int MaBaoHiem { get; set; }
 
         [ForeignKey("MaBP")]
-        public ICollection<BoPhan> BoPhans { get; set; }
+        public BoPhan BoPhans { get; set; }
         [ForeignKey("MaLLV")]
-        public ICollection<LichLamViec> LichLamViecs { get; set; }
+        public LichLamViec LichLamViecs { get; set; }
         [ForeignKey("MaBaoHiem")]
-        public ICollection<BaoHiem> BaoHiems { get; set; }
+        public BaoHiem BaoHiems { get; set; }
+
+        public IList<Luong> Luongs { get; set; }
+        public IList<HopDong> HopDongs { get; set; }
+        public IList<NgayCong> NgayCongs { get; set; }
+
+        public IList<GiayTo> GiayTos { get; set; }
+        public IList<BaiViet> BaiViets { get; set; }
+        public IList<DonTu> DonTus { get; set; }
  
 
     }

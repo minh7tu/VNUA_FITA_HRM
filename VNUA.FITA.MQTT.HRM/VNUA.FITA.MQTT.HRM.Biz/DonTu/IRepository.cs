@@ -4,7 +4,7 @@ using System.Text;
 
 namespace VNUA.FITA.MQTT.HRM.Biz.DonTu
 {
-    class IRepository
+    public interface IRepository
     {
     }
 }
