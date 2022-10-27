@@ -12,5 +12,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             return View();
         }
+
+       
     }
 }
