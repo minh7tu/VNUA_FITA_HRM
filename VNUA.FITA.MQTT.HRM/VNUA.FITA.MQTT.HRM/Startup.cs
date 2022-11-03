@@ -39,7 +39,7 @@ namespace VNUA.FITA.MQTT.HRM
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Administrator}/{action=Index}/{id?}");
+                    pattern: "{controller=User}/{action=Index}/{id?}");
             });
         }
     }
