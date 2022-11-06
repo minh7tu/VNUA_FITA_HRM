@@ -4,7 +4,11 @@ using System.Text;
 
 namespace VNUA.FITA.MQTT.HRM.Biz.Model.BaoHiem
 {
-    class Filter
+    /// <summary>
+    /// Thuyết 
+    /// </summary>
+    public class Filter
     {
+        public int MaBaoHiem { get; set; }
     }
 }

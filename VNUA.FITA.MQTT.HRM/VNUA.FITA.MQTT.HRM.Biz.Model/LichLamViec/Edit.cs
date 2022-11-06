@@ -4,7 +4,14 @@ using System.Text;
 
 namespace VNUA.FITA.MQTT.HRM.Biz.Model.LichLamViec
 {
-    class Edit
+    public class Edit
     {
+        public DateTime SangBD { get; set; }
+
+        public DateTime SangKT { get; set; }
+
+        public DateTime ChieuBD { get; set; }
+
+        public DateTime ChieuKT { get; set; }
     }
 }

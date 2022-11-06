@@ -4,7 +4,11 @@ using System.Text;
 
 namespace VNUA.FITA.MQTT.HRM.Biz.Model.BaiViet
 {
-    class Filter
+    /// <summary>
+    /// Thuyết - Lọc theo mã bài viết
+    /// </summary>
+    public class Filter
     {
+        public int MaBaiViet { get; set; }
     }
 }
