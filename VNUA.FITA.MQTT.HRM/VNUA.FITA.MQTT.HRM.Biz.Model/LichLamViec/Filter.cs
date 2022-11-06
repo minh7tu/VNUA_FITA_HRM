@@ -4,7 +4,8 @@ using System.Text;
 
 namespace VNUA.FITA.MQTT.HRM.Biz.Model.LichLamViec
 {
-    class Filter
+    public class Filter
     {
+        public int MaLLV { get; set; }
     }
 }
