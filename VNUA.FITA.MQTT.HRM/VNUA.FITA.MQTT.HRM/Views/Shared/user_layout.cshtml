@@ -1,130 +1,128 @@
 ﻿<!DOCTYPE html>
-<html lang="en">
+<html lang="en" dir="ltr">
 <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>@ViewData["Title"] - Administration Quản Lí Nhân Sự</title>
-    <link href="/css/styles.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <title>@ViewData["Title"]  user Quản Lí Nhân Sự</title>
+    <!--<title> Drop Down Sidebar Menu | CodingLab </title>-->
+    <link rel="stylesheet" href="~/css/style_layout-user.css">
+    <!-- Boxiocns CDN Link -->
+    <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
-<body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">QUẢN LÍ NHÂN SỰ</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
-            </div>
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+<body>
+    <div class="sidebar close">
+        <div class="logo-details">
+            <i class='bx bx-buildings'></i>
+            <span class="logo_name">HRM VNUA</span>
+        </div>
+        <ul class="nav-links">
+            <li>
+                <a href="#">
+                    <i class='bx bx-grid-alt'></i>
+                    <span class="link_name">Trang chủ</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Trang chủ</a></li>
                 </ul>
             </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-file-blank'></i>
+                        <span class="link_name">Hồ sơ của tôi</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Hồ sơ của tôi</a></li>
+                    <li><a href="#">Thông tin cá nhân</a></li>
+                    <li><a href="#">Giấy tờ cá nhân</a></li>
+                    <li><a href="#">Dịch vụ</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-money'></i>
+                        <span class="link_name">Lương thưởng</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Lương thưởng</a></li>
+                    <li><a href="#">Lương bổng</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-book-open'></i>
+                        <span class="link_name">Thủ tục văn thư</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu">
+                    <li><a class="link_name" href="#">Thủ tục văn thư</a></li>
+                    <li><a href="#">Đơn từ</a></li>
+                    <li><a href="#">Hợp đồng</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bx-support'></i>
+                    <span class="link_name">Hỗ trợ</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Hỗ trợ</a></li>
+                    <li><a href="#">Liên hệ</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="#">
+                    <i class='bx bxs-bell'></i>
+                    <span class="link_name">Thông báo</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="#">Thông báo</a></li>
+                </ul>
+            </li>
+            <li>
+                <div class="profile-details">
+                    <div class="profile-content">
+                        <img src="~/image/Engineerava.jpg">
+                    </div>
+                    <div class="name-job">
+                        <div class="profile_name">Engineer</div>
+                        <div class="job">make sentry</div>
+                    </div>
+                    <i class='bx bx-log-out'></i>
+                </div>
+            </li>
         </ul>
-    </nav>
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Hệ Thống Chức Năng</div>
-                        <a class="nav-link" href="index.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Trang Chủ
-                        </a>
-                        <div>
-                            <li class="nav-item">
-                                <a class="nav-link collapsed text-truncate" href="#submenu1" data-toggle="collapse" data-target="#submenu1"><i class="fa fa-table"></i> <span class="d-none d-sm-inline">Hồ sơ của tôi</span></a>
-                                <div class="collapse" id="submenu1" aria-expanded="false">
-                                    <ul class="flex-column pl-2 nav">
-                                        <li class="nav-item"><a class="nav-link py-0" href="#"><i class="fa fa-fw fa-bar-chart"></i><span>Thông tin cá nhân</span></a></li>
-                                        <li style="text-align:center">---</li>
-                                        <li class="nav-item"><a class="nav-link py-0" href="#"><span>Giấy tờ cá nhân</span></a></li>
-                                        <li style="text-align:center">---</li>
-                                        <li class="nav-item"><a class="nav-link py-0" href="#"><span>Dịch vụ</span></a></li>
-                                    </ul>
-                                </div>
-                            </li>
-                        </div>
-                        <div>
-                            <li class="nav-item">
-                                <a class="nav-link collapsed text-truncate" href="#submenu1" data-toggle="collapse" data-target="#submenu1"><i class="fa fa-table"></i> <span class="d-none d-sm-inline">Lương Thưởng</span></a>
-                                <div class="collapse" id="submenu1" aria-expanded="false">
-                                    <ul class="flex-column pl-2 nav">
-                                        <li class="nav-item"><a class="nav-link py-0" href="#"><i class="fa fa-fw fa-bar-chart"></i><span>Lương bổng</span></a></li>
-
-                                    </ul>
-                                </div>
-                            </li>
-                        </div>
-                        <div>
-                            <li class="nav-item">
-                                <a class="nav-link collapsed text-truncate" href="#submenu1" data-toggle="collapse" data-target="#submenu1"><i class="fa fa-table"></i> <span class="d-none d-sm-inline">Thủ tục văn thư</span></a>
-                                <div class="collapse" id="submenu1" aria-expanded="false">
-                                    <ul class="flex-column pl-2 nav">
-                                        <li class="nav-item"><a class="nav-link py-0" href="#"><i class="fa fa-fw fa-bar-chart"></i><span>Đơn từ</span></a></li>
-                                        <li style="text-align:center">---</li>
-                                        <li class="nav-item"><a class="nav-link py-0" href="#"><span>Hợp đồng</span></a></li>
-
-                                    </ul>
-                                </div>
-                            </li>
-                        </div>
-
-                        <div class="sb-sidenav-menu-heading">Hỗ Trợ</div>
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Tài Khoản
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Ý Kiến Phản Hồi
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                          Liên hệ
-                        </a>
-                    </div>
-                </div>
-            </nav>
-        </div>
-        <div id="layoutSidenav_content">
-            <main>
-                @RenderBody()
-            </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; phần mềm quản lý nhân sự 2022</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
-        </div>
     </div>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-    <script src="/js/scripts.js"></script>
-
-    @RenderSection("Scripts", required: false)
+    <section class="home-section">
+        <div class="home-content">
+            <i class='bx bx-menu'></i>
+            <span class="text">Wellcome home!</span>
+        </div>
+    </section>
+    <main>
+        @RenderBody()
+    </main>
+    <script>
+        let arrow = document.querySelectorAll(".arrow");
+        for (var i = 0; i < arrow.length; i++) {
+            arrow[i].addEventListener("click", (e) => {
+                let arrowParent = e.target.parentElement.parentElement;//selecting main parent of arrow
+                arrowParent.classList.toggle("showMenu");
+            });
+        }
+        let sidebar = document.querySelector(".sidebar");
+        let sidebarBtn = document.querySelector(".bx-menu");
+        console.log(sidebarBtn);
+        sidebarBtn.addEventListener("click", () => {
+            sidebar.classList.toggle("close");
+        });
+    </script>
 </body>
 </html>
