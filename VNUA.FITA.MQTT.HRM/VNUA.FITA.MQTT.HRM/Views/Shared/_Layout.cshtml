@@ -1,142 +1,811 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
-    <title>@ViewData["Title"] - Administration Quản Lí Nhân Sự</title>
-    <link href="/css/styles.css" rel="stylesheet" />
-    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+    <title>Phần mềm quản lý nhân sự  - HRM VNUA</title>
+    <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon" />
+
+    <!-- Fonts and icons -->
+    <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
+    <script>
+        WebFont.load({
+            google: { "families": ["Lato:300,400,700,900"] },
+            custom: { "families": ["Flaticon", "Font Awesome 5 Solid", "Font Awesome 5 Regular", "Font Awesome 5 Brands", "simple-line-icons"], urls: ['../assets/css/fonts.min.css'] },
+            active: function () {
+                sessionStorage.fonts = true;
+            }
+        });
+    </script>
+
+    <!-- CSS Files -->
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/atlantis.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+    
 </head>
-<body class="sb-nav-fixed">
-    <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
-        <!-- Navbar Brand-->
-        <a class="navbar-brand ps-3" href="index.html">QUẢN LÍ NHÂN SỰ</a>
-        <!-- Sidebar Toggle-->
-        <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
-        <!-- Navbar Search-->
-        <form class="d-none d-md-inline-block form-inline ml-auto mr-0 mr-md-3 my-2 my-md-0">
-            <div class="input-group">
-                <input class="form-control" type="text" placeholder="Search for..." aria-label="Search for..." aria-describedby="btnNavbarSearch" />
-                <button class="btn btn-primary" id="btnNavbarSearch" type="button"><i class="fas fa-search"></i></button>
+<body>
+    <div class="wrapper">
+        <div class="main-header">
+            <!-- Logo Header -->
+            <div class="logo-header" data-background-color="blue">
+
+                <a href="index.html" class="logo">
+                    <img src="../assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
+                </a>
+                <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon">
+                        <i class='bx bx-menu'></i>
+                    </span>
+                </button>
+                <button class="topbar-toggler more"><i class="icon-options-vertical"></i></button>
+                <div class="nav-toggle">
+                    <button class="btn btn-toggle toggle-sidebar">
+                        <i class='bx bx-menu'></i>
+                    </button>
+                </div>
             </div>
-        </form>
-        <!-- Navbar-->
-        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">    
-            <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
-                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                    <li><a class="dropdown-item" href="#!">Settings</a></li>
-                    <li><a class="dropdown-item" href="#!">Activity Log</a></li>
-                    <li><hr class="dropdown-divider" /></li>
-                    <li><a class="dropdown-item" href="#!">Logout</a></li>
+            <!-- End Logo Header -->
+            <!-- Navbar Header -->
+            <nav class="navbar navbar-header navbar-expand-lg" data-background-color="blue2">
+
+                <div class="container-fluid">
+                    <div class="collapse" id="search-nav">
+                        <form class="navbar-left navbar-form nav-search mr-md-3">
+                            <div class="input-group">
+                                <div class="input-group-prepend">
+                                    <button type="submit" class="btn btn-search pr-1">
+                                        <i class="fa fa-search search-icon"></i>
+                                    </button>
+                                </div>
+                                <input type="text" placeholder="Search ..." class="form-control">
+                            </div>
+                        </form>
+                    </div>
+                    <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
+                        <li class="nav-item toggle-nav-search hidden-caret">
+                            <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false" aria-controls="search-nav">
+                                <i class="fa fa-search"></i>
+                            </a>
+                        </li>
+                        
+                        <li class="nav-item dropdown hidden-caret">
+                            <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                <i class='bx bx-bell'></i>
+                                <span class="notification">4</span>
+                            </a>
+                            <ul class="dropdown-menu notif-box animated fadeIn" aria-labelledby="notifDropdown">
+                                <li>
+                                    <div class="dropdown-title">You have 4 new notification</div>
+                                </li>
+                                <li>
+                                    <div class="notif-scroll scrollbar-outer">
+                                        <div class="notif-center">
+                                            <a href="#">
+                                                <div class="notif-icon notif-primary"> <i class="fa fa-user-plus"></i> </div>
+                                                <div class="notif-content">
+                                                    <span class="block">
+                                                        New user registered
+                                                    </span>
+                                                    <span class="time">5 minutes ago</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="notif-icon notif-success"> <i class="fa fa-comment"></i> </div>
+                                                <div class="notif-content">
+                                                    <span class="block">
+                                                        Rahmad commented on Admin
+                                                    </span>
+                                                    <span class="time">12 minutes ago</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="notif-img">
+                                                    <img src="../assets/img/profile2.jpg" alt="Img Profile">
+                                                </div>
+                                                <div class="notif-content">
+                                                    <span class="block">
+                                                        Reza send messages to you
+                                                    </span>
+                                                    <span class="time">12 minutes ago</span>
+                                                </div>
+                                            </a>
+                                            <a href="#">
+                                                <div class="notif-icon notif-danger"> <i class="fa fa-heart"></i> </div>
+                                                <div class="notif-content">
+                                                    <span class="block">
+                                                        Farrah liked Admin
+                                                    </span>
+                                                    <span class="time">17 minutes ago</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <a class="see-all" href="javascript:void(0);">See all notifications<i class="fa fa-angle-right"></i> </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown hidden-caret">
+                            <a class="nav-link" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <i class='bx bx-customize'></i>
+                            </a>
+                            <div class="dropdown-menu quick-actions quick-actions-info animated fadeIn">
+                                <div class="quick-actions-header">
+                                    <span class="title mb-1">Quick Actions</span>
+                                    <span class="subtitle op-8">Shortcuts</span>
+                                </div>
+                                <div class="quick-actions-scroll scrollbar-outer">
+                                    <div class="quick-actions-items">
+                                        <div class="row m-0">
+                                            <a class="col-6 col-md-4 p-0" href="#">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-file-1"></i>
+                                                    <span class="text">Generated Report</span>
+                                                </div>
+                                            </a>
+                                            <a class="col-6 col-md-4 p-0" href="#">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-database"></i>
+                                                    <span class="text">Create New Database</span>
+                                                </div>
+                                            </a>
+                                            <a class="col-6 col-md-4 p-0" href="#">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-pen"></i>
+                                                    <span class="text">Create New Post</span>
+                                                </div>
+                                            </a>
+                                            <a class="col-6 col-md-4 p-0" href="#">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-interface-1"></i>
+                                                    <span class="text">Create New Task</span>
+                                                </div>
+                                            </a>
+                                            <a class="col-6 col-md-4 p-0" href="#">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-list"></i>
+                                                    <span class="text">Completed Tasks</span>
+                                                </div>
+                                            </a>
+                                            <a class="col-6 col-md-4 p-0" href="#">
+                                                <div class="quick-actions-item">
+                                                    <i class="flaticon-file"></i>
+                                                    <span class="text">Create New Invoice</span>
+                                                </div>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="nav-item dropdown hidden-caret">
+                            <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
+                                <div class="avatar-sm">
+                                    <img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                                </div>
+                            </a>
+                            <ul class="dropdown-menu dropdown-user animated fadeIn">
+                                <div class="dropdown-user-scroll scrollbar-outer">
+                                <li>
+                                    <div class="user-box">
+                                        <div class="avatar-lg"><img src="../assets/img/profile.jpg" alt="image profile" class="avatar-img rounded"></div>
+                                        <div class="u-text">
+                                            <h4>Enginner</h4>
+                                            <p class="text-muted">Enginner@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Thông tin của tôi</a>
+                                    <a class="dropdown-item" href="#">My Balance</a>
+                                    <a class="dropdown-item" href="#">Inbox</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Account Setting</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="#">Logout</a>
+                                </li>
+                </div>
                 </ul>
-            </li>
-        </ul>
-    </nav>
-    <div id="layoutSidenav">
-        <div id="layoutSidenav_nav">
-            <nav class="sb-sidenav accordion sb-sidenav-dark" id="sidenavAccordion">
-                <div class="sb-sidenav-menu">
-                    <div class="nav">
-                        <div class="sb-sidenav-menu-heading">Hệ Thống Chức Năng</div>
-                        <a class="nav-link" href="index.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
-                            Trang Chủ
-                        </a>
+                </li>
+                </ul>
+        </div>
+        </nav>
+        <!-- End Navbar -->
+    </div>
 
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Hồ Sơ Nhân Sự
-
+    <!-- Sidebar -->
+    <div class="sidebar sidebar-style-2">
+        <div class="sidebar-wrapper scrollbar scrollbar-inner">
+            <div class="sidebar-content">
+                <div class="user">
+                    <div class="avatar-sm float-left mr-2">
+                        <img src="../assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                    </div>
+                    <div class="info">
+                        <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
+                            <span>
+                               Engineer
+                                <span class="user-level">Quản trị viên</span>
+                                <span class="caret"></span>
+                            </span>
                         </a>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Hệ Thống Đơn Từ
+                        <div class="clearfix"></div>
 
-                        </a>
-
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Đăng kí gửi xe
-
-                        </a>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Đăng kí lịch làm việc
-
-                        </a>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Đăng kí bảo hiểm
-
-                        </a>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Giấy tờ cá nhân
-
-                        </a>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Hợp đồng nhân sự
-
-                        </a>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapsePages" aria-expanded="false" aria-controls="collapsePages">
-                            <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
-                            Thông tin lương
-
-                        </a>
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
-                            <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
-                            Yêu Cầu Chuyển Bộ Phận
-                            <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
-                        </a>
-                        <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
-                            <nav class="sb-sidenav-menu-nested nav">
-                                <a class="nav-link" href="layout-static.html">Thêm mới</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Phiếu đã tạo</a>
-                                <a class="nav-link" href="layout-static.html">Chờ duyệt</a>
-                                <a class="nav-link" href="layout-sidenav-light.html">Đã duyệt</a>
-                            </nav>
+                        <div class="collapse in" id="collapseExample">
+                            <ul class="nav">
+                                <li>
+                                    <a href="#profile">
+                                        <span class="link-collapse">Thông tin cá nhân</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#edit">
+                                        <span class="link-collapse">Sửa thông tin cá nhân</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#settings">
+                                        <span class="link-collapse">Cài đặt</span>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
-                        <div class="sb-sidenav-menu-heading">Hỗ Trợ</div>
-                        <a class="nav-link" href="charts.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-chart-area"></i></div>
-                            Tài Khoản
-                        </a>
-                        <a class="nav-link" href="tables.html">
-                            <div class="sb-nav-link-icon"><i class="fas fa-table"></i></div>
-                            Ý Kiến Phản Hồi
-                        </a>
                     </div>
                 </div>
-            </nav>
-        </div>
-            <div id="layoutSidenav_content">
-                <main>
-                    @RenderBody()
-                </main>
-                <footer class="py-4 bg-light mt-auto">
-                    <div class="container-fluid">
-                        <div class="d-flex align-items-center justify-content-between small">
-                            <div class="text-muted">Copyright &copy; Your Website 2019</div>
-                            <div>
-                                <a href="#">Privacy Policy</a>
-                                &middot;
-                                <a href="#">Terms &amp; Conditions</a>
-                            </div>
+                <ul class="nav nav-primary">
+                    <li class="nav-item active">
+                        <a data-toggle="collapse" href="#dashboard" class="collapsed" aria-expanded="false">
+                            <i class='bx bxs-home'></i>
+                            <p>Trang chủ</p>
+                            <span class="caret"></span>
+                        </a>
+                    </li>
+                    <li class="nav-section">
+                        <span class="sidebar-mini-icon">
+                            <i class="fa fa-ellipsis-h"></i>
+                        </span>
+                        <h4 class="text-section">Chức năng</h4>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#Giaytocanhan">
+                            <i class='bx bx-file'></i>
+                            <p>Giấy tờ cá nhân</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="Giaytocanhan">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="components/avatars.html">
+                                        <span class="sub-item">Bổ sung giấy tờ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components/buttons.html">
+                                        <span class="sub-item">Xem giấy tờ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components/gridsystem.html">
+                                        <span class="sub-item">Cập nhật giấy tờ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="components/panels.html">
+                                        <span class="sub-item">xóa giấy tờ</span>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </div>
-                    </div>
-                </footer>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#sidebarLayouts">
+                            <i class='bx bx-money'></i>
+                            <p>Lương bổng</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="sidebarLayouts">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="sidebar-style-1.html">
+                                        <span class="sub-item">Tra cứu lương</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="overlay-sidebar.html">
+                                        <span class="sub-item">Xem trạng thái</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#forms">
+                            <i class='bx bx-book-open'></i>
+                            <p>Đơn từ</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="forms">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="forms/forms.html">
+                                        <span class="sub-item">Gửi đơn từ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="forms/forms.html">
+                                        <span class="sub-item">Hủy đơn từ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="forms/forms.html">
+                                        <span class="sub-item">Xem đơn từ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="forms/forms.html">
+                                        <span class="sub-item">Chỉnh sửa  đơn từ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="forms/forms.html">
+                                        <span class="sub-item">Xem lịch sử đơn từ</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#tables">
+                            <i class='bx bxs-calculator'></i>
+                            <p>Chấm công</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="tables">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="tables/tables.html">
+                                        <span class="sub-item"> Thực hiện  chấm công</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="tables/datatables.html">
+                                        <span class="sub-item">Xem lịch sử công</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#Ql-thongtincanhan">
+                            <i class='bx bxs-user-detail'></i>
+                            <p>Quản lý thông tin cá nhân</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="Ql-thongtincanhan">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="maps/jqvmap.html">
+                                        <span class="sub-item">Cập nhật thông tin cá nhân</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="maps/jqvmap.html">
+                                        <span class="sub-item">Xem thông tin cá nhân</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#charts">
+                            <i class='bx bxs-user-account'></i>
+                            <p>Quản lý tài khoản</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="charts">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="charts/charts.html">
+                                        <span class="sub-item">Tạo tài khoản</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="charts/sparkline.html">
+                                        <span class="sub-item">Cập mật khẩu</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="charts/sparkline.html">
+                                        <span class="sub-item">Phân quyền</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#ql-bophan" data-toggle="collapse">
+                            <i class='bx bxs-buildings'></i>
+                            <p>Quản lý bộ phận</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="ql-bophan">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="charts/charts.html">
+                                        <span class="sub-item">Thay đổi bộ phận</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="charts/sparkline.html">
+                                        <span class="sub-item">Xem bộ phận</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#ql-chucvu" data-toggle="collapse">
+                            <i class='bx bx-sitemap'></i>
+                            <p>Quản lý Chức vụ</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="ql-chucvu">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="charts/charts.html">
+                                        <span class="sub-item">Thay đổi chức vụ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="charts/sparkline.html">
+                                        <span class="sub-item">Xem chức vụ</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#ql-chamcong">
+                            <i class='bx bxs-pencil'></i>
+                            <p>Quản lý chấm công</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="ql-chamcong">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="sidebar-style-1.html">
+                                        <span class="sub-item">Xác nhận chấm công</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="overlay-sidebar.html">
+                                        <span class="sub-item">Xem công</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#ql-dontu">
+                            <i class='bx bx-mail-send'></i>
+                            <p>Quản lý đơn từ</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="ql-dontu">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="sidebar-style-1.html">
+                                        <span class="sub-item">Xem thông tin đơn từ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="overlay-sidebar.html">
+                                        <span class="sub-item">Duyệt thông tin đơn</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#ql-giayto">
+                            <i class='bx bx-copy-alt'></i>
+                            <p>Quản lý giấy tờ</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="ql-giayto">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="sidebar-style-1.html">
+                                        <span class="sub-item">xem thông tin đơn từ</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="overlay-sidebar.html">
+                                        <span class="sub-item">Duyệt thông tin đơn từ</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a data-toggle="collapse" href="#ql-luong">
+                            <i class='bx bx-money'></i>
+                            <p>Quản lý lương</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="ql-luong">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a href="sidebar-style-1.html">
+                                        <span class="sub-item">Cập nhật lương</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="overlay-sidebar.html">
+                                        <span class="sub-item">Xem lương</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="overlay-sidebar.html">
+                                        <span class="sub-item">Chuyển trạng thái</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="mx-4 mt-2">
+                        <a href="http://themekita.com/atlantis-bootstrap-dashboard.html" class="btn btn-primary btn-block"><span class="btn-label mr-2"> <i class='bx bx-log-out'></i> </span>Đăng xuất</a>
+                    </li>
+                </ul>
             </div>
         </div>
-        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
-        <script src="/js/scripts.js"></script>
+    </div>
+    <!-- End Sidebar -->
 
-        @RenderSection("Scripts", required: false)
+    <div class="main-panel">
+        <div class="content">
+            <p>xin chào</p>
+            <main>
+                @RenderBody()
+            </main>
+        </div>
+        <footer class="footer">
+            <div class="container-fluid">
+                <nav class="pull-left">
+                    <ul class="nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="https://www.themekita.com">
+                                HRM VNUA
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Help
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="#">
+                                Licenses
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+                <div class="copyright ml-auto">
+                    2022, made with <i class="fa fa-heart heart text-danger"></i> by <a href="https://www.themekita.com">HRM VNUA</a>
+                </div>
+            </div>
+        </footer>
+    </div>
+
+    <!-- Custom template | don't include it in your project! -->
+    <div class="custom-template">
+        <div class="title">Settings</div>
+        <div class="custom-content">
+            <div class="switcher">
+                <div class="switch-block">
+                    <h4>Logo Header</h4>
+                    <div class="btnSwitch">
+                        <button type="button" class="changeLogoHeaderColor" data-color="dark"></button>
+                        <button type="button" class="selected changeLogoHeaderColor" data-color="blue"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="purple"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="light-blue"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="green"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="orange"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="red"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="white"></button>
+                        <br />
+                        <button type="button" class="changeLogoHeaderColor" data-color="dark2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="blue2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="purple2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="light-blue2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="green2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="orange2"></button>
+                        <button type="button" class="changeLogoHeaderColor" data-color="red2"></button>
+                    </div>
+                </div>
+                <div class="switch-block">
+                    <h4>Navbar Header</h4>
+                    <div class="btnSwitch">
+                        <button type="button" class="changeTopBarColor" data-color="dark"></button>
+                        <button type="button" class="changeTopBarColor" data-color="blue"></button>
+                        <button type="button" class="changeTopBarColor" data-color="purple"></button>
+                        <button type="button" class="changeTopBarColor" data-color="light-blue"></button>
+                        <button type="button" class="changeTopBarColor" data-color="green"></button>
+                        <button type="button" class="changeTopBarColor" data-color="orange"></button>
+                        <button type="button" class="changeTopBarColor" data-color="red"></button>
+                        <button type="button" class="changeTopBarColor" data-color="white"></button>
+                        <br />
+                        <button type="button" class="changeTopBarColor" data-color="dark2"></button>
+                        <button type="button" class="selected changeTopBarColor" data-color="blue2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="purple2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="light-blue2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="green2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="orange2"></button>
+                        <button type="button" class="changeTopBarColor" data-color="red2"></button>
+                    </div>
+                </div>
+                <div class="switch-block">
+                    <h4>Sidebar</h4>
+                    <div class="btnSwitch">
+                        <button type="button" class="selected changeSideBarColor" data-color="white"></button>
+                        <button type="button" class="changeSideBarColor" data-color="dark"></button>
+                        <button type="button" class="changeSideBarColor" data-color="dark2"></button>
+                    </div>
+                </div>
+                <div class="switch-block">
+                    <h4>Background</h4>
+                    <div class="btnSwitch">
+                        <button type="button" class="changeBackgroundColor" data-color="bg2"></button>
+                        <button type="button" class="changeBackgroundColor selected" data-color="bg1"></button>
+                        <button type="button" class="changeBackgroundColor" data-color="bg3"></button>
+                        <button type="button" class="changeBackgroundColor" data-color="dark"></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="custom-toggle">
+            <i class="flaticon-settings"></i>
+        </div>
+    </div>
+    <!-- End Custom template -->
+    </div>
+    <!--   Core JS Files   -->
+    <script src="../assets/js/core/jquery.3.2.1.min.js"></script>
+    <script src="../assets/js/core/popper.min.js"></script>
+    <script src="../assets/js/core/bootstrap.min.js"></script>
+
+    <!-- jQuery UI -->
+    <script src="../assets/js/plugin/jquery-ui-1.12.1.custom/jquery-ui.min.js"></script>
+    <script src="../assets/js/plugin/jquery-ui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+
+    <!-- jQuery Scrollbar -->
+    <script src="../assets/js/plugin/jquery-scrollbar/jquery.scrollbar.min.js"></script>
+
+
+    <!-- Chart JS -->
+    <script src="../assets/js/plugin/chart.js/chart.min.js"></script>
+
+    <!-- jQuery Sparkline -->
+    <script src="../assets/js/plugin/jquery.sparkline/jquery.sparkline.min.js"></script>
+
+    <!-- Chart Circle -->
+    <script src="../assets/js/plugin/chart-circle/circles.min.js"></script>
+
+    <!-- Datatables -->
+    <script src="../assets/js/plugin/datatables/datatables.min.js"></script>
+
+    
+
+    <!-- jQuery Vector Maps -->
+    <script src="../assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
+    <script src="../assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
+
+    <!-- Sweet Alert -->
+    <script src="../assets/js/plugin/sweetalert/sweetalert.min.js"></script>
+
+    <!-- Atlantis JS -->
+    <script src="../assets/js/atlantis.min.js"></script>
+
+    
+    <script>
+        Circles.create({
+            id: 'circles-1',
+            radius: 45,
+            value: 60,
+            maxValue: 100,
+            width: 7,
+            text: 5,
+            colors: ['#f1f1f1', '#FF9E27'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            styleWrapper: true,
+            styleText: true
+        })
+
+        Circles.create({
+            id: 'circles-2',
+            radius: 45,
+            value: 70,
+            maxValue: 100,
+            width: 7,
+            text: 36,
+            colors: ['#f1f1f1', '#2BB930'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            styleWrapper: true,
+            styleText: true
+        })
+
+        Circles.create({
+            id: 'circles-3',
+            radius: 45,
+            value: 40,
+            maxValue: 100,
+            width: 7,
+            text: 12,
+            colors: ['#f1f1f1', '#F25961'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            styleWrapper: true,
+            styleText: true
+        })
+
+        var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
+
+        var mytotalIncomeChart = new Chart(totalIncomeChart, {
+            type: 'bar',
+            data: {
+                labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+                datasets: [{
+                    label: "Total Income",
+                    backgroundColor: '#ff9e27',
+                    borderColor: 'rgb(23, 125, 255)',
+                    data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            display: false //this will remove only the label
+                        }, data- notify
+                        gridLines: {
+                            drawBorder: false,
+                            display: false
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            drawBorder: false,
+                            display: false
+                        }
+                    }]
+                },
+            }
+        });
+
+        $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
+            type: 'line',
+            height: '70',
+            width: '100%',
+            lineWidth: '2',
+            lineColor: '#ffa534',
+            fillColor: 'rgba(255, 165, 52, .14)'
+        });
+    </script>
 </body>
 </html>
