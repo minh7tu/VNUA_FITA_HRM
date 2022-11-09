@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,8 +11,9 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access
     /// <summary>
     /// Nguyễn Đình Thuyết - K64CNPM - 646372
     /// </summary>
-    class SQLServerDbContext:DbContext
+    public class SQLServerDbContext:DbContext
     {
+
         public SQLServerDbContext() : base() { }
 
         #region DbSet
@@ -37,5 +40,7 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access
             //Path local Sql Nguyễn Đình Thuyết
             optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\TTCN\Code\VNUA_FITA_HRM\VNUA.FITA.MQTT.HRM\VNUA.FITA.MQTT.HRM.Data.Access\Data\Database\HRM.mdf;Integrated Security=True");
         }
+
+       
     }
 }
