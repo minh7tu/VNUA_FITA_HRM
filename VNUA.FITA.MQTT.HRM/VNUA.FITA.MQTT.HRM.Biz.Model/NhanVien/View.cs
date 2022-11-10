@@ -31,34 +31,16 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.NhanVien
         public string Email { get; set; }
         [StringLength(100)]
         public string ChucVu { get; set; }
-        public byte Anh { get; set; }
+
+        [StringLength(100)]
+        public string Anh { get; set; }
 
         [StringLength(12)]
         public string SoCCCD { get; set; }
 
-        [StringLength(10)]
-        public string MaBP { get; set; }
-    }
-
-    public class ViewByVehicle
-    {
         [StringLength(100)]
-        public string HangXe { get; set; }
+        public string TrinhDo { get; set; }
 
-        [StringLength(100)]
-        public string MauXe { get; set; }
-
-        [StringLength(12)]
-        public string BienSoXe { get; set; }
-    }
-
-    public class ViewByEnsua
-    {
-        public int MaBaoHiem { get; set; }
-    }
-
-    public class ViewByCalendar
-    {
-        public int MaLLV { get; set; }
+        public int IdBP { get; set; }
     }
 }

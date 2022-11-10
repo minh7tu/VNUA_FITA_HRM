@@ -17,11 +17,18 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
 
         [StringLength(100)]
         public string TenGT { get; set; }
-        public byte[] Anh { get; set; }
-        [StringLength(20)]
-        public string MaNhanVien { get; set; }
 
-        [ForeignKey("MaNhanVien")]
+        [StringLength(100)]
+        public string Anh { get; set; }
+
+        public DateTime ThoiGian { get; set; }
+
+        [StringLength(100)]
+        public string TrangThai { get; set; }
+
+        public int IdNhanVien { get; set; }
+
+        [ForeignKey("IdNhanVien")]
         public NhanVien NhanViens { get; set; }
     }
 }

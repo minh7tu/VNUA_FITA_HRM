@@ -19,7 +19,9 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.Luong
 
         public DateTime ThoiGian { get; set; }
 
-        [StringLength(20)]
-        public string MaNhanVien { get; set; }
+        [StringLength(100)]
+        public string TrangThai { get; set; }
+
+        public int IdNhanVien { get; set; }
     }
 }

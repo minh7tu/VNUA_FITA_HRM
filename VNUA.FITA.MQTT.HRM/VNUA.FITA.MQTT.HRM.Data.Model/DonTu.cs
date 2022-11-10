@@ -13,7 +13,7 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
     public class DonTu
     {
         [Key]
-        public int MaDonTu { get; set; }
+        public int IdDonTu { get; set; }
 
         [StringLength(100)]
         public string TieuDe { get; set; }
@@ -32,10 +32,11 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
 
         public int PhanLoai { get; set; }
 
-        [StringLength(20)]
-        public string MaNhanVien { get; set; }
+        public DateTime ThoiGian { get; set; }
 
-        [ForeignKey("MaNhanVien")]
+        public int IdNhanVien { get; set; }
+
+        [ForeignKey("IdNhanVien")]
         public NhanVien NhanViens { get; set; }
 
 
