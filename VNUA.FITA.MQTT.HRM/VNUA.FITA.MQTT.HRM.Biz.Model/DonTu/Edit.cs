@@ -13,21 +13,25 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.DonTu
         [StringLength(255)]
         public string NoiDung { get; set; }
 
+        [StringLength(100)]
+        public string TrangThai { get; set; }
         [StringLength(20)]
         public string NguoiNhan { get; set; }
 
         public int PhanLoai { get; set; }
 
-        [StringLength(20)]
-        public string MaNhanVien { get; set; }
+        public DateTime ThoiGian { get; set; }
+
+        public int IdNhanVien { get; set; }
     }
 
-    public class EditByOther
+    public class EditByManager
     {
         [StringLength(100)]
         public string TrangThai { get; set; }
 
         [StringLength(100)]
         public string GhiChu { get; set; }
+
     }
 }

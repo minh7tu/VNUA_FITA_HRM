@@ -24,7 +24,7 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.DonTu
 
         public int PhanLoai { get; set; }
 
-        [StringLength(20)]
-        public string MaNhanVien { get; set; }
+        public DateTime ThoiGian { get; set; }
+        public int IdNhanVien { get; set; }
     }
 }

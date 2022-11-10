@@ -14,6 +14,8 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
     public class BoPhan
     {
         [Key]
+        public int IdBoPhan { get; set; }
+
         [StringLength(10)]
         public string MaBP { get; set; }
 
@@ -26,10 +28,11 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
         [StringLength(12)]
         public string SDT { get; set; }
 
-        [StringLength(10)]
-        public string MaP { get; set; }
+        public int SoLuong { get; set; }
 
-        [ForeignKey("MaP")]
+        public int IdPhong { get; set; }
+
+        [ForeignKey("IdPhong")]
         public Phong Phongs { get; set; }
        
         public IList<NhanVien> NhanViens { get; set; }

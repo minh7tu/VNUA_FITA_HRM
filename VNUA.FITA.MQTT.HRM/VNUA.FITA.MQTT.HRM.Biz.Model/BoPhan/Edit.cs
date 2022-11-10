@@ -7,6 +7,9 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.BoPhan
 {
     public class Edit
     {
+        [StringLength(10)]
+        public string MaBP { get; set; }
+
         [StringLength(100)]
         public string TenBP { get; set; }
 
@@ -15,7 +18,9 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.BoPhan
 
         [StringLength(12)]
         public string SDT { get; set; }
-        [StringLength(10)]
-        public string MaP { get; set; }
+
+        public int SoLuong { get; set; }
+
+        public int IdPhong { get; set; }
     }
 }

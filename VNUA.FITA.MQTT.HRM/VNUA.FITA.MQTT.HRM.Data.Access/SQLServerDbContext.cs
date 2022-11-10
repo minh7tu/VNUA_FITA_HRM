@@ -1,6 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Options;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -8,28 +6,21 @@ using VNUA.FITA.MQTT.HRM.Data.Model;
 
 namespace VNUA.FITA.MQTT.HRM.Data.Access
 {
-    /// <summary>
-    /// Nguyễn Đình Thuyết - K64CNPM - 646372
-    /// </summary>
-    public class SQLServerDbContext:DbContext
+    public class SqlServerDbContext:DbContext
     {
-
-        public SQLServerDbContext() : base() { }
+        public SqlServerDbContext() : base() { }
 
         #region DbSet
-        DbSet<Phong> Phongs { get; set; }
-        DbSet<BoPhan> BoPhans { get; set; }
-        DbSet<DonTu> DonTus { get; set; }
-        DbSet<Luong> Luongs { get; set; }
-        DbSet<NhanVien> NhanViens { get; set; }
-        DbSet<BaiViet> BaiViets { get; set; }
-        DbSet<HopDong> HopDongs { get; set; }
-        DbSet<GiayTo> GiayTos { get; set; }
-        DbSet<NgayCong> NgayCongs { get; set; }
-        DbSet<LichLamViec> LichLamViecs { get; set; }
-        DbSet<BaoHiem> BaoHiems { get; set; }
-        #endregion
+        public DbSet<Phong> Phongs { get; set; }
+        public DbSet<BoPhan> BoPhans { get; set; }
+        public DbSet<DonTu> DonTus { get; set; }
+        public DbSet<Luong> Luongs { get; set; }
+        public DbSet<NhanVien> NhanViens { get; set; }
+        public DbSet<GiayTo> GiayTos { get; set; }
+        public DbSet<ChamCong> ChamCongs { get; set; }
+        public DbSet<KhenThuongKyLuat> KhenThuongKyLuats { get; set; }
 
+        #endregion
 
         /// <summary>
         /// Config path SqlServer
@@ -40,7 +31,5 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access
             //Path local Sql Nguyễn Đình Thuyết
             optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\TTCN\Code\VNUA_FITA_HRM\VNUA.FITA.MQTT.HRM\VNUA.FITA.MQTT.HRM.Data.Access\Data\Database\HRM.mdf;Integrated Security=True");
         }
-
-       
     }
 }

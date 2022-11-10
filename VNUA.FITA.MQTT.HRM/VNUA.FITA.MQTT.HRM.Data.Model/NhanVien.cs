@@ -13,6 +13,8 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
     public class NhanVien
     {
         [Key]
+        public int IdNhanVien { get; set; }
+
         [StringLength(20)]
         public string MaNhanVien { get; set; }
 
@@ -39,46 +41,29 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
         [StringLength(20)]
         public string MatKhau { get; set; }
 
-        public int PhanLoai { get; set; }
+        public int PhanQuyen { get; set; }
 
         [StringLength(100)]
         public string ChucVu { get; set; }
 
         [StringLength(100)]
-        public string HangXe { get; set; }
-
-        [StringLength(100)]
-        public string MauXe { get; set; }
-
-        [StringLength(12)]
-        public string BienSoXe { get; set; }
-        public byte Anh { get; set; }
+        public string Anh { get; set; }
 
         [StringLength(12)]
         public string SoCCCD { get; set; }
 
-        [StringLength(10)]
-        public string MaBP { get; set; }
+        [StringLength(100)]
+        public string TrinhDo{ get; set; }
 
-        public int MaLLV { get; set; }
+        public int IdBP { get; set; }
 
-        public int MaBaoHiem { get; set; }
-
-        [ForeignKey("MaBP")]
+        [ForeignKey("IdBP")]
         public BoPhan BoPhans { get; set; }
-        [ForeignKey("MaLLV")]
-        public LichLamViec LichLamViecs { get; set; }
-        [ForeignKey("MaBaoHiem")]
-        public BaoHiem BaoHiems { get; set; }
-
-        public IList<Luong> Luongs { get; set; }
-        public IList<HopDong> HopDongs { get; set; }
-        public IList<NgayCong> NgayCongs { get; set; }
-
-        public IList<GiayTo> GiayTos { get; set; }
-        public IList<BaiViet> BaiViets { get; set; }
-        public IList<DonTu> DonTus { get; set; }
  
-
+        public IList<DonTu> DonTus { get; set; }
+        public IList<GiayTo> GiayTos { get; set; }
+        public IList<Luong> Luongs { get; set; }
+        public IList<ChamCong> ChamCongs { get; set; }
+        public IList<KhenThuongKyLuat> KhenThuongKyLuats { get; set; }
     }
 }

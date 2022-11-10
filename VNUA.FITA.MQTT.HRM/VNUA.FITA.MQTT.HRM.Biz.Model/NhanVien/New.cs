@@ -7,10 +7,11 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.NhanVien
 {
     public class New
     {
+        [StringLength(20)]
+        public string MaNhanVien { get; set; }
+
         [StringLength(100)]
         public string HoTen { get; set; }
-        [StringLength(20)]
-        public string TenTaiKhoan { get; set; }
 
         public DateTime NgaySinh { get; set; }
 
@@ -24,37 +25,30 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.NhanVien
         public string SDT { get; set; }
 
         [StringLength(100)]
+        public string ChucVu { get; set; }
+
+        [StringLength(100)]
+        public string Anh { get; set; }
+
+        [StringLength(12)]
+        public string SoCCCD { get; set; }
+
+        [StringLength(100)]
+        public string TrinhDo { get; set; }
+
+        public int IdBP { get; set; }
+    }
+
+    public class NewByAdmin
+    {
+        [StringLength(20)]
+        public string TenTaiKhoan { get; set; }
+        [StringLength(100)]
         public string Email { get; set; }
 
         [StringLength(20)]
         public string MatKhau { get; set; }
 
-        public int PhanLoai { get; set; }
-
-        [StringLength(100)]
-        public string ChucVu { get; set; }
+        public int PhanQuyen { get; set; }
     }
-
-    public class NewByVahicle
-    {
-        [StringLength(100)]
-        public string HangXe { get; set; }
-
-        [StringLength(100)]
-        public string MauXe { get; set; }
-
-        [StringLength(12)]
-        public string BienSoXe { get; set; }
-    }
-
-    public class NewByCalendar
-    {
-        public int MaLLV { get; set; }
-    }
-
-    public class NewByEnsua
-    {
-        public int MaBaoHiem { get; set; }
-    }
-
 }

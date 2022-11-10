@@ -8,8 +8,8 @@ using VNUA.FITA.MQTT.HRM.Data.Access;
 
 namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
 {
-    [DbContext(typeof(SQLServerDbContext))]
-    partial class SQLServerDbContextModelSnapshot : ModelSnapshot
+    [DbContext(typeof(SqlServerDbContext))]
+    partial class SqlServerDbContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)
         {
@@ -19,79 +19,21 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.BaiViet", b =>
-                {
-                    b.Property<int>("MaBaiViet")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("MaNhanVien")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("NoiDung")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<DateTime>("ThoiGian")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("TieuDe")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.HasKey("MaBaiViet");
-
-                    b.HasIndex("MaNhanVien");
-
-                    b.ToTable("BaiViet");
-                });
-
-            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.BaoHiem", b =>
-                {
-                    b.Property<int>("MaBaoHiem")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<double>("ChiPhi")
-                        .HasColumnType("float");
-
-                    b.Property<string>("DonViCungCap")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<string>("NoiDungBH")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<string>("TenBaoHiem")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<DateTime>("ThoiGianBD")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ThoiGianKT")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MaBaoHiem");
-
-                    b.ToTable("BaoHiem");
-                });
-
             modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.BoPhan", b =>
                 {
-                    b.Property<string>("MaBP")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                    b.Property<int>("IdBoPhan")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<string>("MaP")
+                    b.Property<int>("IdPhong")
+                        .HasColumnType("int");
+
+                    b.Property<string>("MaBP")
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
@@ -99,20 +41,23 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
                         .HasColumnType("nvarchar(12)")
                         .HasMaxLength(12);
 
+                    b.Property<int>("SoLuong")
+                        .HasColumnType("int");
+
                     b.Property<string>("TenBP")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.HasKey("MaBP");
+                    b.HasKey("IdBoPhan");
 
-                    b.HasIndex("MaP");
+                    b.HasIndex("IdPhong");
 
                     b.ToTable("BoPhan");
                 });
 
-            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.DonTu", b =>
+            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.ChamCong", b =>
                 {
-                    b.Property<int>("MaDonTu")
+                    b.Property<int>("IdCong")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
@@ -121,9 +66,36 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<string>("MaNhanVien")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                    b.Property<int>("IdNhanVien")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ThoiGian")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TrangThai")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.HasKey("IdCong");
+
+                    b.HasIndex("IdNhanVien");
+
+                    b.ToTable("ChamCong");
+                });
+
+            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.DonTu", b =>
+                {
+                    b.Property<int>("IdDonTu")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("GhiChu")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<int>("IdNhanVien")
+                        .HasColumnType("int");
 
                     b.Property<string>("NguoiNhan")
                         .HasColumnType("nvarchar(20)")
@@ -136,6 +108,9 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
                     b.Property<int>("PhanLoai")
                         .HasColumnType("int");
 
+                    b.Property<DateTime>("ThoiGian")
+                        .HasColumnType("datetime2");
+
                     b.Property<string>("TieuDe")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
@@ -144,9 +119,9 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.HasKey("MaDonTu");
+                    b.HasKey("IdDonTu");
 
-                    b.HasIndex("MaNhanVien");
+                    b.HasIndex("IdNhanVien");
 
                     b.ToTable("DonTu");
                 });
@@ -158,85 +133,63 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<byte[]>("Anh")
-                        .HasColumnType("varbinary(max)");
+                    b.Property<string>("Anh")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
-                    b.Property<string>("MaNhanVien")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
+                    b.Property<int>("IdNhanVien")
+                        .HasColumnType("int");
 
                     b.Property<string>("TenGT")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.HasKey("MaGT");
-
-                    b.HasIndex("MaNhanVien");
-
-                    b.ToTable("GiayTo");
-                });
-
-            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.HopDong", b =>
-                {
-                    b.Property<long>("SoHD")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("bigint")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("MaNhanVien")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<string>("NoiDungHD")
-                        .HasColumnType("nvarchar(255)")
-                        .HasMaxLength(255);
-
-                    b.Property<int>("PhanLoai")
-                        .HasColumnType("int");
-
-                    b.Property<string>("TenHD")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<DateTime>("ThoiGianBD")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ThoiGianKT")
+                    b.Property<DateTime>("ThoiGian")
                         .HasColumnType("datetime2");
 
                     b.Property<string>("TrangThai")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.HasKey("SoHD");
+                    b.HasKey("MaGT");
 
-                    b.HasIndex("MaNhanVien");
+                    b.HasIndex("IdNhanVien");
 
-                    b.ToTable("HopDong");
+                    b.ToTable("GiayTo");
                 });
 
-            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.LichLamViec", b =>
+            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.KhenThuongKyLuat", b =>
                 {
-                    b.Property<int>("MaLLV")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("ChieuBD")
+                    b.Property<double>("GiaTri")
+                        .HasColumnType("float");
+
+                    b.Property<int>("IdNhanVien")
+                        .HasColumnType("int");
+
+                    b.Property<string>("NoiDung")
+                        .HasColumnType("nvarchar(255)")
+                        .HasMaxLength(255);
+
+                    b.Property<int>("PhanLoai")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Ten")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
+                    b.Property<DateTime>("ThoiGian")
                         .HasColumnType("datetime2");
 
-                    b.Property<DateTime>("ChieuKT")
-                        .HasColumnType("datetime2");
+                    b.HasKey("Id");
 
-                    b.Property<DateTime>("SangBD")
-                        .HasColumnType("datetime2");
+                    b.HasIndex("IdNhanVien");
 
-                    b.Property<DateTime>("SangKT")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MaLLV");
-
-                    b.ToTable("LichLamViec");
+                    b.ToTable("KhenThuongKyLuat");
                 });
 
             modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.Luong", b =>
@@ -249,15 +202,14 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
                     b.Property<int>("HeSo")
                         .HasColumnType("int");
 
+                    b.Property<int>("IdNhanVien")
+                        .HasColumnType("int");
+
                     b.Property<double>("LCoBan")
                         .HasColumnType("float");
 
                     b.Property<double>("LThucNhan")
                         .HasColumnType("float");
-
-                    b.Property<string>("MaNhanVien")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
 
                     b.Property<double>("PhiPhat")
                         .HasColumnType("float");
@@ -268,61 +220,27 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
                     b.Property<DateTime>("ThoiGian")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("TrangThai")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
+
                     b.HasKey("MaLuong");
 
-                    b.HasIndex("MaNhanVien");
+                    b.HasIndex("IdNhanVien");
 
                     b.ToTable("Luong");
                 });
 
-            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.NgayCong", b =>
+            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.NhanVien", b =>
                 {
-                    b.Property<int>("MaCong")
+                    b.Property<int>("IdNhanVien")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("MaNhanVien")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<int>("SoCThucTe")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoCVang")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoCgDiMuon")
-                        .HasColumnType("int");
-
-                    b.Property<int>("SoCong")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ThoiGianBD")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime>("ThoiGianKT")
-                        .HasColumnType("datetime2");
-
-                    b.HasKey("MaCong");
-
-                    b.HasIndex("MaNhanVien");
-
-                    b.ToTable("NgayCong");
-                });
-
-            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.NhanVien", b =>
-                {
-                    b.Property<string>("MaNhanVien")
-                        .HasColumnType("nvarchar(20)")
-                        .HasMaxLength(20);
-
-                    b.Property<byte>("Anh")
-                        .HasColumnType("tinyint");
-
-                    b.Property<string>("BienSoXe")
-                        .HasColumnType("nvarchar(12)")
-                        .HasMaxLength(12);
+                    b.Property<string>("Anh")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
                     b.Property<string>("ChucVu")
                         .HasColumnType("nvarchar(100)")
@@ -340,36 +258,25 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
                         .HasColumnType("nvarchar(10)")
                         .HasMaxLength(10);
 
-                    b.Property<string>("HangXe")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
                     b.Property<string>("HoTen")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.Property<string>("MaBP")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
-
-                    b.Property<int>("MaBaoHiem")
+                    b.Property<int>("IdBP")
                         .HasColumnType("int");
 
-                    b.Property<int>("MaLLV")
-                        .HasColumnType("int");
+                    b.Property<string>("MaNhanVien")
+                        .HasColumnType("nvarchar(20)")
+                        .HasMaxLength(20);
 
                     b.Property<string>("MatKhau")
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
-                    b.Property<string>("MauXe")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
                     b.Property<DateTime>("NgaySinh")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("PhanLoai")
+                    b.Property<int>("PhanQuyen")
                         .HasColumnType("int");
 
                     b.Property<string>("SDT")
@@ -384,104 +291,107 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access.Data.Migrations.SqlServer
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
-                    b.HasKey("MaNhanVien");
+                    b.Property<string>("TrinhDo")
+                        .HasColumnType("nvarchar(100)")
+                        .HasMaxLength(100);
 
-                    b.HasIndex("MaBP");
+                    b.HasKey("IdNhanVien");
 
-                    b.HasIndex("MaBaoHiem");
-
-                    b.HasIndex("MaLLV");
+                    b.HasIndex("IdBP");
 
                     b.ToTable("NhanVien");
                 });
 
             modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.Phong", b =>
                 {
-                    b.Property<string>("MaP")
-                        .HasColumnType("nvarchar(10)")
-                        .HasMaxLength(10);
+                    b.Property<int>("IdPhong")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<string>("Email")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
+                    b.Property<string>("MaP")
+                        .HasColumnType("nvarchar(10)")
+                        .HasMaxLength(10);
+
                     b.Property<string>("SDT")
                         .HasColumnType("nvarchar(12)")
                         .HasMaxLength(12);
+
+                    b.Property<int>("SoLuong")
+                        .HasColumnType("int");
 
                     b.Property<string>("TenP")
                         .HasColumnType("nvarchar(100)")
                         .HasMaxLength(100);
 
-                    b.HasKey("MaP");
+                    b.HasKey("IdPhong");
 
                     b.ToTable("Phong");
-                });
-
-            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.BaiViet", b =>
-                {
-                    b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.NhanVien", "NhanViens")
-                        .WithMany("BaiViets")
-                        .HasForeignKey("MaNhanVien");
                 });
 
             modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.BoPhan", b =>
                 {
                     b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.Phong", "Phongs")
                         .WithMany("BoPhans")
-                        .HasForeignKey("MaP");
+                        .HasForeignKey("IdPhong")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.ChamCong", b =>
+                {
+                    b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.NhanVien", "NhanViens")
+                        .WithMany("ChamCongs")
+                        .HasForeignKey("IdNhanVien")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.DonTu", b =>
                 {
                     b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.NhanVien", "NhanViens")
                         .WithMany("DonTus")
-                        .HasForeignKey("MaNhanVien");
+                        .HasForeignKey("IdNhanVien")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.GiayTo", b =>
                 {
                     b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.NhanVien", "NhanViens")
                         .WithMany("GiayTos")
-                        .HasForeignKey("MaNhanVien");
+                        .HasForeignKey("IdNhanVien")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.HopDong", b =>
+            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.KhenThuongKyLuat", b =>
                 {
                     b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.NhanVien", "NhanViens")
-                        .WithMany("HopDongs")
-                        .HasForeignKey("MaNhanVien");
+                        .WithMany("KhenThuongKyLuats")
+                        .HasForeignKey("IdNhanVien")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.Luong", b =>
                 {
                     b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.NhanVien", "NhanViens")
                         .WithMany("Luongs")
-                        .HasForeignKey("MaNhanVien");
-                });
-
-            modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.NgayCong", b =>
-                {
-                    b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.NhanVien", "NhanViens")
-                        .WithMany("NgayCongs")
-                        .HasForeignKey("MaNhanVien");
+                        .HasForeignKey("IdNhanVien")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("VNUA.FITA.MQTT.HRM.Data.Model.NhanVien", b =>
                 {
                     b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.BoPhan", "BoPhans")
                         .WithMany("NhanViens")
-                        .HasForeignKey("MaBP");
-
-                    b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.BaoHiem", "BaoHiems")
-                        .WithMany("NhanVien")
-                        .HasForeignKey("MaBaoHiem")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("VNUA.FITA.MQTT.HRM.Data.Model.LichLamViec", "LichLamViecs")
-                        .WithMany("NhanVien")
-                        .HasForeignKey("MaLLV")
+                        .HasForeignKey("IdBP")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

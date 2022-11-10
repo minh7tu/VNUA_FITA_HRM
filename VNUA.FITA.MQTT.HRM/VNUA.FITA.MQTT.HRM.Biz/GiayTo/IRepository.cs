@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace VNUA.FITA.MQTT.HRM.Biz.GiayTo
 {
-    public interface IRepository
+    class IRepository
     {
-        Task<Model.GiayTo.View> GetAsync(int id);
-        Task<Model.GiayTo.View> UpdateAsync(Model.GiayTo.Edit model);
-        Task<Model.GiayTo.View> CreatAsync(Model.GiayTo.New model);
-        Task DeleteAsync(int id);
     }
 }

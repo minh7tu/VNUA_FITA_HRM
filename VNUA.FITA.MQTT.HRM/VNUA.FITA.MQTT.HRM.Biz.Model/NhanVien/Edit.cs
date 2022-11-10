@@ -7,8 +7,15 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.NhanVien
 {
     public class Edit
     {
+        [StringLength(20)]
+        public string MaNhanVien { get; set; }
+
         [StringLength(100)]
         public string HoTen { get; set; }
+
+        [StringLength(20)]
+        public string TenTaiKhoan { get; set; }
+
         public DateTime NgaySinh { get; set; }
 
         [StringLength(10)]
@@ -19,42 +26,27 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.NhanVien
 
         [StringLength(12)]
         public string SDT { get; set; }
+
         [StringLength(100)]
         public string ChucVu { get; set; }
-        public byte Anh { get; set; }
+
+        [StringLength(100)]
+        public string Anh { get; set; }
 
         [StringLength(12)]
         public string SoCCCD { get; set; }
-        [StringLength(10)]
-        public string MaBP { get; set; }
+
+        [StringLength(100)]
+        public string TrinhDo { get; set; }
+
+        public int IdBP { get; set; }
     }
 
-    public class EditByPassword
+    public class EditByAdmin
     {
-
         [StringLength(20)]
         public string MatKhau { get; set; }
-    }
 
-    public class EditByVahicle
-    {
-        [StringLength(100)]
-        public string HangXe { get; set; }
-
-        [StringLength(100)]
-        public string MauXe { get; set; }
-
-        [StringLength(12)]
-        public string BienSoXe { get; set; }
-    }
-
-    public class EditByCalendar
-    {
-        public int MaLLV { get; set; }
-    }
-
-    public class EditByEnsua
-    {
-        public int MaBaoHiem { get; set; }
+        public int PhanQuyen { get; set; }
     }
 }
