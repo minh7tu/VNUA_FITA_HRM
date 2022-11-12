@@ -29,7 +29,7 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
             //Path local Sql Nguyễn Đình Thuyết
-            optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\TTCN\Code\VNUA_FITA_HRM\VNUA.FITA.MQTT.HRM\VNUA.FITA.MQTT.HRM.Data.Access\Data\Database\HRM.mdf;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\VNUA_FITA_HRM\VNUA.FITA.MQTT.HRM\VNUA.FITA.MQTT.HRM.Data.Access\Data\Database\HRM.mdf;Integrated Security=True");
         }
     }
 }
