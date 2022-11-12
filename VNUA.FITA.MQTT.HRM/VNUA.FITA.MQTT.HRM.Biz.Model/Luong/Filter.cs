@@ -6,6 +6,6 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.Luong
 {
     public class Filter
     {
-        public int IdNhanVien { get; set; }
+        public int MaLuong { get; set; }
     }
 }

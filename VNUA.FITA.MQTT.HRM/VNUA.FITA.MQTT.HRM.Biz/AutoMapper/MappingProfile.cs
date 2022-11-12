@@ -20,6 +20,7 @@ namespace VNUA.FITA.MQTT.HRM.Biz.AutoMapper
             CreateMap<Data.Model.BoPhan, Biz.Model.BoPhan.View>().ReverseMap();
 
             CreateMap<Data.Model.DonTu, Biz.Model.DonTu.Edit>().ReverseMap();
+            CreateMap<Data.Model.DonTu, Biz.Model.DonTu.EditByManager>().ReverseMap();
             CreateMap<Data.Model.DonTu, Biz.Model.DonTu.Filter>().ReverseMap();
             CreateMap<Data.Model.DonTu, Biz.Model.DonTu.New>().ReverseMap();
             CreateMap<Data.Model.DonTu, Biz.Model.DonTu.View>().ReverseMap();
@@ -30,6 +31,7 @@ namespace VNUA.FITA.MQTT.HRM.Biz.AutoMapper
             CreateMap<Data.Model.Luong, Biz.Model.Luong.View>().ReverseMap();
 
             CreateMap<Data.Model.GiayTo, Biz.Model.GiayTo.Edit>().ReverseMap();
+            CreateMap<Data.Model.GiayTo, Biz.Model.GiayTo.EditByManager>().ReverseMap();
             CreateMap<Data.Model.GiayTo, Biz.Model.GiayTo.Filter>().ReverseMap();
             CreateMap<Data.Model.GiayTo, Biz.Model.GiayTo.New>().ReverseMap();
             CreateMap<Data.Model.GiayTo, Biz.Model.GiayTo.View>().ReverseMap();
@@ -40,8 +42,11 @@ namespace VNUA.FITA.MQTT.HRM.Biz.AutoMapper
             CreateMap<Data.Model.ChamCong, Biz.Model.ChamCong.View>().ReverseMap();
 
             CreateMap<Data.Model.NhanVien, Biz.Model.NhanVien.Edit>().ReverseMap();
+            CreateMap<Data.Model.NhanVien, Biz.Model.NhanVien.EditByAdmin>().ReverseMap();
+            CreateMap<Data.Model.NhanVien, Biz.Model.NhanVien.EditByStaff>().ReverseMap();
             CreateMap<Data.Model.NhanVien, Biz.Model.NhanVien.Filter>().ReverseMap();
             CreateMap<Data.Model.NhanVien, Biz.Model.NhanVien.New>().ReverseMap();
+            CreateMap<Data.Model.NhanVien, Biz.Model.NhanVien.NewByAdmin>().ReverseMap();
             CreateMap<Data.Model.NhanVien, Biz.Model.NhanVien.View>().ReverseMap();
 
             CreateMap<Data.Model.KhenThuongKyLuat, Biz.Model.KhenThuongKyLuat.Edit>().ReverseMap();

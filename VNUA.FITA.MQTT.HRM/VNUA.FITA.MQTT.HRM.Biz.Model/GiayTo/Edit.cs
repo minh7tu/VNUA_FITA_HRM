@@ -15,8 +15,6 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.GiayTo
 
         public DateTime ThoiGian { get; set; }
 
-       
-
         public int IdNhanVien { get; set; }
     }
 

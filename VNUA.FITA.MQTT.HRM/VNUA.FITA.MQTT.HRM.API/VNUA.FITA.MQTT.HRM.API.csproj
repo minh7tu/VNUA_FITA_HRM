@@ -12,5 +12,9 @@
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.4.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\VNUA.FITA.MQTT.HRM.Biz\VNUA.FITA.MQTT.HRM.Biz.csproj" />
+  </ItemGroup>
+
 
 </Project>
