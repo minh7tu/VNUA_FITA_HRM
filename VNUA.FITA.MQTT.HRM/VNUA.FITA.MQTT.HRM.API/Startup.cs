@@ -10,6 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VNUA.FITA.MQTT.HRM.Biz;
 
 namespace VNUA.FITA.MQTT.HRM.API
 {
@@ -29,11 +30,12 @@ namespace VNUA.FITA.MQTT.HRM.API
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "HRM API", Version = "v1" });
+                c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo { Title = "My API", Version = "v1" });
             });
+            services.AddTransient<IRepositoryWrapper, RepositoryWrapper>();
+
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
@@ -55,8 +57,9 @@ namespace VNUA.FITA.MQTT.HRM.API
             app.UseSwagger(c => c.SerializeAsV2 = true);
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json", "HRM API V1.0");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
             });
         }
     }
+        
 }

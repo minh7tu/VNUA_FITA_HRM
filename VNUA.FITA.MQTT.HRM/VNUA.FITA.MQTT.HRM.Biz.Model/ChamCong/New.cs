@@ -9,12 +9,6 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.ChamCong
     {
         public DateTime ThoiGian { get; set; }
 
-        [StringLength(100)]
-        public string TrangThai { get; set; }
-
-        [StringLength(100)]
-        public string GhiChu { get; set; }
-
         public int IdNhanVien { get; set; }
     }
 }

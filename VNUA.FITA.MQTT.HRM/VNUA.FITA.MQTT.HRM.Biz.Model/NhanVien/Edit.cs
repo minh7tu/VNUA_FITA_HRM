@@ -49,4 +49,10 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.NhanVien
 
         public int PhanQuyen { get; set; }
     }
+
+    public class EditByStaff
+    {
+        [StringLength(20)]
+        public string MatKhau { get; set; }
+    }
 }

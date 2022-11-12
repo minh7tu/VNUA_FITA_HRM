@@ -6,6 +6,6 @@ namespace VNUA.FITA.MQTT.HRM.Biz.Model.GiayTo
 {
     public class Filter
     {
-        public int IdNhanVien { get; set; }
+        public int MaGT { get; set; }
     }
 }
