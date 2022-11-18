@@ -6,6 +6,7 @@
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon" />
 
+    <link href="~/css/styles.css" rel="stylesheet" />
     <!-- Fonts and icons -->
     <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -24,7 +25,7 @@
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
 
-    
+
 </head>
 <body>
     <div class="wrapper">
@@ -70,7 +71,7 @@
                                 <i class="fa fa-search"></i>
                             </a>
                         </li>
-                        
+
                         <li class="nav-item dropdown hidden-caret">
                             <a class="nav-link dropdown-toggle" href="#" id="notifDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 <i class='bx bx-bell'></i>
@@ -229,7 +230,7 @@
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                             <span>
-                               Engineer
+                                Engineer
                                 <span class="user-level">Quản trị viên</span>
                                 <span class="caret"></span>
                             </span>
@@ -390,12 +391,12 @@
                         <div class="collapse" id="Ql-thongtincanhan">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="maps/jqvmap.html">
+                                    <a asp-action="Edit" asp-controller="ThongTinNhanVien">
                                         <span class="sub-item">Cập nhật thông tin cá nhân</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="maps/jqvmap.html">
+                                    <a asp-action="DanhSachNhanVien" asp-controller="ThongTinNhanVien">
                                         <span class="sub-item">Xem thông tin cá nhân</span>
                                     </a>
                                 </li>
@@ -570,7 +571,6 @@
 
     <div class="main-panel">
         <div class="content">
-            <p>xin chào</p>
             <main>
                 @RenderBody()
             </main>
@@ -700,7 +700,7 @@
     <!-- Datatables -->
     <script src="../assets/js/plugin/datatables/datatables.min.js"></script>
 
-    
+
 
     <!-- jQuery Vector Maps -->
     <script src="../assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
@@ -712,7 +712,7 @@
     <!-- Atlantis JS -->
     <script src="../assets/js/atlantis.min.js"></script>
 
-    
+    @RenderSection("Scripts", required: false)
     <script>
         Circles.create({
             id: 'circles-1',
@@ -783,20 +783,20 @@
                         ticks: {
                             display: false //this will remove only the label
                         }, data- notify
-                        gridLines: {
-                            drawBorder: false,
-                            display: false
-                        }
-                    }],
-                    xAxes: [{
-                        gridLines: {
-                            drawBorder: false,
-                            display: false
-                        }
-                    }]
-                },
-            }
-        });
+                            gridLines: {
+                        drawBorder: false,
+                        display: false
+                    }
+                        }],
+                xAxes: [{
+                    gridLines: {
+                        drawBorder: false,
+                        display: false
+                    }
+                }]
+            },
+        }
+            });
 
         $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
             type: 'line',

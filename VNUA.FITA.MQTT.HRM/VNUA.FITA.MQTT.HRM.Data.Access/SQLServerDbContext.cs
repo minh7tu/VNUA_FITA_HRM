@@ -30,6 +30,7 @@ namespace VNUA.FITA.MQTT.HRM.Data.Access
         {
             //Path local Sql Nguyễn Đình Thuyết
             optionsBuilder.UseSqlServer(@"Data Source=(LocalDB)\MSSQLLocalDB;AttachDbFilename=D:\VNUA_FITA_HRM\VNUA.FITA.MQTT.HRM\VNUA.FITA.MQTT.HRM.Data.Access\Data\Database\HRM.mdf;Integrated Security=True");
+            optionsBuilder.UseSqlServer(@"Data Source=LAPTOP-PVP2JP42;Initial Catalog=D:\VNUA_FITA_HRM\VNUA.FITA.MQTT.HRM\VNUA.FITA.MQTT.HRM.DATA.ACCESS\DATA\DATABASE\HRM.MDF;User ID=sa;Password=quyet9x1"); ;
         }
     }
 }
