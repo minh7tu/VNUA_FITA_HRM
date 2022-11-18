@@ -13,10 +13,7 @@
         border-radius: 50%;
     }
 
-    #nhanvien th, #nhanvien td {
-        border: 1px solid #ddd;
-        padding: 8px;
-    }
+    
 </style>
 @section Scripts{
     <script>
@@ -43,7 +40,7 @@
                             <div class="col-md-9">
                                 <input type="text" value="@ViewBag.SearchText" name="SearchText" class="form-control" placeholder="Nhập từ khóa tìm kiếm" />
                             </div>
-                            <div class="cold-md-4">
+                            <div class="cold-md-3">
                                 <button type="submit" class="btn btn-primary" value="Search">Tìm</button>
                                 <button type="button" onclick="window.location.href='/User/DanhSachNhanVien'" class="btn btn-dark">Hủy</button>
                             </div>
@@ -120,6 +117,7 @@
                         </tr>
                     </thead>
                     <tbody>
+          
                         @foreach (var item in Model)
                         {
                             <tr>
