@@ -24,19 +24,9 @@
                 <span asp-validation-for="HoTen" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NgaySinh" class="control-label"></label>
-                <input asp-for="NgaySinh" class="form-control" />
-                <span asp-validation-for="NgaySinh" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GioiTinh" class="control-label"></label>
-                <input asp-for="GioiTinh" class="form-control" />
-                <span asp-validation-for="GioiTinh" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiaChi" class="control-label"></label>
-                <input asp-for="DiaChi" class="form-control" />
-                <span asp-validation-for="DiaChi" class="text-danger"></span>
+                <label asp-for="TenTaiKhoan" class="control-label"></label>
+                <input asp-for="TenTaiKhoan" class="form-control" />
+                <span asp-validation-for="TenTaiKhoan" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <label asp-for="SDT" class="control-label"></label>
@@ -49,24 +39,14 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ChucVu" class="control-label"></label>
-                <input asp-for="ChucVu" class="form-control" />
-                <span asp-validation-for="ChucVu" class="text-danger"></span>
+                <label asp-for="MatKhau" class="control-label"></label>
+                <input asp-for="MatKhau" class="form-control" />
+                <span asp-validation-for="MatKhau" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Anh" class="control-label"></label>
-                <input asp-for="Anh" class="form-control" />
-                <span asp-validation-for="Anh" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SoCCCD" class="control-label"></label>
-                <input asp-for="SoCCCD" class="form-control" />
-                <span asp-validation-for="SoCCCD" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TrinhDo" class="control-label"></label>
-                <input asp-for="TrinhDo" class="form-control" />
-                <span asp-validation-for="TrinhDo" class="text-danger"></span>
+                <label asp-for="PhanQuyen" class="control-label"></label>
+                <input asp-for="PhanQuyen" class="form-control" />
+                <span asp-validation-for="PhanQuyen" class="text-danger"></span>
             </div>
             <div class="form-group">
                 <input type="submit" value="Create" class="btn btn-primary" />
@@ -76,7 +56,7 @@
 </div>
 
 <div>
-    <a asp-action="DanhSachNhanVien">Quay Lại Danh Sách Nhân Viên</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

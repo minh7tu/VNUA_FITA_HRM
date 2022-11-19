@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.NhanVien>
 
 @{
-    ViewData["Title"] = "DanhSachNhanVien";
+    ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -13,7 +13,10 @@
         border-radius: 50%;
     }
 
-    
+    #nhanvien th, #nhanvien td {
+        border: 1px solid #ddd;
+        padding: 8px;
+    }
 </style>
 @section Scripts{
     <script>
@@ -31,21 +34,36 @@
     <div class="card mb-12">
         <div class="card-header">
             <div class="row">
-                <div class="col-md-6 col-xs-12">
-                    <a class="btn btn-success" asp-action="Create" asp-controller="User">Tạo mới</a>
+                <div class="col-md-2 col-xs-12">
+                    
+                    <a class="btn btn-success" asp-action="Create">Thêm nhân viên</a>
+
+                </div>
+                <div class="col-md-2 col-xs-12">
+                    
+                    <a class="btn btn-success" asp-action="ImportExcel" asp-controller="NhanVien">Nhập FileExcel</a>
+                    
+                </div>
+                <div class="col-md-2 col-xs-12">
+                    
+                    <a class="btn btn-success" asp-action="ExportExcel" asp-controller="NhanVien">Xuất FileExcel</a>
                 </div>
                 <div class="col-md-6 col-xs-12">
-                    <form asp-action="Index" method="get">
+                    <form asp-action="Index" method="get" class="form-inline">
                         <div class="row">
-                            <div class="col-md-9">
+                            <div class="col-md-6 col-xs-12">
+
                                 <input type="text" value="@ViewBag.SearchText" name="SearchText" class="form-control" placeholder="Nhập từ khóa tìm kiếm" />
+
                             </div>
-                            <div class="cold-md-3">
-                                <button type="submit" class="btn btn-primary" value="Search">Tìm</button>
-                                <button type="button" onclick="window.location.href='/User/DanhSachNhanVien'" class="btn btn-dark">Hủy</button>
+                            <div class="col-md-6 col-xs-12">
+
+                                <button type="submit" class="btn btn-primary">Tìm</button>
+                                <button type="button" onclick="window.location.href='/NhanVien/Index'" class="btn btn-dark">Reset</button>
                             </div>
-                        </div>
-                    </form>
+                            </div>
+
+</form>
                 </div>
             </div>
         </div>
@@ -61,18 +79,8 @@
             </div>
             <div class="table-responsive">
                 <table class="table table-bordered">
-                    <thead>
-                        <tr rowspan="2">
-
-                            <th colspan="2">
-                                <a class="btn btn-success" asp-action="ImportExcel" asp-controller="User">Nhập FileExcel</a>
-
-                            </th>
-                            <th colspan="2">
-
-                                <a class="btn btn-success" asp-action="ExportExcel" asp-controller="User">Xuất FileExcel</a>
-                            </th>
-                        </tr>
+                    <thead class="table-head-bg-primary">
+                 
                         <tr>
                             <th>
                                 STT
@@ -111,13 +119,13 @@
                             <th>
                                 Số Căn Cước
                             </th>
+                        
                             <th>
                                 Thao Tác
                             </th>
                         </tr>
                     </thead>
                     <tbody>
-          
                         @foreach (var item in Model)
                         {
                             <tr>
@@ -158,15 +166,13 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.SoCCCD)
                                 </td>
-
-
+          
                                 <td>
                                     <div class="btn-group">
-                                        <a asp-action="Edit" asp-route-id="@item.MaNhanVien" class="btn btn-sm btn-info">Cập Nhật</a>
-                                        <a asp-action="Details" asp-route-id="@item.MaNhanVien" class="btn btn-sm btn-primary ml-1">Xem chi tiết</a>
-                                        <a asp-action="Delete" asp-route-id="@item.MaNhanVien" class="btn btn-sm btn-danger ml-1">Xóa</a>
+                                        <a asp-action="Edit" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-info">Cập Nhật</a>
+                                        <a asp-action="Details" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-primary ml-1">Xem chi tiết</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-danger ml-1">Xóa</a>
                                     </div>
-
                                 </td>
                             </tr>
                         }

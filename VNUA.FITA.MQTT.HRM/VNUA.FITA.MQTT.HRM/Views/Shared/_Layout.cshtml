@@ -5,7 +5,12 @@
     <title>Phần mềm quản lý nhân sự  - HRM VNUA</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
     <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon" />
-
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
     <link href="~/css/styles.css" rel="stylesheet" />
     <!-- Fonts and icons -->
     <script src="../assets/js/plugin/webfont/webfont.min.js"></script>
@@ -24,7 +29,7 @@
     <link rel="stylesheet" href="../assets/css/atlantis.min.css">
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
-
+    <script src="~/js/scripts.js"></script>
 
 </head>
 <body>
@@ -370,7 +375,7 @@
                         <div class="collapse" id="tables">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="tables/tables.html">
+                                    <a asp-controller="ChamCong" asp-action="Index">
                                         <span class="sub-item"> Thực hiện  chấm công</span>
                                     </a>
                                 </li>
@@ -391,12 +396,12 @@
                         <div class="collapse" id="Ql-thongtincanhan">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a asp-action="Edit" asp-controller="ThongTinNhanVien">
+                                    <a asp-action="Edit" asp-controller="NhanVien">
                                         <span class="sub-item">Cập nhật thông tin cá nhân</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a asp-action="DanhSachNhanVien" asp-controller="ThongTinNhanVien">
+                                    <a asp-action="Index" asp-controller="NhanVien">
                                         <span class="sub-item">Xem thông tin cá nhân</span>
                                     </a>
                                 </li>
@@ -412,17 +417,17 @@
                         <div class="collapse" id="charts">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="charts/charts.html">
+                                    <a asp-controller="TaiKhoan" asp-action="Create">
                                         <span class="sub-item">Tạo tài khoản</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="charts/sparkline.html">
+                                    <a asp-controller="TaiKhoan" asp-action="Edit">
                                         <span class="sub-item">Cập mật khẩu</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="charts/sparkline.html">
+                                    <a asp-controller="TaiKhoan" asp-action="Index">
                                         <span class="sub-item">Phân quyền</span>
                                     </a>
                                 </li>
@@ -480,12 +485,12 @@
                         <div class="collapse" id="ql-chamcong">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="sidebar-style-1.html">
+                                    <a >
                                         <span class="sub-item">Xác nhận chấm công</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="overlay-sidebar.html">
+                                    <a >
                                         <span class="sub-item">Xem công</span>
                                     </a>
                                 </li>
@@ -604,9 +609,7 @@
     </div>
 
     <!-- Custom template | don't include it in your project! -->
-   
     <!-- End Custom template -->
-    
     <!--   Core JS Files   -->
     <script src="../assets/js/core/jquery.3.2.1.min.js"></script>
     <script src="../assets/js/core/popper.min.js"></script>
@@ -715,11 +718,11 @@
                         ticks: {
                             display: false //this will remove only the label
                         }, data- notify
-                            gridLines: {
+                                gridLines: {
                         drawBorder: false,
                         display: false
                     }
-                        }],
+                            }],
                 xAxes: [{
                     gridLines: {
                         drawBorder: false,
@@ -728,7 +731,7 @@
                 }]
             },
         }
-            });
+                });
 
         $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
             type: 'line',
