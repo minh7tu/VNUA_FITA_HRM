@@ -9,41 +9,43 @@
 
 <h4>NhanVien</h4>
 <hr />
-<div class="row">
-    <div class="col-md-6">
+
         <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="MaNhanVien" class="control-label"></label>
-                <input asp-for="MaNhanVien" class="form-control" />
-                <span asp-validation-for="MaNhanVien" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="HoTen" class="control-label"></label>
-                <input asp-for="HoTen" class="form-control" />
-                <span asp-validation-for="HoTen" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="NgaySinh" class="control-label"></label>
-                <input asp-for="NgaySinh" class="form-control" />
-                <span asp-validation-for="NgaySinh" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GioiTinh" class="control-label"></label>
-                <input asp-for="GioiTinh" class="form-control" />
-                <span asp-validation-for="GioiTinh" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="DiaChi" class="control-label"></label>
-                <input asp-for="DiaChi" class="form-control" />
-                <span asp-validation-for="DiaChi" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="SDT" class="control-label"></label>
-                <input asp-for="SDT" class="form-control" />
-                <span asp-validation-for="SDT" class="text-danger"></span>
-             </div>
+            <div class="row">
+                <div class="col-md-6">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                    <div class="form-group">
+                        <label asp-for="MaNhanVien" class="control-label"></label>
+                        <input asp-for="MaNhanVien" class="form-control" />
+                        <span asp-validation-for="MaNhanVien" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="HoTen" class="control-label"></label>
+                        <input asp-for="HoTen" class="form-control" />
+                        <span asp-validation-for="HoTen" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="NgaySinh" class="control-label"></label>
+                        <input asp-for="NgaySinh" class="form-control" />
+                        <span asp-validation-for="NgaySinh" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="GioiTinh" class="control-label"></label>
+                        <input asp-for="GioiTinh" class="form-control" />
+                        <span asp-validation-for="GioiTinh" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="DiaChi" class="control-label"></label>
+                        <input asp-for="DiaChi" class="form-control" />
+                        <span asp-validation-for="DiaChi" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="SDT" class="control-label"></label>
+                        <input asp-for="SDT" class="form-control" />
+                        <span asp-validation-for="SDT" class="text-danger"></span>
+                    </div>
+                </div>
+                <div class="col-md-6">
                     <div class="form-group">
                         <label asp-for="Email" class="control-label"></label>
                         <input asp-for="Email" class="form-control" />
@@ -79,10 +81,11 @@
                             <a asp-action="Index">Quay lại danh sách nhân viên</a>
                         </div>
                     </div>
-                </form>
+                </div>
             </div>
-</div>
+        </form>
+    
 
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+            @section Scripts {
+                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+            }

@@ -375,12 +375,12 @@
                         <div class="collapse" id="tables">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a asp-controller="ChamCong" asp-action="Index">
+                                    <a asp-controller="ChamCong" asp-action="Create">
                                         <span class="sub-item"> Thực hiện  chấm công</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="tables/datatables.html">
+                                    <a asp-controller="ChamCong" asp-action="Index">
                                         <span class="sub-item">Xem lịch sử công</span>
                                     </a>
                                 </li>
@@ -422,15 +422,11 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a asp-controller="TaiKhoan" asp-action="Edit">
-                                        <span class="sub-item">Cập mật khẩu</span>
-                                    </a>
-                                </li>
-                                <li>
                                     <a asp-controller="TaiKhoan" asp-action="Index">
-                                        <span class="sub-item">Phân quyền</span>
+                                        <span class="sub-item">Danh sách tài Khoản</span>
                                     </a>
                                 </li>
+                              
                             </ul>
                         </div>
                     </li>
