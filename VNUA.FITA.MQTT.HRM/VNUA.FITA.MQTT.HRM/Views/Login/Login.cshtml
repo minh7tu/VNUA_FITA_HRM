@@ -1,0 +1,101 @@
+﻿@model VNUA.FITA.MQTT.HRM.Data.Model.NhanVien
+    @{
+        Layout = null;
+        ViewData["Title"] = "Login Page";
+    }
+    @section Scripts{
+        <script>
+            setTimeout(function () {
+                $('#msgAlert').fadeOut('slow');
+            }, 2000);
+        </script>
+    }
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+        <meta name="description" content="" />
+        <meta name="author" content="" />
+        <title>Đăng nhập hệ thống</title>
+        <link href="/css/styles.css" rel="stylesheet" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/js/all.min.js" crossorigin="anonymous"></script>
+    </head>
+    <body class="bg-primary">
+        <div id="layoutAuthentication">
+            <div id="layoutAuthentication_content">
+                <main>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-5">
+                                <div class="card shadow-lg border-0 rounded-lg mt-5">
+                                    <div class="card-header"><h3 class="text-center font-weight-light my-4">Đăng nhập</h3></div>
+                                    <div class="card-body">
+
+                                        <form method="post" asp-action="Login">
+                                            <div asp-validation-summary="All" class="text-danger"></div>
+                                            <div class="form-group">
+                                                <label class="small mb-1">Tài khoản</label>
+                                                <input class="form-control py-4" asp-for="TenTaiKhoan" type="text" placeholder="Nhập tài khoản" />
+                                                <span class="text-danger">@TempData["MessageTaiKhoan"]</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label class="small mb-1">Mật Khẩu</label>
+                                                <input class="form-control py-4" asp-for="MatKhau" type="text" placeholder="Enter password" />
+                                                <i id="open" class="fa fa-eye float-right" style="margin-top:-25px;margin-right:6px;"></i>
+                                                <i id="closed" class="fa fa-eye-slash float-right" style="margin-top:-25px;margin-right:6px;display:none"></i>
+                                                <span class="text-danger">@TempData["MessageMatKhau"]</span>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="custom-control custom-checkbox">
+                                                    <input class="custom-control-input" type="checkbox" />
+                                                    <label class="custom-control-label">Nhớ mật khẩu</label>
+                                                </div>
+                                            </div>
+                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                <a class="small" href="/User/ForgotPassword">Bạn quên mật khẩu?</a>
+                                                <button class="btn btn-primary" value="Login" type="submit">Đăng nhập</button>
+                                            </div>
+
+                                            <div class="form-group d-flex align-items-center justify-content-between mt-4 mb-0">
+                                                @if (@TempData["MessageTaiKhoan"] != null)
+                                                {
+                                                    <div id="msgAlert" class="alert alert-success" role="alert">
+                                                        @TempData["MessageTaiKhoan"]
+                                                    </div>
+                                                }
+                                            </div>
+                                        </form>
+
+                                    </div>
+                                    <div class="card-footer text-center">
+                                        <div class="small">Liên hệ quản trị</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </main>
+            </div>
+        </div>
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="/js/scripts.js"></script>
+        <script src="/js/scripts.min.js"></script>
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $("$open").click(function () {
+                    $("$open").hide();
+                    $("#closed").show();
+                    $("#MatKhau").attr("type", "text");
+                });
+                $("$closed").click(function () {
+                    $("$closed").hide();
+                    $("#open").show();
+                    $("#MatKhau").attr("type", "password");
+                });
+            }
+        </script>
+    </body>
+</html>

@@ -40,7 +40,7 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
         [StringLength(100, ErrorMessage = "Vui lòng nhập email")]
         public string Email { get; set; }
         
-        [StringLength(20, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
+        [StringLength(20)]
         [Display(Name = "Mật Khẩu")]
         public string MatKhau { get; set; }
         [Display(Name = "Phân Quyền")]
