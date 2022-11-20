@@ -5,8 +5,19 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Phần mềm quản lý nhân sự  - HRM VNUA</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+
     <link rel="icon" href="/assets/img/icon.ico" type="image/x-icon" />
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"runat="server">
+
+    <link rel="icon" href="../assets/img/icon.ico" type="image/x-icon" />
+    <link href="https://cdn.datatables.net/1.10.20/css/dataTables.bootstrap4.min.css" rel="stylesheet" crossorigin="anonymous" />
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"></script>
+    <link href="~/css/styles.css" rel="stylesheet" />
+
     <!-- Fonts and icons -->
     <script src="/assets/js/plugin/webfont/webfont.min.js"></script>
     <script>
@@ -20,10 +31,18 @@
     </script>
 
     <!-- CSS Files -->
+
     <link rel="stylesheet" href="/assets/css/bootstrap.min.css"  runat="server" type="text/css" media="screen" />
     <link rel="stylesheet" href="/assets/css/atlantis.min.css" type="text/css" media="screen"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'runat="server"  type="text/css" media="screen"/>
     <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'runat="server" type="text/css" media="screen"/>
+
+
+    <link rel="stylesheet" href="../assets/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../assets/css/atlantis.min.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <script src="~/js/scripts.js"></script>
 
 
 </head>
@@ -358,7 +377,7 @@
                         <div class="collapse" id="tables">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="tables/tables.html">
+                                    <a asp-controller="ChamCong" asp-action="Index">
                                         <span class="sub-item"> Thực hiện  chấm công</span>
                                     </a>
                                 </li>
@@ -379,12 +398,12 @@
                         <div class="collapse" id="Ql-thongtincanhan">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="maps/jqvmap.html">
+                                    <a asp-action="Edit" asp-controller="NhanVien">
                                         <span class="sub-item">Cập nhật thông tin cá nhân</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="maps/jqvmap.html">
+                                    <a asp-action="Index" asp-controller="NhanVien">
                                         <span class="sub-item">Xem thông tin cá nhân</span>
                                     </a>
                                 </li>
@@ -400,17 +419,17 @@
                         <div class="collapse" id="charts">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="charts/charts.html">
+                                    <a asp-controller="TaiKhoan" asp-action="Create">
                                         <span class="sub-item">Tạo tài khoản</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="charts/sparkline.html">
+                                    <a asp-controller="TaiKhoan" asp-action="Edit">
                                         <span class="sub-item">Cập mật khẩu</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="charts/sparkline.html">
+                                    <a asp-controller="TaiKhoan" asp-action="Index">
                                         <span class="sub-item">Phân quyền</span>
                                     </a>
                                 </li>
@@ -468,12 +487,12 @@
                         <div class="collapse" id="ql-chamcong">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="sidebar-style-1.html">
+                                    <a >
                                         <span class="sub-item">Xác nhận chấm công</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="overlay-sidebar.html">
+                                    <a >
                                         <span class="sub-item">Xem công</span>
                                     </a>
                                 </li>
@@ -559,7 +578,9 @@
 
     <div class="main-panel">
         <div class="content">
+
             <hr />
+
             <main>
                 @RenderBody()
             </main>
@@ -591,7 +612,13 @@
             </div>
         </footer>
     </div>
+
     @RenderSection("Scripts", required: false)
+
+
+    <!-- Custom template | don't include it in your project! -->
+    <!-- End Custom template -->
+
     <!--   Core JS Files   -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <script src="/assets/js/core/popper.min.js"></script>
@@ -619,6 +646,7 @@
 
 
 
+
     <!-- jQuery Vector Maps -->
     <script src="/assets/js/plugin/jqvmap/jquery.vmap.min.js"></script>
     <script src="/assets/js/plugin/jqvmap/maps/jquery.vmap.world.js"></script>
@@ -627,6 +655,106 @@
     <script src="/assets/js/plugin/sweetalert/sweetalert.min.js"></script>
 
     <!-- Atlantis JS -->
+
     <script src="/assets/js/atlantis.min.js"></script>
+
+    <script src="../assets/js/atlantis.min.js"></script>
+
+    @RenderSection("Scripts", required: false)
+    <script>
+        Circles.create({
+            id: 'circles-1',
+            radius: 45,
+            value: 60,
+            maxValue: 100,
+            width: 7,
+            text: 5,
+            colors: ['#f1f1f1', '#FF9E27'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            styleWrapper: true,
+            styleText: true
+        })
+
+        Circles.create({
+            id: 'circles-2',
+            radius: 45,
+            value: 70,
+            maxValue: 100,
+            width: 7,
+            text: 36,
+            colors: ['#f1f1f1', '#2BB930'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            styleWrapper: true,
+            styleText: true
+        })
+
+        Circles.create({
+            id: 'circles-3',
+            radius: 45,
+            value: 40,
+            maxValue: 100,
+            width: 7,
+            text: 12,
+            colors: ['#f1f1f1', '#F25961'],
+            duration: 400,
+            wrpClass: 'circles-wrp',
+            textClass: 'circles-text',
+            styleWrapper: true,
+            styleText: true
+        })
+
+        var totalIncomeChart = document.getElementById('totalIncomeChart').getContext('2d');
+
+        var mytotalIncomeChart = new Chart(totalIncomeChart, {
+            type: 'bar',
+            data: {
+                labels: ["S", "M", "T", "W", "T", "F", "S", "S", "M", "T"],
+                datasets: [{
+                    label: "Total Income",
+                    backgroundColor: '#ff9e27',
+                    borderColor: 'rgb(23, 125, 255)',
+                    data: [6, 4, 9, 5, 4, 6, 4, 3, 8, 10],
+                }],
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false,
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            display: false //this will remove only the label
+                        }, data- notify
+                                gridLines: {
+                        drawBorder: false,
+                        display: false
+                    }
+                            }],
+                xAxes: [{
+                    gridLines: {
+                        drawBorder: false,
+                        display: false
+                    }
+                }]
+            },
+        }
+                });
+
+        $('#lineChart').sparkline([105, 103, 123, 100, 95, 105, 115], {
+            type: 'line',
+            height: '70',
+            width: '100%',
+            lineWidth: '2',
+            lineColor: '#ffa534',
+            fillColor: 'rgba(255, 165, 52, .14)'
+        });
+    </script>
+
 </body>
 </html>
