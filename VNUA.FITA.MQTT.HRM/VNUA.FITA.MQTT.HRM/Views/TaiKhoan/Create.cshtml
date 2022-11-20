@@ -5,29 +5,29 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Create</h1>
+<h1>Tạo Tài Khoản Cho Nhân Viên</h1>
 
-<h4>NhanVien</h4>
+<h4>Nhập Thông Tin Dưới Đây</h4>
 <hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
+<form asp-action="Create">
+    <div class="row">
+        <div class="col-md-6">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
                 <label asp-for="MaNhanVien" class="control-label"></label>
-                <input asp-for="MaNhanVien" class="form-control" />
-                <span asp-validation-for="MaNhanVien" class="text-danger"></span>
+                <select asp-for="MaNhanVien" class="form-control" asp-items="ViewBag.MaNhanVien"></select>
             </div>
             <div class="form-group">
                 <label asp-for="HoTen" class="control-label"></label>
-                <input asp-for="HoTen" class="form-control" />
-                <span asp-validation-for="HoTen" class="text-danger"></span>
+                <select asp-for="HoTen" class="form-control" asp-items="ViewBag.HoTen"></select>
             </div>
             <div class="form-group">
                 <label asp-for="TenTaiKhoan" class="control-label"></label>
                 <input asp-for="TenTaiKhoan" class="form-control" />
                 <span asp-validation-for="TenTaiKhoan" class="text-danger"></span>
             </div>
+        </div>
+        <div class="col-md-6">
             <div class="form-group">
                 <label asp-for="SDT" class="control-label"></label>
                 <input asp-for="SDT" class="form-control" />
@@ -49,15 +49,15 @@
                 <span asp-validation-for="PhanQuyen" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
+                <input type="submit" value="Tạo Tài Khoản" class="btn btn-primary" />
             </div>
-        </form>
+            <div>
+                <a asp-action="Index">Quay Lại Danh Sách Tài Khoản</a>
+            </div>
+        </div>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+</form>
+    
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

@@ -1,8 +1,8 @@
-﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.NhanVien>
-
+﻿@model PaginatedList<VNUA.FITA.MQTT.HRM.Data.Model.NhanVien>
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <style>
@@ -35,17 +35,17 @@
         <div class="card-header">
             <div class="row">
                 <div class="col-md-2 col-xs-12">
-                    
+
                     <a class="btn btn-success" asp-action="Create">Thêm nhân viên</a>
 
                 </div>
                 <div class="col-md-2 col-xs-12">
-                    
+
                     <a class="btn btn-success" asp-action="ImportExcel" asp-controller="NhanVien">Nhập FileExcel</a>
-                    
+
                 </div>
                 <div class="col-md-2 col-xs-12">
-                    
+
                     <a class="btn btn-success" asp-action="ExportExcel" asp-controller="NhanVien">Xuất FileExcel</a>
                 </div>
                 <div class="col-md-6 col-xs-12">
@@ -53,17 +53,17 @@
                         <div class="row">
                             <div class="col-md-6 col-xs-12">
 
-                                <input type="text" value="@ViewBag.SearchText" name="SearchText" class="form-control" placeholder="Nhập từ khóa tìm kiếm" />
+                                <input type="text" value="@ViewData["CurrentFilter"]" name="SearchString" class="form-control" placeholder="Nhập từ khóa tìm kiếm" />
 
                             </div>
                             <div class="col-md-6 col-xs-12">
 
-                                <button type="submit" class="btn btn-primary">Tìm</button>
+                                <button type="submit" class="btn btn-primary" value="Search">Tìm</button>
                                 <button type="button" onclick="window.location.href='/NhanVien/Index'" class="btn btn-dark">Reset</button>
                             </div>
-                            </div>
+                        </div>
 
-</form>
+                    </form>
                 </div>
             </div>
         </div>
@@ -80,7 +80,7 @@
             <div class="table-responsive">
                 <table class="table table-bordered">
                     <thead class="table-head-bg-primary">
-                 
+
                         <tr>
                             <th>
                                 STT
@@ -89,10 +89,13 @@
                                 Hình Ảnh
                             </th>
                             <th>
-                                Mã Nhân Viên
+                                <i class="fa-regular fa-arrow-up-arrow-down" asp-route-sortOrder="@ViewData["MaNhanVien"]" asp-action="Index"></i>
+                                @Html.ActionLink("MaNhanVien", "Index", new { sortOrder = @ViewData["MaNhanVien"], currentFilter = @ViewData["CurrentFilter"] })
                             </th>
                             <th>
-                                Họ Và Tên
+                                <i class="fa-regular fa-arrow-up-arrow-down" asp-route-sortOrder="@ViewData["HoTen"]" asp-action="Index"></i>
+
+                                @Html.ActionLink("HoTen", "Index", new { sortOrder = @ViewData["HoTen"], currentFilter = @ViewData["CurrentFilter"] })
                             </th>
                             <th>
                                 Giới Tính
@@ -119,7 +122,7 @@
                             <th>
                                 Số Căn Cước
                             </th>
-                        
+
                             <th>
                                 Thao Tác
                             </th>
@@ -166,7 +169,7 @@
                                 <td>
                                     @Html.DisplayFor(modelItem => item.SoCCCD)
                                 </td>
-          
+
                                 <td>
                                     <div class="btn-group">
                                         <a asp-action="Edit" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-info">Cập Nhật</a>
@@ -178,6 +181,26 @@
                         }
                     </tbody>
                 </table>
+                <br />
+                @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }
+
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-default @prevDisabled">
+                    Previous
+                </a>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-default @nextDisabled">
+                    Next
+                </a>
             </div>
         </div>
     </div>
