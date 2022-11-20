@@ -50,6 +50,14 @@ namespace VNUA.FITA.MQTT.HRM
                     pattern: "{controller=Home}/{action=Index}/{id?}");
                 
         });
+
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=GiayToesController}/{action=Index}/{id?}");
+
+            });
         }
     }
 }

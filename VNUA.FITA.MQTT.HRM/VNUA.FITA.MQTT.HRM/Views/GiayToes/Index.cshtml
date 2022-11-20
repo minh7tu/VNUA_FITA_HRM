@@ -5,30 +5,28 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<h1 class="text-center">danh sách giấy tờ</h1>
 
 <p>
-    <a asp-action="Create">Create New</a>
+    <a asp-action="Create" style="margin-left:20px;">Bổ sung giấy tờ</a>
 </p>
 <body>
-<table class="table">
+<table class="table text-center">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TenGT)
+                <h5>Tên giấy tờ</h5>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Anh)
+               <h5>Ảnh</h5>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ThoiGian)
+                <h5>Thời gian</h5>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
+               <h5>Trạng thái</h5>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NhanViens)
-            </th>
+            
             <th></th>
         </tr>
     </thead>
@@ -40,7 +38,7 @@
                     @Html.DisplayFor(modelItem => item.TenGT)
                 </td>
                 <td>
-                    <img src="@("../assets/img/"+item.Anh)" alt="Alternate Text" style="width:200px; height:200px;" />
+                    <img src="@("/assets/img/"+item.Anh)" alt="Alternate Text" style="width:200px; height:200px;" />
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.ThoiGian)
