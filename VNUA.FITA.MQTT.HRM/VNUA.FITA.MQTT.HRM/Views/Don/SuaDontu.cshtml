@@ -1,0 +1,70 @@
+﻿@model VNUA.FITA.MQTT.HRM.Data.Model.DonTu
+
+@{
+    ViewData["Title"] = "SuaDontu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>SuaDontu</h1>
+
+<h4>DonTu</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="SuaDontu">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="IdDonTu" />
+            <div class="form-group">
+                <label asp-for="TieuDe" class="control-label"></label>
+                <input asp-for="TieuDe" class="form-control" />
+                <span asp-validation-for="TieuDe" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NoiDung" class="control-label"></label>
+                <input asp-for="NoiDung" class="form-control" />
+                <span asp-validation-for="NoiDung" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TrangThai" class="control-label"></label>
+                <input asp-for="TrangThai" class="form-control" />
+                <span asp-validation-for="TrangThai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="GhiChu" class="control-label"></label>
+                <input asp-for="GhiChu" class="form-control" />
+                <span asp-validation-for="GhiChu" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="NguoiNhan" class="control-label"></label>
+                <input asp-for="NguoiNhan" class="form-control" />
+                <span asp-validation-for="NguoiNhan" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="PhanLoai" class="control-label"></label>
+                <input asp-for="PhanLoai" class="form-control" />
+                <span asp-validation-for="PhanLoai" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ThoiGian" class="control-label"></label>
+                <input asp-for="ThoiGian" class="form-control" />
+                <span asp-validation-for="ThoiGian" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="IdNhanVien" class="control-label"></label>
+                <select asp-for="IdNhanVien" class="form-control" asp-items="ViewBag.IdNhanVien"></select>
+                <span asp-validation-for="IdNhanVien" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

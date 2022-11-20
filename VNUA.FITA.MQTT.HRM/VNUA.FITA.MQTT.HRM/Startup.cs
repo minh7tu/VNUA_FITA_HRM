@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using VNUA.FITA.MQTT.HRM.Data.Access;
 
 namespace VNUA.FITA.MQTT.HRM
 {
@@ -18,6 +19,7 @@ namespace VNUA.FITA.MQTT.HRM
         {
             services.AddMvc();
             services.AddControllersWithViews();
+            services.AddDbContext<SqlServerDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -39,7 +41,19 @@ namespace VNUA.FITA.MQTT.HRM
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Administrator}/{action=Index}/{id?}");
+                    pattern: "{controller=GiayToesController}/{action=Index}/{id?}");
+            });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=Home}/{action=Index}/{id?}");
+            });
+            app.UseEndpoints(endpoints =>
+            {
+                endpoints.MapControllerRoute(
+                    name: "default",
+                    pattern: "{controller=DonTusController}/{action=Index}/{id?}");
             });
         }
     }
