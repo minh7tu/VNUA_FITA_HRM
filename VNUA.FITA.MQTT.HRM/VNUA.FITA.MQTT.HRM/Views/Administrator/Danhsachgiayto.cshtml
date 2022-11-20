@@ -1,0 +1,71 @@
+﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.GiayTo>
+@{
+    ViewData["Title"] = "Danhsachgiayto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    input[type=checkbox] {
+        display: none;
+    }
+
+    .container img {
+        margin: 100px;
+        transition: transform 0.25s ease;
+        cursor: zoom-in;
+    }
+
+    input[type=checkbox]:checked ~ label > img {
+        transform: scale(2);
+        cursor: zoom-out;
+    }
+</style>
+<h1 style="text-align:center">Danh sách giấy tờ</h1>
+
+<p>
+    <a asp-action="BosungGT" style="margin-left:15px;">Bổ sung giấy tờ</a>
+</p>
+<table class="table table-bordered " style="text-align:center; width:100%;">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.TenGT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Anh)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ThoiGian)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TrangThai)
+            </th>
+            
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TenGT)
+                </td>
+                <td>
+                  <img src="@item.Anh" class="img-fluid" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThoiGian)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>
+                
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.MaGT">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaGT">Details</a> |
+                    <a asp-action="Delete" asp-route-id="@item.MaGT">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

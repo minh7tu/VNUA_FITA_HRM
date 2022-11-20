@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using VNUA.FITA.MQTT.HRM.Data.Access;
 using VNUA.FITA.MQTT.HRM.Data.Model;
 
+
 namespace VNUA.FITA.MQTT.HRM
 {
     public class Startup
@@ -23,7 +24,9 @@ namespace VNUA.FITA.MQTT.HRM
             services.AddMvc();
             services.AddControllersWithViews();
             services.AddDbContext<SqlServerDbContext>();
+
             services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+
 
 
         }
@@ -43,13 +46,14 @@ namespace VNUA.FITA.MQTT.HRM
 
             app.UseAuthorization();
 
+          
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
-                
-        });
+            });
+            
         }
     }
 }

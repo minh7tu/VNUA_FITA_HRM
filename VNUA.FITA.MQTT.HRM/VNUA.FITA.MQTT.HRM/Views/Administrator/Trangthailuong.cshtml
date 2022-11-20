@@ -1,0 +1,54 @@
+﻿@model VNUA.FITA.MQTT.HRM.Data.Model.Luong
+
+@{
+    ViewData["Title"] = "Trangthailuong";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@{ 
+    DateTime dateTime = DateTime.Now;
+    int day = dateTime.Day;
+    int month = dateTime.Month;
+    String trangthai = "";
+
+
+    switch (month)
+    {
+        case 4:
+        case 6:
+        case 9:
+        case 11:
+            if (day == 30)
+            {
+                trangthai = "Lương tháng này của bạn:";
+            }
+            else
+            {
+                trangthai = "Lương tháng này đang được chuẩn bị,vui lòng quay lại sau!";
+
+            }
+            break;
+        case 1: case 3:
+        case 5:
+        case 7:
+        case 8:
+        case 10:
+        case 12:
+            if (day == 31)
+            {
+                trangthai = "Lương tháng này của bạn:";
+            }
+            else
+            {
+                trangthai = "Lương tháng này đang được chuẩn bị,vui lòng quay lại sau!";
+
+            }
+            break;
+
+    }
+
+
+    }
+
+<h4 style="text-align:center">@trangthai</h4>
+
