@@ -23,6 +23,7 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
         public string HoTen { get; set; }
         
         [StringLength(20, ErrorMessage = "Vui lòng nhập tên tài khoản")]
+        [Display(Name = "Tên Tài Khoản")]
         public string TenTaiKhoan { get; set; }
         [Display(Name = "Ngày Sinh")]
         public DateTime NgaySinh { get; set; }
@@ -40,8 +41,9 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
         public string Email { get; set; }
         
         [StringLength(20, ErrorMessage = "{0} length must be between {2} and {1}.", MinimumLength = 6)]
+        [Display(Name = "Mật Khẩu")]
         public string MatKhau { get; set; }
-
+        [Display(Name = "Phân Quyền")]
         public int PhanQuyen { get; set; }
         [Display(Name = "Chức Vụ")]
         [StringLength(100, ErrorMessage = "Vui lòng nhập chức vụ")]

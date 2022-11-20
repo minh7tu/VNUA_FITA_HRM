@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -7,6 +9,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VNUA.FITA.MQTT.HRM.Data.Access;
 using VNUA.FITA.MQTT.HRM.Data.Model;
+
 
 namespace VNUA.FITA.MQTT.HRM.Controllers
 {
@@ -18,12 +21,48 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             _context = context;
         }
-
+       
         // GET: NhanVien
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int?  pageNumber)
         {
-            var sqlServerDbContext = _context.NhanViens.Include(n => n.BoPhans);
-            return View(await sqlServerDbContext.ToListAsync());
+           
+            ViewData["MaNhanVien"] = String.IsNullOrEmpty(sortOder) ? "id_desc" : "";
+            ViewData["HoTen"] = sortOder == "HoTen" ? "HoTen_desc" : "HoTen";
+            ViewData["CurrentSort"] = sortOder;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            var sqlServerDbContext = from s in _context.NhanViens.Include(n=>n.BoPhans)
+                                     select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                sqlServerDbContext = sqlServerDbContext.Where(s => s.MaNhanVien.Contains(searchString)
+                                       || s.HoTen.Contains(searchString));
+            }
+            switch (sortOder)
+            {
+                case "id_desc":
+                    sqlServerDbContext = sqlServerDbContext.OrderByDescending(s => s.MaNhanVien);
+                    break;
+                case "HoTen":
+                    sqlServerDbContext = sqlServerDbContext.OrderBy(s => s.HoTen);
+                    break;
+                case "HoTen_desc":
+                    sqlServerDbContext = sqlServerDbContext.OrderByDescending(s => s.HoTen);
+                    break;
+                default:
+                    sqlServerDbContext = sqlServerDbContext.OrderBy(s => s.MaNhanVien);
+                    break;
+            }
+            int pageSize = 3;
+            return View(await PaginatedList<NhanVien>.CreateAsync(sqlServerDbContext.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: NhanVien/Details/5
