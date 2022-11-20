@@ -12,5 +12,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             return View();
         }
+
+        public IActionResult Trangthailuong()
+        {
+            return View();
+        }
     }
 }
