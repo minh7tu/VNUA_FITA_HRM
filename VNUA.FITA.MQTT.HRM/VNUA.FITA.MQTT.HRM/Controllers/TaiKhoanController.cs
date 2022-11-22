@@ -20,10 +20,28 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         }
 
         // GET: TaiKhoan
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int? pageNumber)
         {
-            var sqlServerDbContext = _context.NhanViens.Include(n => n.BoPhans);
-            return View(await sqlServerDbContext.ToListAsync());
+            ViewData["CurrentSort"] = sortOder;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            var sqlServerDbContext = from s in _context.NhanViens.Include(n => n.BoPhans)
+                                     select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                sqlServerDbContext = sqlServerDbContext.Where(s => s.TenTaiKhoan.Contains(searchString)
+                                       || s.MatKhau.Contains(searchString));
+            }
+            int pageSize = 3;
+            return View(await PaginatedList<NhanVien>.CreateAsync(sqlServerDbContext.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: TaiKhoan/Details/5

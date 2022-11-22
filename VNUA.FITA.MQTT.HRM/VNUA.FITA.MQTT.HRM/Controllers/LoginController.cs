@@ -43,10 +43,12 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
 
                 //success
-                var data = context.NhanViens.Where(e => e.TenTaiKhoan == nhanVien.TenTaiKhoan).SingleOrDefault();
+                var data = context.NhanViens.Where(e => e.TenTaiKhoan == nhanVien.TenTaiKhoan && e.MatKhau == nhanVien.MatKhau).SingleOrDefault();
                 if (data != null)
                 {
                     bool isValid = (data.TenTaiKhoan == nhanVien.TenTaiKhoan && data.MatKhau == GetMD5(nhanVien.MatKhau));
+                    HttpContext.Session.SetString("SessionUser", data.TenTaiKhoan);
+                    HttpContext.Session.SetString("SessionImage", data.Anh);
                     return RedirectToAction("Index", "Home");
                 }
                 else
