@@ -24,7 +24,13 @@ namespace VNUA.FITA.MQTT.HRM
             services.AddControllersWithViews();
             services.AddDbContext<SqlServerDbContext>();
             services.AddControllers(options => options.SuppressImplicitRequiredAttributeForNonNullableReferenceTypes = true);
+            services.AddSession(options =>
+            {
+                options.IdleTimeout = TimeSpan.FromSeconds(1800);
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true;
 
+            });
 
         }
 
@@ -38,7 +44,7 @@ namespace VNUA.FITA.MQTT.HRM
 
             app.UseHttpsRedirection();
             app.UseStaticFiles();
-
+            app.UseSession();
             app.UseRouting();
 
             app.UseAuthorization();

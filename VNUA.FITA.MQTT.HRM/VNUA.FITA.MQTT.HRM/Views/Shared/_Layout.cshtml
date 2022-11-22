@@ -191,7 +191,7 @@
                         <li class="nav-item dropdown hidden-caret">
                             <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                 <div class="avatar-sm">
-                                    <img src="/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                                    <img src="@ViewBag.SessionImage" alt="..." class="avatar-img rounded-circle">
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-user animated fadeIn">
@@ -230,12 +230,12 @@
             <div class="sidebar-content">
                 <div class="user">
                     <div class="avatar-sm float-left mr-2">
-                        <img src="/assets/img/profile.jpg" alt="..." class="avatar-img rounded-circle">
+                        <img src="@ViewBag.SessionImage" alt="..." class="avatar-img rounded-circle">
                     </div>
                     <div class="info">
                         <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                             <span>
-                                Engineer
+                                <span>@ViewBag.SessionUser</span>
                                 <span class="user-level">Quản trị viên</span>
                                 <span class="caret"></span>
                             </span>
@@ -369,7 +369,7 @@
                         <div class="collapse" id="Ql-thongtincanhan">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a asp-action="Edit" asp-controller="NhanVien">
+                                    <a asp-action="Create" asp-controller="NhanVien">
                                         <span class="sub-item">Cập nhật thông tin cá nhân</span>
                                     </a>
                                 </li>

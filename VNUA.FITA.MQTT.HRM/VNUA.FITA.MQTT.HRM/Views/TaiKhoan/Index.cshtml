@@ -1,75 +1,156 @@
-﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.NhanVien>
+﻿@model PaginatedList<VNUA.FITA.MQTT.HRM.Data.Model.NhanVien>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container-fluid">
+    <h1 class="mt-4">Quản lý Danh Sách Tài Khoản Nhân Viên</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Thông tin tài khoản</li>
+    </ol>
+    <div class="card mb-12">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-2 col-xs-12">
 
-<h1>Index</h1>
+                    <a class="btn btn-success" asp-action="Create">Thêm nhân viên</a>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.MaNhanVien)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.HoTen)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TenTaiKhoan)
-            </th>
-           
-            <th>
-                @Html.DisplayNameFor(model => model.SDT)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Email)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.MatKhau)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhanQuyen)
-            </th>
-            
-            <th>Thao Tác</th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.MaNhanVien)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HoTen)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenTaiKhoan)
-            </td>
-           
-            <td>
-                @Html.DisplayFor(modelItem => item.SDT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.MatKhau)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhanQuyen)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdNhanVien">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdNhanVien">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdNhanVien">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+                </div>
+                <div class="col-md-4 col-xs-12">
+
+
+                </div>
+
+                <div class="col-md-6 col-xs-12">
+                    <form asp-action="Index" method="get" class="form-inline">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+
+                                <input type="text" value="@ViewData["CurrentFilter"]" name="SearchString" class="form-control" placeholder="Nhập từ khóa tìm kiếm" />
+
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+
+                                <button type="submit" class="btn btn-primary" value="Search">Tìm Tài Khoản</button>
+
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-body">
+            <div class="row">
+                @if (ViewBag.SuccessMsg != null)
+                {
+                    <div id="msgAlert" class="alert alert-success" role="alert">
+                        @ViewBag.SuccessMsg
+                    </div>
+                }
+            </div>
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead class="table-head-bg-primary">
+
+                        <tr>
+                            <th>
+                                STT
+                            </th>
+                            <th>
+                                Mã Nhân Viên
+                            </th>
+                            <th>
+                                Họ Tên
+                            </th>
+                            <th>
+                                Tên Tài Khoản
+                            </th>
+                            <th>
+                                Số điện thoại
+                            </th>
+
+
+                            <th>
+                                Email
+                            </th>
+                            <th>
+                                Mật Khẩu
+                            </th>
+                            <th>
+                                Phân Quyền
+                            </th>
+                            <th>
+                                Thao Tác
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.IdNhanVien)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MaNhanVien)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.HoTen)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TenTaiKhoan)
+                                </td>
+
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.SDT)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.Email)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.MatKhau)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.PhanQuyen)
+
+                                </td>
+
+                                <td>
+                                    <div class="btn-group">
+                                        <a asp-action="Edit" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-info">Cập Nhật</a>
+                                        <a asp-action="Details" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-primary ml-1">Xem chi tiết</a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-danger ml-1">Xóa</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+                <br />
+                @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }
+
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@(Model.PageIndex - 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-default @prevDisabled">
+                    Previous
+                </a>
+                <a asp-action="Index"
+                   asp-route-sortOrder="@ViewData["CurrentSort"]"
+                   asp-route-pageNumber="@(Model.PageIndex + 1)"
+                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                   class="btn btn-default @nextDisabled">
+                    Next
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
