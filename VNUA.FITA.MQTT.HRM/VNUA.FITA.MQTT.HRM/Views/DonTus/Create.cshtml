@@ -6,10 +6,13 @@
     DateTime date = new DateTime();
 
 }
-
-<h1 class="text-center">Gửi đơn mới</h1>
-
-<h4>DonTu</h4>
+<div class="container-fluid">
+    <h1 class="mt-4">Gửi đơn mới</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+        <li class="breadcrumb-item">Gửi đơn mới</li>
+    </ol>
+</div>
 <hr />
 <form asp-action="Create">
     <div class="row">
@@ -17,13 +20,17 @@
 
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <div class="form-group">
-                <label asp-for="TieuDe" class="control-label"></label>
+                <label asp-for="TieuDe" class="control-label">Tiêu đề</label>
                 <input asp-for="TieuDe" class="form-control" />
                 <span asp-validation-for="TieuDe" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhanLoai" class="control-label"></label>
-                <input asp-for="PhanLoai" class="form-control" />
+                <label asp-for="PhanLoai" class="control-label">Phân loại</label>
+                <select asp-for="PhanLoai" class="form-control">
+                    <option value="1">Giấy đề nghị tăng ca</option>
+                    <option value="2">đơn đề xuất tăng lương</option>
+                    <option value="3">Giấy đề nghị thanh toán</option>
+                </select>
                 <span asp-validation-for="PhanLoai" class="text-danger"></span>
             </div>
             <div class="form-group" >
@@ -32,25 +39,25 @@
                 <span asp-validation-for="TrangThai" class="text-danger" hidden></span>
             </div>
             <div class="form-group">
-                <label asp-for="GhiChu" class="control-label"></label>
+                <label asp-for="GhiChu" class="control-label">Ghi chú</label>
                 <input asp-for="GhiChu" class="form-control" />
                 <span asp-validation-for="GhiChu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NguoiNhan" class="control-label"></label>
+                <label asp-for="NguoiNhan" class="control-label">Người nhận</label>
                 <input asp-for="NguoiNhan" class="form-control" />
                 <span asp-validation-for="NguoiNhan" class="text-danger"></span>
             </div>
         </div>
         <div class="col-md-6">
             <div class="form-group">
-                <label asp-for="NoiDung" class="control-label"></label>
+                <label asp-for="NoiDung" class="control-label">Nội dung</label>
                 <textarea asp-for="NoiDung" class="form-control"></textarea>
                 <span asp-validation-for="NoiDung" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ThoiGian" class="control-label"></label>
-                <input asp-for="ThoiGian" class="form-control" value="@DateTime.Now"/>
+                <label asp-for="ThoiGian" class="control-label">Thời gian</label>
+                <input asp-for="ThoiGian" class="form-control" value="@DateTime.Now" type="datetime"/>
                 <span asp-validation-for="ThoiGian" class="text-danger"></span>
             </div>
             <div class="form-group">

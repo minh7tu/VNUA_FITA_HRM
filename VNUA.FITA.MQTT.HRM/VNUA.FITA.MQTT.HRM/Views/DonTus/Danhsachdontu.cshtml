@@ -5,75 +5,80 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1 style="text-align:center;">Lịch sử đơn đã gửi</h1>
+<div class="container-fluid">
+    <h1 class="mt-4">Lịch sử đơn đã gửi</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active"> Lịch sử đơn đã gửi</li>
+    </ol>
+    </div>
+    <p>
+        <a asp-action="Create" style="margin-left:20px;">Tạo đơn mới</a>
+    </p>
+    <table class="table table-hover table-striped table-head-bg-primary">
+        <thead>
+            <tr style="text-align:center;">
+                <th scope="col">
+                    <span>Tiêu đề</span>
+                </th>
+                <th scope="col">
+                    <span>Nội dung</span>
+                </th>
+                <th scope="col">
+                    <span>Trạng thái</span>
+                </th>
+                <th scope="col">
+                    <span>Ghi chú</span>
+                </th>
+                <th scope="col">
+                    <span>Người nhận</span>
+                </th>
+                <th scope="col">
+                    <span>Phân loại</span>
+                </th>
+                <th scope="col">
+                    <span>Thời gian</span>
+                </th>
+                <th scope="col">
+                    <span>Hành động</span>
+                </th>
 
-<p>
-    <a asp-action="Create" style="margin-left:20px;">Tạo đơn mới</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TieuDe)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NoiDung)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GhiChu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NguoiNhan)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.PhanLoai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThoiGian)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NhanViens)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TieuDe)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NoiDung)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GhiChu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NguoiNhan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhanLoai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThoiGian)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-            </td>
-            <td>
-      
-                        <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='bx bx-pencil'></i></a> 
-                        <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a> 
-                        <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a  >            
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TieuDe)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NoiDung)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GhiChu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NguoiNhan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhanLoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ThoiGian)
+                    </td>
+                    <td hidden>
+                        @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='bx bx-pencil'></i></a>
+                        <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
+                        <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>

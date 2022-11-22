@@ -3,51 +3,72 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+   
 }
+<style>
+</style>
+<body>
+    <h1 class="text-center">Bổ sung giấy tờ</h1>
 
-<h1 class="text-center">Bổ sung giấy tờ</h1>
+    <h4 style="text-align:center;">Bổ sung giấy tờ</h4>
+    <hr />
+    <div class="row">
+        <div class="col-md-6">
+            <form asp-action="Create" style="margin-left:25px;" class="form-floating-label" enctype="multipart/form-data">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group form-floating-label">
+                    <label asp-for="TenGT" class="control-label">Tên giấy tờ</label>
+                    <input asp-for="TenGT" class="form-control" id="inputFloatingLabel" />
+                    <span asp-validation-for="TenGT" class="text-danger"></span>
+                </div>
+               
+                <div class="form-group ">
+                    <label  class="control-label">Ảnh</label>
+                    <input  class="form-control" type="file" id="imgInp" name="formfile"/>
+                   
+                </div>
+                
+                <div class="form-group form-floating-label">
+                    <label asp-for="ThoiGian" class="control-label">Thời gian</label>
+                    <input asp-for="ThoiGian" class="form-control" value="@DateTime.Now.Date" type="datetime" />
+                    <span asp-validation-for="ThoiGian" class="text-danger"></span>
+                </div>
+                <div class="form-group form-floating-label">
+                    <label asp-for="TrangThai" class="control-label" hidden></label>
+                    <input asp-for="TrangThai" class="form-control" value="Chờ xét duyệt" hidden />
+                    <span asp-validation-for="TrangThai" class="text-danger"></span>
+                </div>
+                <div class="form-group form-floating-label">
+                    <label asp-for="IdNhanVien" class="control-label"></label>
+                    <select asp-for="IdNhanVien" class="form-control" asp-items="ViewBag.IdNhanVien"></select>
+                </div>
+                <div class="form-group ">
+                    <input type="submit" value="Gửi yêu cầu" class="btn btn-primary" />
 
-<h4 style="text-align:center;">Bổ sung giấy tờ</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="TenGT" class="control-label"></label>
-                <input asp-for="TenGT" class="form-control" />
-                <span asp-validation-for="TenGT" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Anh" class="control-label"></label>
-                <input asp-for="Anh" class="form-control" type="file" />
-                <span asp-validation-for="Anh" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ThoiGian" class="control-label"></label>
-                <input asp-for="ThoiGian" class="form-control" value="@DateTime.Now.Date" type="datetime"/>
-                <span asp-validation-for="ThoiGian" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="TrangThai" class="control-label" hidden></label>
-                <input asp-for="TrangThai" class="form-control" value="Chờ xét duyệt" hidden/>
-                <span asp-validation-for="TrangThai" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="IdNhanVien" class="control-label"></label>
-                <select asp-for="IdNhanVien" class ="form-control" asp-items="ViewBag.IdNhanVien"></select>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+                    <input type="submit" name="name" value="Quay lại" asp-action="Index" class="btn btn-danger" />  <a asp-action="Index">Trở lại danh sách</a>
+
+                </div>
+
+            </form>
+            
+        </div>
+        <div class="col-md-6">
+            <form>
+                <img id="blah" src="#" alt="Tải trước hình ảnh" style="width:500px; height:500px;" />
+            </form>
+        </div>
     </div>
-</div>
 
-<div>
-    <a asp-action="Index">Trở lại danh sách</a>
-</div>
 
+    <script>
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
+                blah.src = URL.createObjectURL(file)
+            }
+        }
+    </script>
+</body>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

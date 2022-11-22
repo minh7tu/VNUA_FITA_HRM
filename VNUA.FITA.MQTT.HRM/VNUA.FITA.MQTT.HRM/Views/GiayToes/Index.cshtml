@@ -5,26 +5,32 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
+<div class="container-fluid">
+    <h1 class="mt-4">Danh sách giấy tờ</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+        <li class="breadcrumb-item active"> Giấy tờ</li>
+    </ol>
+</div>
 
 <p>
     <a asp-action="Create">Create New</a>
 </p>
 <body>
-<table class="table">
+<table class="table table-hover table-striped table-head-bg-primary">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.TenGT)
+                <span>Tên giấy tờ</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Anh)
+                <span>Ảnh</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ThoiGian)
+                <span>Thời gian</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
+                <span>Trạng thái</span>
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.NhanViens)

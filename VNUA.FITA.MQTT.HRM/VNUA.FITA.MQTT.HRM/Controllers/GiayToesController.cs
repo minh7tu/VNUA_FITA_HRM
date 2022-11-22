@@ -10,19 +10,19 @@ using VNUA.FITA.MQTT.HRM.Data.Model;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-
 namespace VNUA.FITA.MQTT.HRM.Controllers
 {
     public class GiayToesController : Controller
     {
         private readonly SqlServerDbContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
-      
+        private readonly IFormFile _formFile;
 
         public GiayToesController(SqlServerDbContext context,IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
             this._hostingEnvironment = hostingEnvironment;
+           
         }
 
         // GET: GiayToes
@@ -59,15 +59,17 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         }
 
         // POST: GiayToes/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+       
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("MaGT,TenGT,Anh,ThoiGian,TrangThai,IdNhanVien")] GiayTo giayTo)
+        [ValidateAntiForgeryToken]     
+        public async Task<IActionResult> Create(GiayTo giayTo, IFormFile formFile)
         {
             if (ModelState.IsValid)
             {
-               
+                string filename = formFile.FileName;
+                giayTo.Anh = filename.ToString();
+                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
+                formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
                 _context.Add(giayTo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
