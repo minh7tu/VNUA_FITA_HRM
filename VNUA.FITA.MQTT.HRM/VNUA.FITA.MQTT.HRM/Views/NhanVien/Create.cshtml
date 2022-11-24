@@ -10,7 +10,7 @@
 <h4>NhanVien</h4>
 <hr />
 
-        <form asp-action="Create">
+        <form asp-action="Create"  enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-6">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -58,8 +58,9 @@
                     </div>
                     <div class="form-group">
                         <label asp-for="Anh" class="control-label"></label>
-                        <input asp-for="Anh" class="form-control" type="file" />
+                        <input asp-for="Anh" class="form-control" id="imgInp" type="file" name="formfile" />
                         <span asp-validation-for="Anh" class="text-danger"></span>
+                        <img id="blah" src="#" alt="" style="width:30px; height:50px;float:right;margin-top:-45px;" />
                     </div>
                     <div class="form-group">
                         <label asp-for="SoCCCD" class="control-label"></label>
@@ -84,7 +85,14 @@
                 </div>
             </div>
         </form>
-    
+        <script>
+            imgInp.onchange = evt => {
+                const [file] = imgInp.files
+                if (file) {
+                blah.src = URL.createObjectURL(file)
+                }
+            }
+        </script>
 
             @section Scripts {
                 @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

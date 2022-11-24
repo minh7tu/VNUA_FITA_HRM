@@ -37,14 +37,14 @@
                                             <div asp-validation-summary="All" class="text-danger"></div>
                                             <div class="form-group">
                                                 <label class="small mb-1">Tài khoản</label>
-                                                <input class="form-control py-4" asp-for="TenTaiKhoan" type="text" placeholder="Nhập tài khoản" />
+                                                <input id="TaiKhoan" type="text" class="form-control py-4" asp-for="TenTaiKhoan" placeholder="Nhập tài khoản" autocomplete="off" />
                                                 <span class="text-danger">@TempData["MessageTaiKhoan"]</span>
                                             </div>
-                                            <div class="form-group-inline">
+                                            <div class="form-group">
                                                 <label class="small mb-1">Mật Khẩu</label>
-                                                <input class="form-control py-4" asp-for="MatKhau" type="text" placeholder="Enter password" />
-                                                <i id="open" class="fa fa-eye float-right" style="margin-top:-25px;margin-right:6px;"></i>
-                                                <i id="closed" class="fa fa-eye-slash float-right" style="margin-top:-25px;margin-right:6px;display:none"></i>
+                                                <input id="MatKhau" type="password" class="form-control py-4" asp-for="MatKhau" placeholder="Enter password" autocomplete="off" />
+                                                <i id="open" class="fa fa-eye float-right" style="float:right;margin-top:-45px;margin-right:6px;cursor:pointer;font-size:30px;"></i>
+                                                <i id="closed" class="fa fa-eye-slash float-right" style="float:right;margin-top:-45px;margin-right:6px;display:none;font-size:30px;"></i>
                                                 <span class="text-danger">@TempData["MessageMatKhau"]</span>
                                             </div>
                                             <div class="form-group">
@@ -82,20 +82,22 @@
         <script src="https://code.jquery.com/jquery-3.4.1.min.js" crossorigin="anonymous"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="/js/scripts.js"></script>
+        <script src="~/lib/jquery/dist/jquery.js"></script>
+        <script src="~/lib/jquery/dist/jquery.min.js"></script>>
         <script src="/js/scripts.min.js"></script>
         <script type="text/javascript">
             $(document).ready(function () {
-                $("$open").click(function () {
-                    $("$open").hide();
+                $("#open").click(function () {
+                    $("#open").hide();
                     $("#closed").show();
                     $("#MatKhau").attr("type", "text");
                 });
-                $("$closed").click(function () {
-                    $("$closed").hide();
+                $("#closed").click(function () {
+                    $("#closed").hide();
                     $("#open").show();
                     $("#MatKhau").attr("type", "password");
                 });
-            }
+            });
         </script>
     </body>
 </html>
