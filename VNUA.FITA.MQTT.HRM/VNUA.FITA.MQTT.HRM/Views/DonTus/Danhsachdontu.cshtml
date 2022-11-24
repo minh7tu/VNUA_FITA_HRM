@@ -48,37 +48,50 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TieuDe)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NoiDung)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TrangThai)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GhiChu)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NguoiNhan)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.PhanLoai)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ThoiGian)
-                    </td>
-                    <td hidden>
-                        @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-                    </td>
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TieuDe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoiDung)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.GhiChu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NguoiNhan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhanLoai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThoiGian)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                </td>
+                @{
+                    if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                    {
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bx-pencil' ></i></a>
+                            <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bxs-hand'></i></a>
+                        </td>
+                    }
+                    else
+                    {
                     <td>
                         <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='bx bx-pencil'></i></a>
                         <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
                         <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
                     </td>
-                </tr>
+                        }
+                    }
+            </tr>
             }
         </tbody>
     </table>

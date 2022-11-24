@@ -50,7 +50,11 @@
             </div>
             <div class="form-group">
                 <label asp-for="PhanLoai" class="control-label"></label>
-                <input asp-for="PhanLoai" class="form-control" />
+                <select asp-for="PhanLoai" class="form-control">
+                    <option value="1">Giấy đề nghị tăng ca</option>
+                    <option value="2">đơn đề xuất tăng lương</option>
+                    <option value="3">Giấy đề nghị thanh toán</option>
+                </select>
                 <span asp-validation-for="PhanLoai" class="text-danger"></span>
             </div>
             <div class="form-group">
