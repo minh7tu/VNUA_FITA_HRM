@@ -16,8 +16,8 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
     {
         private readonly SqlServerDbContext _context;
         private readonly IWebHostEnvironment _hostingEnvironment;
-        private readonly IFormFile _formFile;
-
+       
+       
         public GiayToesController(SqlServerDbContext context,IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
@@ -28,7 +28,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: GiayToes
         public async Task<IActionResult> Index()
         {
-            var sqlServerDbContext = _context.GiayTos.Include(g => g.NhanViens);
+            string accconut = HttpContext.Session.GetString("SessionUser");
+
+            var sqlServerDbContext = _context.GiayTos.Where(g => g.NhanViens.TenTaiKhoan == accconut);
             return View(await sqlServerDbContext.ToListAsync());
         }
 
@@ -54,7 +56,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: GiayToes/Create
         public IActionResult Create()
         {
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien");
+            GiayTo giayTo = new GiayTo();
+            string accconut = HttpContext.Session.GetString("SessionUser");
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien",giayTo.IdNhanVien);
             return View();
         }
 
@@ -64,23 +68,26 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]     
         public async Task<IActionResult> Create(GiayTo giayTo, IFormFile formFile)
         {
+            string accconut = HttpContext.Session.GetString("SessionUser");
             if (ModelState.IsValid)
             {
                 string filename = formFile.FileName;
-                giayTo.Anh = filename.ToString();
+                giayTo.Anh = filename.ToString(); // tên ảnh
                 var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
                 formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
                 _context.Add(giayTo);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", giayTo.IdNhanVien);
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", giayTo.IdNhanVien);
             return View(giayTo);
         }
         
         // GET: GiayToes/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+           
+            string accconut = HttpContext.Session.GetString("SessionUser");
             if (id == null)
             {
                 return NotFound();
@@ -91,7 +98,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", giayTo.IdNhanVien);
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", giayTo.IdNhanVien);
             return View(giayTo);
         }
 
@@ -100,7 +107,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("MaGT,TenGT,Anh,ThoiGian,TrangThai,IdNhanVien")] GiayTo giayTo)
+        public async Task<IActionResult> Edit(int id, [Bind("MaGT,TenGT,Anh,ThoiGian,TrangThai,IdNhanVien")] GiayTo giayTo,IFormFile formFile)
         {
             if (id != giayTo.MaGT)
             {
@@ -111,6 +118,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 try
                 {
+                    string filename = formFile.FileName;
+                    giayTo.Anh = filename.ToString(); // tên ảnh
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
+                    formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
                     _context.Update(giayTo);
                     await _context.SaveChangesAsync();
                 }
