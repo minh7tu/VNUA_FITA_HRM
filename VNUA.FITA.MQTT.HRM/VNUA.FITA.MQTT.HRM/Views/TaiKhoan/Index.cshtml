@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-2 col-xs-12">
 
-                    <a class="btn btn-success" asp-action="Create">Thêm nhân viên</a>
+                    <a class="btn btn-success" asp-action="Create">Tạo tài khoản</a>
 
                 </div>
                 <div class="col-md-4 col-xs-12">
@@ -72,8 +72,6 @@
                             <th>
                                 Số điện thoại
                             </th>
-
-
                             <th>
                                 Email
                             </th>
@@ -91,6 +89,8 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
+                            var tm = "#myModal" + item.MaNhanVien;
+                            var mid = "myModal" + item.MaNhanVien;
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IdNhanVien)
@@ -123,10 +123,31 @@
                                     <div class="btn-group">
                                         <a asp-action="Edit" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-info">Cập Nhật</a>
                                         <a asp-action="Details" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-primary ml-1">Xem chi tiết</a>
-                                        <a asp-action="Delete" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-danger ml-1">Xóa</a>
+                                        <button type="button" class="btn btn-sm btn-danger ml-1" data-toggle="modal" data-target="@tm">
+                                            Xóa tài khoản
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
+                            <div class="modal fade" id="@mid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Delete Confirmation</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bạn có muốn xóa thông tin tài khoản của nhân viên này?
+                                        </div>
+                                        <form asp-action="Delete">
+                                            <div class="modal-footer">
+                                                <input type="hidden" asp-for="@item.MaNhanVien" />
+                                                <input type="submit" value="Delete" class="btn btn-danger" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     </tbody>
                 </table>

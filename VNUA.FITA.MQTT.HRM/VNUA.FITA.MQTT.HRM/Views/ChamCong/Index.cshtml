@@ -4,51 +4,84 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Thông kê danh sách công</h1>
-
+<div class="container-fluid">
+    <h1 class="mt-4">Thống kê danh sách chấm công</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+        <li class="breadcrumb-item active"> Chấm công</li>
+    </ol>
+</div>
 <p>
-    <a asp-action="Create">Chấm công</a>
+    <a asp-action="Create" style="margin-left:20px;">Thực hiện chấm công</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.ThoiGian)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.GhiChu)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NhanViens)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThoiGian)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.GhiChu)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.IdCong">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.IdCong">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.IdCong">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<body>
+    <table class="table table-hover table-striped table-head-bg-primary" style="text-align:center;">
+        <thead>
+            <tr>
+                <th>
+                    <span>Nhân Viên</span>
+                </th>
+                <th>
+                    <span>Thời Gian</span>
+                </th>
+                <th>
+                    <span>Trạng Thái</span>
+                </th>
+                <th>
+                    <span>Ghi Chú</span>
+                </th>
+
+                <th>Thao Tác</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                var tm = "#myModal" + item.IdCong;
+                var mid = "myModal" + item.IdCong;
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ThoiGian)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GhiChu)
+                    </td>
+
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.IdCong">Cập nhật</a> |
+                        <a asp-action="Details" asp-route-id="@item.IdCong">Chi tiết</a> |
+                        @*<a asp-action="Delete" asp-route-id="@item.IdCong">Xóa</a>*@
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="@tm">
+                            Xóa
+                        </button>
+                    </td>
+                </tr>
+                <div class="modal fade" id="@mid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel">!Xác nhận xóa</h4>
+                            </div>
+                            <div class="modal-body">
+                                Bạn có muốn xóa?
+                            </div>
+                            <form asp-action="Delete">
+                                <div class="modal-footer">
+                                    <input type="hidden" asp-for="@item.IdCong" />
+                                    <input type="submit" value="Delete" class="btn btn-danger" />
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            }
+        </tbody>
+    </table>
+</body>

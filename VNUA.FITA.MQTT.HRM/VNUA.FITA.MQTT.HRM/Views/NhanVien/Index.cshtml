@@ -82,12 +82,12 @@
                             </th>
                             <th>
                                 <i class="fa-regular fa-arrow-up-arrow-down" asp-route-sortOrder="@ViewData["MaNhanVien"]" asp-action="Index"></i>
-                                @Html.ActionLink("MaNhanVien", "Index", new { sortOrder = @ViewData["MaNhanVien"], currentFilter = @ViewData["CurrentFilter"] })
+                                @Html.ActionLink("Mã Nhân Viên", "Index", new { sortOrder = @ViewData["MaNhanVien"], currentFilter = @ViewData["CurrentFilter"] })
                             </th>
                             <th>
                                 <i class="fa-regular fa-arrow-up-arrow-down" asp-route-sortOrder="@ViewData["HoTen"]" asp-action="Index"></i>
 
-                                @Html.ActionLink("HoTen", "Index", new { sortOrder = @ViewData["HoTen"], currentFilter = @ViewData["CurrentFilter"] })
+                                @Html.ActionLink("Họ Tên", "Index", new { sortOrder = @ViewData["HoTen"], currentFilter = @ViewData["CurrentFilter"] })
                             </th>
                             <th>
                                 Giới Tính
@@ -123,12 +123,14 @@
                     <tbody>
                         @foreach (var item in Model)
                         {
+                            var tm = "#myModal" + item.IdNhanVien;
+                            var mid = "myModal" + item.IdNhanVien;
                             <tr>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.IdNhanVien)
                                 </td>
                                 <td>
-                                    <img src="@item.Anh" alt="" class="avatar">
+                                    <img src="@("../assets/img/"+item.Anh)" alt="" class="avatar">
                                 </td>
                                 <td>
                                     @Html.DisplayFor(modelItem => item.MaNhanVien)
@@ -166,10 +168,31 @@
                                     <div class="btn-group">
                                         <a asp-action="Edit" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-info">Cập Nhật</a>
                                         <a asp-action="Details" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-primary ml-1">Xem chi tiết</a>
-                                        <a asp-action="Delete" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-danger ml-1">Xóa</a>
+                                        <button type="button" class="btn btn-sm btn-danger ml-1" data-toggle="modal" data-target="@tm">
+                                            Xóa nhân viên
+                                        </button>
                                     </div>
                                 </td>
                             </tr>
+                            <div class="modal fade" id="@mid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                            <h4 class="modal-title" id="myModalLabel">Xác nhận xóa</h4>
+                                        </div>
+                                        <div class="modal-body">
+                                            Bạn có muốn xóa thông tin này?
+                                        </div>
+                                        <form asp-action="Delete">
+                                            <div class="modal-footer">
+                                                <input type="hidden" asp-for="@item.IdNhanVien" />
+                                                <input type="submit" value="Delete" class="btn btn-danger" />
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
                         }
                     </tbody>
                 </table>
