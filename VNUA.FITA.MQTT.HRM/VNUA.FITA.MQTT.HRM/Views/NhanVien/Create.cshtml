@@ -9,8 +9,18 @@
 
 <h4>Cập nhật thông tin nhân viên</h4>
 <hr />
-
-        <form asp-action="Create"  enctype="multipart/form-data">
+<div class="card-body">
+    <div class="row">
+        <div class="col">
+            @if (TempData["Message"] != null)
+            {
+                <div id="msgAlert" class="alert alert-success" role="alert">
+                    @TempData["Message"]
+                </div>
+            }
+        </div>
+    </div>
+        <form asp-action="Create" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-6">
                     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
@@ -72,7 +82,7 @@
                         <input asp-for="TrinhDo" class="form-control" />
                         <span asp-validation-for="TrinhDo" class="text-danger"></span>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group" hidden>
                         <label asp-for="IdBP" class="control-label"></label>
                         <select asp-for="IdBP" class="form-control" asp-items="ViewBag.IdBP"></select>
                     </div>
@@ -85,15 +95,21 @@
                 </div>
             </div>
         </form>
-        <script>
-            imgInp.onchange = evt => {
-                const [file] = imgInp.files
-                if (file) {
+    </div>
+    <script>
+        imgInp.onchange = evt => {
+            const [file] = imgInp.files
+            if (file) {
                 blah.src = URL.createObjectURL(file)
-                }
             }
-        </script>
+        }
+    </script>
 
-            @section Scripts {
-                @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-            }
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+        <script>
+            setTimeout(function () {
+                $('#msgAlert').fadeOut('slow');
+            }, 2000);
+        </script>
+    }

@@ -5,42 +5,47 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Xóa chấm công</h1>
-
-<h3>Bạn có chắc chắn xóa chấm công này không?</h3>
-<div>
-    <h4>ChamCong</h4>
+<div class="container-fluid">
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="ChamCong" asp-action="Index">Chấm Công</a></li>
+        <li class="breadcrumb-item active">Xóa chấm công</li>
+    </ol>
     <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.ThoiGian)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.ThoiGian)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TrangThai)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.GhiChu)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.GhiChu)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.NhanViens)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.NhanViens.IdNhanVien)
-        </dd class>
-    </dl>
-    
-    <form asp-action="Delete">
-        <input type="hidden" asp-for="IdCong" />
-        <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
-    </form>
+
+    <h3>Bạn có muốn xóa thông tin chấm công này này?</h3>
+    <div>
+        <dl class="row">
+            <dt class="col-sm-2">
+               Nhân Viên:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.NhanViens.IdNhanVien)
+            </dd>
+            <dt class="col-sm-2">
+                Thời Gian:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ThoiGian)
+            </dd>
+            <dt class="col-sm-2">
+               Trạng Thái:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TrangThai)
+            </dd>
+            <dt class="col-sm-2">
+                Ghi Chú:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.GhiChu)
+            </dd>
+
+        </dl>
+
+        <form asp-action="Delete">
+            <input type="hidden" asp-for="IdCong" />
+            <input type="submit" value="Delete" class="btn btn-danger" /> |
+            <a asp-action="Index">Quay lại danh sách chấm công</a>
+        </form>
+    </div>
 </div>

@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -18,10 +19,12 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
     public class NhanVienController : Controller
     {
         private readonly SqlServerDbContext _context;
+        
 
         public NhanVienController(SqlServerDbContext context)
         {
             _context = context;
+            
         }
        
         // GET: NhanVien
@@ -109,7 +112,12 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
                 _context.Add(nhanVien);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                TempData["Message"] = "Thêm nhân viên thành công!";
+                
+                
+            }
+            else {
+                TempData["Message"] = "Thêm nhân viên thất bại!";
             }
             ViewData["IdBP"] = new SelectList(_context.BoPhans, "IdBoPhan", "IdBoPhan", nhanVien.IdBP);
             return View(nhanVien);
@@ -137,7 +145,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdNhanVien,MaNhanVien,HoTen,NgaySinh,GioiTinh,DiaChi,SDT,Email,ChucVu,Anh,SoCCCD,TrinhDo,IdBP")] NhanVien nhanVien)
+        public async Task<IActionResult> Edit(int id, [Bind("IdNhanVien,MaNhanVien,HoTen,NgaySinh,GioiTinh,DiaChi,SDT,Email,ChucVu,Anh,SoCCCD,TrinhDo,IdBP")] NhanVien nhanVien, IFormFile formFile)
         {
             if (id != nhanVien.IdNhanVien)
             {
@@ -148,6 +156,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 try
                 {
+                    string filename = formFile.FileName;
+                    nhanVien.Anh = filename.ToString(); // tên ảnh
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
+                    formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
                     _context.Update(nhanVien);
                     await _context.SaveChangesAsync();
                 }

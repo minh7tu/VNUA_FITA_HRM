@@ -1,4 +1,4 @@
-﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.ChamCong>
+﻿@model PaginatedList<VNUA.FITA.MQTT.HRM.Data.Model.ChamCong>
 
 @{
     ViewData["Title"] = "Index";
@@ -10,78 +10,105 @@
         <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
         <li class="breadcrumb-item active"> Chấm công</li>
     </ol>
-</div>
-<p>
-    <a asp-action="Create" style="margin-left:20px;">Thực hiện chấm công</a>
-</p>
-<body>
-    <table class="table table-hover table-striped table-head-bg-primary" style="text-align:center;">
-        <thead>
-            <tr>
-                <th>
-                    <span>Nhân Viên</span>
-                </th>
-                <th>
-                    <span>Thời Gian</span>
-                </th>
-                <th>
-                    <span>Trạng Thái</span>
-                </th>
-                <th>
-                    <span>Ghi Chú</span>
-                </th>
+    <div class="card mb-12">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
 
-                <th>Thao Tác</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                var tm = "#myModal" + item.IdCong;
-                var mid = "myModal" + item.IdCong;
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ThoiGian)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TrangThai)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.GhiChu)
-                    </td>
+                    <a asp-action="Create" style="margin-left:20px;">Thực hiện chấm công</a>
 
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.IdCong">Cập nhật</a> |
-                        <a asp-action="Details" asp-route-id="@item.IdCong">Chi tiết</a> |
-                        @*<a asp-action="Delete" asp-route-id="@item.IdCong">Xóa</a>*@
-                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="@tm">
-                            Xóa
-                        </button>
-                    </td>
-                </tr>
-                <div class="modal fade" id="@mid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                                <h4 class="modal-title" id="myModalLabel">!Xác nhận xóa</h4>
-                            </div>
-                            <div class="modal-body">
-                                Bạn có muốn xóa?
-                            </div>
-                            <form asp-action="Delete">
-                                <div class="modal-footer">
-                                    <input type="hidden" asp-for="@item.IdCong" />
-                                    <input type="submit" value="Delete" class="btn btn-danger" />
-                                </div>
-                            </form>
-                        </div>
-                    </div>
                 </div>
-            }
-        </tbody>
-    </table>
-</body>
+
+                <div class="col-md-6 col-xs-12">
+                    <form asp-action="Index" method="get" class="form-inline">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+
+                                <input type="text" value="@ViewData["CurrentFilter"]" name="SearchString" class="form-control" placeholder="Nhập từ khóa tìm kiếm" />
+
+                            </div>
+                            <div class="col-md-6 col-xs-12">
+
+                                <button type="submit" class="btn btn-primary" value="Search">Tìm</button>
+                                <button type="button" onclick="window.location.href='/ChamCong/Index'" class="btn btn-dark">Hủy</button>
+                            </div>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+   
+    <div class="table-responsive">
+        <table class="table table-hover table-striped table-head-bg-primary" style="text-align:center;">
+            <thead>
+                <tr>
+                    <th>
+                        <span>Nhân Viên</span>
+                    </th>
+                    <th>
+                        <span>Thời Gian</span>
+                    </th>
+                    <th>
+                        <span>Trạng Thái</span>
+                    </th>
+                    <th>
+                        <span>Ghi Chú</span>
+                    </th>
+
+                    <th>Thao Tác</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var tm = "#myModal" + item.IdCong;
+                    var mid = "myModal" + item.IdCong;
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.ThoiGian)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.TrangThai)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.GhiChu)
+                        </td>
+
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.IdCong">Cập nhật</a> |
+                            <a asp-action="Details" asp-route-id="@item.IdCong">Chi tiết</a> |
+                            <a asp-action="Delete" asp-route-id="@item.IdCong">Xóa</a>
+
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <br />
+        @{
+            var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+            var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+        }
+
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex - 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn  btn-primary @prevDisabled">
+            Trước
+        </a>
+        <a asp-action="Index"
+           asp-route-sortOrder="@ViewData["CurrentSort"]"
+           asp-route-pageNumber="@(Model.PageIndex + 1)"
+           asp-route-currentFilter="@ViewData["CurrentFilter"]"
+           class="btn  btn-primary @nextDisabled">
+            Sau
+        </a>
+        </div>
+</div>
+

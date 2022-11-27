@@ -5,43 +5,47 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Thực hiện chấm công</h1>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="IdNhanVien" class="control-label">Nhân Viên</label>
-                <select asp-for="IdNhanVien" class="form-control" asp-items="ViewBag.IdNhanVien"></select>
+<div class="container-fluid">
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Chấm Công</a></li>
+        <li class="breadcrumb-item active">Thực hiện chấm công</li>
+    </ol>
+    <hr />
+    
+    <form asp-action="Create">
+        <div class="row">
+            <div class="col-md-6">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="IdNhanVien" class="control-label">Nhân Viên</label>
+                    <select asp-for="IdNhanVien" class="form-control" asp-items="ViewBag.IdNhanVien"></select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="ThoiGian" class="control-label">Thời Gian</label>
+                    <input asp-for="ThoiGian" class="form-control" />
+                    <span asp-validation-for="ThoiGian" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="ThoiGian" class="control-label">Thời Gian</label>
-                <input asp-for="ThoiGian" class="form-control" />
-                <span asp-validation-for="ThoiGian" class="text-danger"></span>
+            <div class="col-md-6">
+                <div class="form-group">
+                    <label asp-for="TrangThai" class="control-label">Trạng Thái</label>
+                    <input asp-for="TrangThai" class="form-control" />
+                    <span asp-validation-for="TrangThai" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="GhiChu" class="control-label">Ghi Chú</label>
+                    <input asp-for="GhiChu" class="form-control" />
+                    <span asp-validation-for="GhiChu" class="text-danger"></span>
+                </div>
             </div>
-            <div class="form-group">
-                <label asp-for="TrangThai" class="control-label">Trạng Thái</label>
-                <input asp-for="TrangThai" class="form-control" />
-                <span asp-validation-for="TrangThai" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="GhiChu" class="control-label">Ghi Chú</label>
-                <input asp-for="GhiChu" class="form-control" />
-                <span asp-validation-for="GhiChu" class="text-danger"></span>
-            </div>
-
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
-    </div>
+        </div>
+        <hr />
+        <div class="form-group">
+            <input type="submit" value="Chấm công" class="btn btn-outline-primary btn-sm" /> |
+            <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Trở lại danh sách</a>
+        </div>
+    </form>
 </div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-}
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    }
