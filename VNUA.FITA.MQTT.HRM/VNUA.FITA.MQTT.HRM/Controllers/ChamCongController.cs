@@ -20,10 +20,30 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         }
 
         // GET: ChamCong
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int? pageNumber)
         {
-            var sqlServerDbContext = _context.ChamCongs.Include(c => c.NhanViens);
-            return View(await sqlServerDbContext.ToListAsync());
+            //var sqlServerDbContext = _context.ChamCongs.Include(c => c.NhanViens);
+            //return View(await sqlServerDbContext.ToListAsync());
+            ViewData["CurrentSort"] = sortOder;
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            ViewData["CurrentFilter"] = searchString;
+            var sqlServerDbContext = from s in _context.ChamCongs.Include(c => c.NhanViens)
+                                     select s;
+            if (!String.IsNullOrEmpty(searchString))
+            {
+                sqlServerDbContext = sqlServerDbContext.Where(s => s.IdNhanVien.ToString().Contains(searchString)
+                                      );
+            }
+            int pageSize = 3;
+            return View(await PaginatedList<ChamCong>.CreateAsync(sqlServerDbContext.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: ChamCong/Details/5

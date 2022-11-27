@@ -64,7 +64,7 @@
             @Html.DisplayNameFor(model => model.Anh)
         </dt>
         <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Anh)
+            <img src="@("/assets/img/"+Model.Anh)" alt="Alternate Text" />
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SoCCCD)
@@ -78,10 +78,10 @@
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TrinhDo)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-2" hidden>
             @Html.DisplayNameFor(model => model.BoPhans)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10" hidden>
             @Html.DisplayFor(model => model.BoPhans.IdBoPhan)
         </dd>
     </dl>

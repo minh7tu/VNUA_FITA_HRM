@@ -49,6 +49,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                     bool isValid = (data.TenTaiKhoan == nhanVien.TenTaiKhoan && data.MatKhau == GetMD5(nhanVien.MatKhau));
                     HttpContext.Session.SetString("SessionUser", data.TenTaiKhoan);
                     HttpContext.Session.SetString("SessionImage", data.Anh);
+                    HttpContext.Session.SetString("SessionPhanQuyen", data.PhanQuyen.ToString());
                     return RedirectToAction("Index", "Home");
                 }
                 else

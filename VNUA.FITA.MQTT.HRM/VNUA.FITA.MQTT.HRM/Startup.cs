@@ -31,6 +31,7 @@ namespace VNUA.FITA.MQTT.HRM
                 options.Cookie.IsEssential = true;
 
             });
+            
 
         }
 
@@ -53,7 +54,7 @@ namespace VNUA.FITA.MQTT.HRM
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Login}/{action=Login}/{id?}");
+                    pattern: "{controller=NhanVien}/{action=Index}/{id?}");
                 
         });
         }

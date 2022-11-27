@@ -75,7 +75,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdNhanVien,MaNhanVien,HoTen,TenTaiKhoan,SDT,Email,MatKhau,PhanQuyen")] NhanVien nhanVien)
+        public async Task<IActionResult> Create([Bind("IdNhanVien,MaNhanVien,HoTen,TenTaiKhoan,SDT,Email,MatKhau,PhanQuyen,IdBP")] NhanVien nhanVien)
         {
             if (ModelState.IsValid)
             {
@@ -109,7 +109,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("IdNhanVien,MaNhanVien,HoTen,TenTaiKhoan,SDT,Email,MatKhau,PhanQuyen")] NhanVien nhanVien)
+        public async Task<IActionResult> Edit(int id, [Bind("IdNhanVien,MaNhanVien,HoTen,TenTaiKhoan,NgaySinh,GioiTinh,DiaChi,SDT,Email,MatKhau,PhanQuyen,ChucVu,Anh,SoCCCD,TrinhDo,IdBP")] NhanVien nhanVien)
         {
             if (id != nhanVien.IdNhanVien)
             {

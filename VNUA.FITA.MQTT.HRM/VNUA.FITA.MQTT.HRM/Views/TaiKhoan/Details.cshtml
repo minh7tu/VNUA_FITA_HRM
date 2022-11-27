@@ -4,59 +4,75 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="container-fluid">
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="TaiKhoan" asp-action="Index">Danh sách tài khoản</a></li>
+        <li class="breadcrumb-item active">Thông tin chi tiết tài khoản</li>
+    </ol>
+    <hr/>
+    
+        <dl class="row">
+                <dt class="col-sm-2">
+                    Mã Nhân Viên:
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.MaNhanVien)
+                </dd>
+                <dt class="col-sm-2">
+                    Họ Tên:
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.HoTen)
+                </dd>
+                <dt class="col-sm-2">
+                    Số Điện Thoại:
+                </dt>
+                <dd class="col-sm-10">
+                    @Html.DisplayFor(model => model.SDT)
+             </dd>
+             <dt class="col-sm-2">
+               Email:
+             </dt>
+             <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+             </dd>
+            <dt class="col-sm-2">
+               Tên Tài Khoản:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.TenTaiKhoan)
+            </dd>
+            <dt class="col-sm-2">
+               Mật Khẩu:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.MatKhau)
+            </dd>
+            <dt class="col-sm-2">
+                Phân Quyền:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PhanQuyen)
+            </dd>
+            <dt class="col-sm-2">
+                Chức Vụ:
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.ChucVu)
+            </dd>
 
-<h1>Chi tiết thông tin tài khoản </h1>
-
-<div>
-    <h4>Tài Khoản</h4>
-    <hr />
-    <dl class="row">
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MaNhanVien)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MaNhanVien)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.HoTen)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.HoTen)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.TenTaiKhoan)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.TenTaiKhoan)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.SDT)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.SDT)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.Email)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.Email)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.MatKhau)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.MatKhau)
-        </dd>
-        <dt class = "col-sm-2">
-            @Html.DisplayNameFor(model => model.PhanQuyen)
-        </dt>
-        <dd class = "col-sm-10">
-            @Html.DisplayFor(model => model.PhanQuyen)
-        </dd>
-        
-    </dl>
-</div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model.IdNhanVien">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+            <dt class="col-sm-2" hidden>
+                @Html.DisplayNameFor(model => model.BoPhans)
+            </dt>
+            <dd class="col-sm-10" hidden>
+                @Html.DisplayFor(model => model.BoPhans.IdBoPhan)
+            </dd>
+            
+        </dl>
+ 
+    
+    <div>
+        <a asp-action="Edit" asp-route-id="@Model.IdNhanVien" class="btn btn-outline-primary btn-sm">Cập nhật</a> |
+        <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Quay lại danh sách</a>
+    </div>
 </div>
