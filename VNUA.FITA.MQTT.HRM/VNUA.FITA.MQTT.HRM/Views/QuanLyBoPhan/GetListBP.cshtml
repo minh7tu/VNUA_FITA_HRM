@@ -1,0 +1,66 @@
+﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.BoPhan>
+
+@{
+    ViewData["Title"] = "GetListBP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Danh sách bộ phận</h1>
+
+<p>
+    <a asp-action="Create">Tạo mới bộ phận</a> |
+    <a asp-action="Edit">Quay lại</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaBP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenBP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SDT)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Phongs)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaBP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenBP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IdPhong)
+            </td>
+            <td>
+                <a asp-action="EditBP">Thay đổi</a> | 
+                <a asp-action="Delete">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

@@ -1,0 +1,75 @@
+﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.NhanVien>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Quản lý bộ phận</h1>
+
+<p>
+    <a asp-action="GetListBP">Xem danh sách bộ phận</a>
+</p>
+
+<form method="get" asp-action="Index">
+    <p>
+        <input type="search" placeholder="Nhập mã nhân viên" value="@ViewData["GetMNV"]" name="maNV" />
+        <input type="submit" value="Tìm kiếm" />
+    </p>
+</form>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaNhanVien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </th>
+           
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            
+            <th>
+                @Html.DisplayNameFor(model => model.ChucVu)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.IdBP)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaNhanVien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+           
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.ChucVu)
+            </td>
+            
+            
+            <td>
+                @Html.DisplayFor(modelItem => item.IdBP)
+            </td>
+            
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdNhanVien">Cập nhập bộ phận</a> 
+                @*<a asp-action="Delete" asp-route-id="@item.IdNhanVien">Delete</a>*@
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
