@@ -1,26 +1,17 @@
 ﻿@model VNUA.FITA.MQTT.HRM.Data.Model.DonTu
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "SuaDontu";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Edit</h1>
-<style>
-    article .content {
-        display: block;
-        text-overflow: ellipsis;
-        word-wrap: break-word;
-        overflow: hidden;
-        max-height: 3.6em;
-        line-height: 1.8em;
-    }
-</style>
+<h1>SuaDontu</h1>
+
 <h4>DonTu</h4>
 <hr />
 <div class="row">
     <div class="col-md-4">
-        <form asp-action="Edit">
+        <form asp-action="SuaDontu">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="IdDonTu" />
             <div class="form-group">
@@ -35,7 +26,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="TrangThai" class="control-label"></label>
-                <input asp-for="TrangThai" class="form-control" disabled/>
+                <input asp-for="TrangThai" class="form-control" />
                 <span asp-validation-for="TrangThai" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -50,11 +41,7 @@
             </div>
             <div class="form-group">
                 <label asp-for="PhanLoai" class="control-label"></label>
-                <select asp-for="PhanLoai" class="form-control">
-                    <option value="1">Giấy đề nghị tăng ca</option>
-                    <option value="2">đơn đề xuất tăng lương</option>
-                    <option value="3">Giấy đề nghị thanh toán</option>
-                </select>
+                <input asp-for="PhanLoai" class="form-control" />
                 <span asp-validation-for="PhanLoai" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -75,7 +62,7 @@
 </div>
 
 <div>
-    <a asp-action="Danhsachdontu">Back to List</a>
+    <a asp-action="Index">Back to List</a>
 </div>
 
 @section Scripts {

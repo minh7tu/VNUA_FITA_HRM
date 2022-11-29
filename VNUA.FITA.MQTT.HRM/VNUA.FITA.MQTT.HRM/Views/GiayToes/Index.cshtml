@@ -59,13 +59,33 @@
                     @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
                 </td>
                 <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaGT">Sửa</a> |
-                    <a asp-action="Details" asp-route-id="@item.MaGT">Chi tiết</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MaGT">Xóa</a> 
+                    <a asp-action="Edit" asp-route-id="@item.MaGT">Edit</a> |
+                    <a asp-action="Details" asp-route-id="@item.MaGT">Details</a> |
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="@tm">
+                        Delete
+                    </button>
                 </td>
             </tr>
 
-            
+            <div class="modal fade" id="@mid" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                            <h4 class="modal-title" id="myModalLabel">Delete Confirmation</h4>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure want to delete this item?
+                        </div>
+                        <form asp-action="Delete">
+                            <div class="modal-footer">
+                                <input type="hidden" asp-for="@item.MaGT" />
+                                <input type="submit" value="Delete" class="btn btn-danger" />
+                            </div>
+                            </form>
+                    </div>
+                </div>
+            </div>
 
         }
     </tbody>
