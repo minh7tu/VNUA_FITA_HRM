@@ -5,74 +5,72 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
+<div class="container-fluid">
+    <h1 class="mt-4">Tra cứu lương</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active"> Lịch sử Lương</li>
+    </ol>
+</div>
 <table class="table">
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.LCoBan)
+                <span>Lương cơ bản</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HeSo)
+                <span>Hệ số</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhiPhat)
+                <span>Phí phạt</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhiThue)
+                <span>Phí thuế</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LThucNhan)
+                <span>Lương thực nhận</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ThoiGian)
+                <span>Thời gian</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
+                <span>Trạng thái</span>
             </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NhanViens)
-            </th>
+
             <th></th>
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.LCoBan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.HeSo)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhiPhat)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.PhiThue)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.LThucNhan)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThoiGian)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaLuong">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaLuong">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaLuong">Delete</a>
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LCoBan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.HeSo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhiPhat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhiThue)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.LThucNhan)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThoiGian)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                </td>
+
+            </tr>
+        }
     </tbody>
 </table>

@@ -71,6 +71,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (ModelState.IsValid)
             {
+                
                 string filename = formFile.FileName;
                 giayTo.Anh = filename.ToString(); // tên ảnh
                 var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);

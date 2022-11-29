@@ -12,9 +12,30 @@
         <li class="breadcrumb-item active"> Lịch sử đơn đã gửi</li>
     </ol>
     </div>
-    <p>
-        <a asp-action="Create" style="margin-left:20px;">Tạo đơn mới</a>
-    </p>
+<div class="row">
+    <div class="col-md-6">
+        <p>
+            <a asp-action="Create" style="margin-left:20px;">Tạo đơn mới</a>
+        </p>
+    </div>
+    <div class="col-md-6  col-xs-12">      
+            <form asp-action="Danhsachdontu" method="get" class="form-inline">
+                <div class="row">
+                    <div class="col-md-6 col-xs-12">
+
+                        <input type="text" value="@ViewData["CurrentFilter"]" name="SearchString" class="form-control" placeholder="Nhập từ khóa tìm kiếm" />
+
+                    </div>
+                    <div class="col-md-6 col-xs-12" style="margin-bottom:15px;">
+
+                        <button type="submit" class="btn btn-primary" value="Search">tìm kiếm</button>
+
+                    </div>
+                </div>
+                </form>
+        </div>
+    </div>
+   
     <table class="table table-hover table-striped table-head-bg-primary">
         <thead>
             <tr style="text-align:center;">
@@ -73,24 +94,22 @@
                 <td hidden>
                     @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
                 </td>
-                @{
-                    if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
-                    {
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bx-pencil' ></i></a>
-                            <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
+                <td>
+                    
+                        @if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bx-pencil'></i></a>
+                            <a asp-action="Details" asp-route-id="@item.IdDonTu" ><i class='bx bx-detail'></i></a>
                             <a asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bxs-hand'></i></a>
-                        </td>
-                    }
-                    else
-                    {
-                    <td>
-                        <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='bx bx-pencil'></i></a>
-                        <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
-                        <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
-                    </td>
                         }
-                    }
+                        else
+                        {
+                            <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='bx bx-pencil'></i></a>
+                            <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
+                        }
+                    
+                </td>                    
             </tr>
             }
         </tbody>

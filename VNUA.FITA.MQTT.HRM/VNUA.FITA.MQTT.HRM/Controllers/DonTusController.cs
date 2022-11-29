@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -19,14 +20,22 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             _context = context;
         }
-
+            
         // GET: DonTus
-        public async Task<IActionResult> Danhsachdontu()
+        public async Task<IActionResult> Danhsachdontu(string searchString)
         {
-            var sqlServerDbContext = _context.DonTus.Include(d => d.NhanViens);
+            string accconut = HttpContext.Session.GetString("SessionUser");
+
+            var sqlServerDbContext = _context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut);
+            ViewData["CurrentFilter"] = searchString;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                 sqlServerDbContext = _context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut && g.TieuDe.Contains(searchString));
+            }
             return View(await sqlServerDbContext.ToListAsync());
         }
 
+        
         // GET: DonTus/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -49,7 +58,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: DonTus/Create
         public IActionResult Create()
         {
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien");
+            NhanVien nhanVien = new NhanVien();
+            string accconut = HttpContext.Session.GetString("SessionUser");
+            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == 3),"HoTen","HoTen");
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien");
             return View();
         }
 
@@ -60,13 +72,16 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdDonTu,TieuDe,NoiDung,TrangThai,GhiChu,NguoiNhan,PhanLoai,ThoiGian,IdNhanVien")] DonTu donTu)
         {
+            NhanVien nhanVien = new NhanVien();
+            string accconut = HttpContext.Session.GetString("SessionUser");
             if (ModelState.IsValid)
             {
                 _context.Add(donTu);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Danhsachdontu));
             }
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
+            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == 3),"HoTen","HoTen",nhanVien.HoTen);
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
             return View(donTu);
         }
 
@@ -83,7 +98,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
+            NhanVien nhanVien = new NhanVien();
+            string accconut = HttpContext.Session.GetString("SessionUser");
+            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == 3), "HoTen", "HoTen");
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
             return View(donTu);
         }
 
@@ -94,6 +112,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdDonTu,TieuDe,NoiDung,TrangThai,GhiChu,NguoiNhan,PhanLoai,ThoiGian,IdNhanVien")] DonTu donTu)
         {
+
             if (id != donTu.IdDonTu)
             {
                 return NotFound();
@@ -119,7 +138,8 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 }
                 return RedirectToAction(nameof(Danhsachdontu));
             }
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
+            string accconut = HttpContext.Session.GetString("SessionUser");
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
             return View(donTu);
         }
 
@@ -145,10 +165,13 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // POST: DonTus/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteConfirmed(int id)
+        public async Task<IActionResult> DeleteConfirmed(int id, [Bind("IdDonTu,TieuDe,NoiDung,TrangThai,GhiChu,NguoiNhan,PhanLoai,ThoiGian,IdNhanVien")] DonTu donTu)
         {
-            var donTu = await _context.DonTus.FindAsync(id);
-            _context.DonTus.Remove(donTu);
+            var dontu1 = _context.DonTus.Find(id);
+            donTu = dontu1;
+            string status = "Đã Hủy";
+            donTu.TrangThai = status;
+            _context.DonTus.Update(donTu);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Danhsachdontu));
         }
