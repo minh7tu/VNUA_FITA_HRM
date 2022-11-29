@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,7 +23,8 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: Luongs
         public async Task<IActionResult> Index()
         {
-            var sqlServerDbContext = _context.Luongs.Include(l => l.NhanViens);
+            string accconut = HttpContext.Session.GetString("SessionUser");
+            var sqlServerDbContext = _context.Luongs.Where(g => g.NhanViens.TenTaiKhoan == accconut);
             return View(await sqlServerDbContext.ToListAsync());
         }
 

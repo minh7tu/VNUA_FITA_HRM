@@ -67,6 +67,10 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.IdDonTu">Edit</a> |
-    <a asp-action="Danhsachdontu">Back to List</a>
+    @if (Model.TrangThai.Equals("Đang chờ duyệt"))
+    {
+        <a asp-action="Edit" asp-route-id="@Model.IdDonTu">Sửa</a>
+    }
+     |
+    <a asp-action="Danhsachdontu">Trở lại danh sách</a>
 </div>

@@ -109,6 +109,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("MaGT,TenGT,Anh,ThoiGian,TrangThai,IdNhanVien")] GiayTo giayTo,IFormFile formFile)
         {
+            string accconut = HttpContext.Session.GetString("SessionUser");
             if (id != giayTo.MaGT)
             {
                 return NotFound();
@@ -138,7 +139,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", giayTo.IdNhanVien);
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", giayTo.IdNhanVien);
             return View(giayTo);
         }
 
