@@ -12,9 +12,31 @@
         <li class="breadcrumb-item active"> Lịch sử đơn đã gửi</li>
     </ol>
     </div>
-    <p>
-        <a asp-action="Create" style="margin-left:20px;">Tạo đơn mới</a>
-    </p>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <p>
+            <a asp-action="Create" style="margin-left:20px;">Tạo đơn mới</a>
+        </p>
+
+    </div>
+    <div class="col-md-6 col-xs-12">
+        <form asp-action="Danhsachdontu" method="get" class="form-inline">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+
+                    <input type="text" value="@ViewData["CurrentFilter"]" name="SearchString" class="form-control" placeholder="Nhập từ khóa tìm kiếm" />
+
+                </div>
+                <div class="col-md-6 col-xs-12">
+
+                    <button type="submit" class="btn btn-primary" value="Search">Tìm</button>
+                    <button type="button" onclick="window.location.href='/Dontus/Danhsachdontu'" class="btn btn-dark">Reset</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
     <table class="table table-hover table-striped table-head-bg-primary">
         <thead>
             <tr style="text-align:center;">
@@ -48,50 +70,50 @@
         <tbody>
             @foreach (var item in Model)
             {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TieuDe)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NoiDung)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrangThai)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.GhiChu)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NguoiNhan)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhanLoai)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ThoiGian)
-                </td>
-                <td hidden>
-                    @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-                </td>
-                @{
-                    if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
-                    {
-                        <td>
-                            <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bx-pencil' ></i></a>
-                            <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
-                            <a asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bxs-hand'></i></a>
-                        </td>
-                    }
-                    else
-                    {
+                <tr>
                     <td>
-                        <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='bx bx-pencil'></i></a>
-                        <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
-                        <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
+                        @Html.DisplayFor(modelItem => item.TieuDe)
                     </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NoiDung)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.GhiChu)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.NguoiNhan)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.PhanLoai)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ThoiGian)
+                    </td>
+                    <td hidden>
+                        @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                    </td>
+                    @{
+                        if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bx-pencil'></i></a>
+                                <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
+                                <a asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bxs-hand'></i></a>
+                            </td>
+                        }
+                        else
+                        {
+                            <td>
+                                <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='bx bx-pencil'></i></a>
+                                <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
+                                <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
+                            </td>
                         }
                     }
-            </tr>
+                </tr>
             }
         </tbody>
     </table>

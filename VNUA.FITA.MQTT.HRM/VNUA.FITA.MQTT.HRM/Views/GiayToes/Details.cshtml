@@ -4,45 +4,48 @@
     ViewData["Title"] = "Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-<h1>Details</h1>
-
+<div class="container-fluid">
+    <h1 class="mt-4">Chi tiết giấy tờ</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+        <li class="breadcrumb-item active">@Html.DisplayFor(model => model.TenGT)</li>
+    </ol>
+</div>
 <div>
-    <h4>GiayTo</h4>
-    <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TenGT)
+            <span>Tên giấy tờ</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TenGT)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Anh)
+            <span>Ảnh</span>
         </dt>
         <dd class="col-sm-10">
             <img src="@("/assets/img/"+Model.Anh)" alt="Alternate Text" />
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ThoiGian)
+            <span>Thời gian</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ThoiGian)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
+            <span>Trạng thái</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TrangThai)
         </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NhanViens)
+        <dt class="col-sm-2" hidden>
+            <span>Nhân viên</span>
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10" hidden>
             @Html.DisplayFor(model => model.NhanViens.IdNhanVien)
         </dd>
     </dl>
 </div>
 <div>
-    <a asp-action="Edit" asp-route-id="@Model.MaGT">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Edit" asp-route-id="@Model.MaGT">Sửa</a> |
+    <a asp-action="Index"> Trở lại danh sách</a>
 </div>

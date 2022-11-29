@@ -14,27 +14,27 @@
     <thead>
         <tr>
             <th>
-                @Html.DisplayNameFor(model => model.LCoBan)
+                <span>Lương cơ bản</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.HeSo)
+                <span>Hệ số</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhiPhat)
+                <span>Phí phạt</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.PhiThue)
+                <span>Phí thuế</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.LThucNhan)
+                <span>Lương thực nhận</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.ThoiGian)
+                <span>Thời gian</span>
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
+                <span>Trạng thái</span>
             </th>
-            <th>
+            <th hidden>
                 @Html.DisplayNameFor(model => model.NhanViens)
             </th>
             <th></th>
@@ -64,14 +64,10 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TrangThai)
             </td>
-            <td>
+            <td hidden>
                 @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
             </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaLuong">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaLuong">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaLuong">Delete</a>
-            </td>
+            
         </tr>
 }
     </tbody>

@@ -4,10 +4,14 @@
     ViewData["Title"] = "Edit";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h1>Edit</h1>
-
-<h4>GiayTo</h4>
+<div class="container-fluid">
+    <h1 class="mt-4">Sửa giấy tờ</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+        <li class="breadcrumb-item active"><a asp-controller="GiayTos" asp-action="Index">Danh sách giấy tờ</a></li>
+        <li class="breadcrumb-item active">@Html.DisplayFor(model => model.TenGT)</li>
+    </ol>
+</div>
 <hr />
 <div class="row">
     <div class="col-md-4">
@@ -47,7 +51,7 @@
 </div>
 
 <div>
-    <a asp-action="Index">Back to List</a>
+    <a asp-action="Index">Trở lại danh sách</a>
 </div>
 
 @section Scripts {
