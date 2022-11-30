@@ -61,7 +61,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             NhanVien nhanVien = new NhanVien();
 
             ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == 3), "HoTen", "HoTen");
-            ViewData["IdNhanVien"] = new SelectList(_context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien");
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien");
             return View();
         }
 
@@ -81,8 +81,8 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             }
             NhanVien nhanVien = new NhanVien();
             
-            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == 3), "HoTen", "HoTen");
-            ViewData["IdNhanVien"] = new SelectList(_context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
+            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == 3), "HoTen", "HoTen", nhanVien.HoTen);
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien",nhanVien.IdNhanVien );
             return View(donTu);
         }
 
@@ -112,6 +112,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdDonTu,TieuDe,NoiDung,TrangThai,GhiChu,NguoiNhan,PhanLoai,ThoiGian,IdNhanVien")] DonTu donTu)
         {
+            string accconut = HttpContext.Session.GetString("SessionUser");
             if (id != donTu.IdDonTu)
             {
                 return NotFound();
@@ -137,7 +138,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 }
                 return RedirectToAction(nameof(Danhsachdontu));
             }
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
+            ViewData["IdNhanVien"] = new SelectList(_context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
             return View(donTu);
         }
 
