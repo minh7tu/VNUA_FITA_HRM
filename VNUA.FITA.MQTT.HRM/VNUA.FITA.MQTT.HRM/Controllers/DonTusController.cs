@@ -24,6 +24,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: DonTus
         public async Task<IActionResult> Danhsachdontu(string searchString)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["CurrentFilter"] = searchString;
             var sqlServerDbContext = _context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut);
@@ -38,6 +41,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: DonTus/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id == null)
             {
                 return NotFound();
@@ -57,6 +63,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: DonTus/Create
         public IActionResult Create()
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             NhanVien nhanVien = new NhanVien();
 
@@ -72,6 +81,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdDonTu,TieuDe,NoiDung,TrangThai,GhiChu,NguoiNhan,PhanLoai,ThoiGian,IdNhanVien")] DonTu donTu)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (ModelState.IsValid)
             {
@@ -89,6 +101,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: DonTus/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (id == null)
             {
@@ -112,6 +127,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdDonTu,TieuDe,NoiDung,TrangThai,GhiChu,NguoiNhan,PhanLoai,ThoiGian,IdNhanVien")] DonTu donTu)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (id != donTu.IdDonTu)
             {
@@ -145,6 +163,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: DonTus/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id == null)
             {
                 return NotFound();
@@ -166,6 +187,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id, [Bind("IdDonTu,TieuDe,NoiDung,TrangThai,GhiChu,NguoiNhan,PhanLoai,ThoiGian,IdNhanVien")] DonTu donTu)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var dontu1 = _context.DonTus.Find(id);
             donTu = dontu1;
             string status = "Đã Hủy";
@@ -177,6 +201,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
         private bool DonTuExists(int id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             return _context.DonTus.Any(e => e.IdDonTu == id);
         }
     }

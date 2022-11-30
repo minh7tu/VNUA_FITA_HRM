@@ -30,6 +30,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: NhanVien
         public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int?  pageNumber)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["MaNhanVien"] = String.IsNullOrEmpty(sortOder) ? "id_desc" : "";
             ViewData["HoTen"] = sortOder == "HoTen" ? "HoTen_desc" : "HoTen";
@@ -73,6 +76,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: NhanVien/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id == null)
             {
                 return NotFound();
@@ -92,7 +98,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: NhanVien/Create
         public IActionResult Create()
         {
-           
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             ViewData["IdBP"] = new SelectList(_context.BoPhans, "IdBoPhan", "IdBoPhan");
             return View();
         }
@@ -105,7 +113,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         
         public async Task<IActionResult> Create([Bind("MaNhanVien,HoTen,NgaySinh,GioiTinh,DiaChi,SDT,Email,ChucVu,Anh,SoCCCD,TrinhDo,IdBP")] NhanVien nhanVien,IFormFile formFile)
         {
-           
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (ModelState.IsValid)
             {
                 string filename = formFile.FileName;
@@ -129,7 +139,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: NhanVien/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-           
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id == null)
             {
                 return NotFound();
@@ -152,7 +164,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdNhanVien,MaNhanVien,HoTen,NgaySinh,GioiTinh,DiaChi,SDT,Email,ChucVu,Anh,SoCCCD,TrinhDo,IdBP")] NhanVien nhanVien, IFormFile formFile)
         {
-           
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id != nhanVien.IdNhanVien)
             {
                 return NotFound();
@@ -190,7 +204,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: NhanVien/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
-            
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id == null)
             {
                 return NotFound();
@@ -212,6 +228,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var nhanVien = await _context.NhanViens.FindAsync(id);
             _context.NhanViens.Remove(nhanVien);
             await _context.SaveChangesAsync();
@@ -220,6 +239,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
         private bool NhanVienExists(int id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             return _context.NhanViens.Any(e => e.IdNhanVien == id);
         }
     }
