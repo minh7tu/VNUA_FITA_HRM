@@ -11,7 +11,7 @@
         <li class="breadcrumb-item active">Thực hiện chấm công</li>
     </ol>
     <hr />
-    
+
     <form asp-action="Create">
         <div class="row">
             <div class="col-md-6">
@@ -28,13 +28,26 @@
             </div>
             <div class="col-md-6">
                 <div class="form-group">
-                    <label asp-for="TrangThai" class="control-label">Trạng Thái</label>
-                    <input asp-for="TrangThai" class="form-control" />
-                    <span asp-validation-for="TrangThai" class="text-danger"></span>
+                    <label asp-for="TrangThai" class="control-label">Trạng Thái</label><br />
+                    <div class="row">
+                    <div class="form-group form-inline">
+                        <input asp-for="TrangThai" class="form-control" type="checkbox" id="check1" value="Có mặt" onclick="myFunction(this)" />
+                        <label class="form-check-label" asp-for="TrangThai">:Có mặt</label>
+                    </div>
+                    <div class="form-group form-inline">
+                        <input asp-for="TrangThai" class="form-control" type="checkbox" id="check2" value="Vắng" onclick="myFunction(this)" />
+                        <label class="form-check-label" asp-for="TrangThai">:Vắng</label>
+
+                    </div>
+                    <div class="form-group form-inline">
+                        <input asp-for="TrangThai" class="form-control" type="checkbox" id="check3" value="Chưa chấm công" checked onclick="myFunction(this)" />
+                        <label class="form-check-label" asp-for="TrangThai">:Chưa chấm công</label>
+                    </div>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label asp-for="GhiChu" class="control-label">Ghi Chú</label>
-                    <input asp-for="GhiChu" class="form-control" />
+                    <textarea asp-for="GhiChu" class="form-control"></textarea>
                     <span asp-validation-for="GhiChu" class="text-danger"></span>
                 </div>
             </div>
@@ -46,6 +59,30 @@
         </div>
     </form>
 </div>
-    @section Scripts {
-        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+<script>
+    function myFunction(element) {
+        var checkBox = document.getElementById("check1");
+        var checkBox2 = document.getElementById("check2");
+        var checkBox3 = document.getElementById("check3");
+        
+
+        if (element === checkBox && checkBox.checked) {
+            checkBox2.checked = false;
+            checkBox3.checked = false;
+            return;
+        }
+        if (element === checkBox2 && checkBox2.checked) {
+            checkBox3.checked = false;
+            checkBox.checked = false;
+            return;
+        }
+        if (element === checkBox3 && checkBox3.checked) {
+            checkBox2.checked = false;
+            checkBox.checked = false;
+            return;
+        }
     }
+</script>

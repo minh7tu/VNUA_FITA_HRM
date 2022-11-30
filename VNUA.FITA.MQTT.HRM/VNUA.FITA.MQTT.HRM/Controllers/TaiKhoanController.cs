@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -18,10 +19,23 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             _context = context;
         }
-
+        public bool KiemTranChucNang(int idChucNang)
+        {
+            var user = HttpContext.Session.GetString("SessionUser");
+            var count = _context.NhanViens.Count(m =>m.TenTaiKhoan==user&m.PhanQuyen == idChucNang);
+            if (count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         // GET: TaiKhoan
         public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int? pageNumber)
         {
+            
             ViewData["CurrentSort"] = sortOder;
             if (searchString != null)
             {
@@ -65,7 +79,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
         // GET: TaiKhoan/Create
         public IActionResult Create()
-        {
+        { 
             ViewData["IdBP"] = new SelectList(_context.BoPhans, "IdBoPhan", "IdBoPhan");
             return View();
         }

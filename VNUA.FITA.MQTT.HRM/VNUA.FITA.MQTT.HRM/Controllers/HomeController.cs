@@ -20,6 +20,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             return View();
         }
 

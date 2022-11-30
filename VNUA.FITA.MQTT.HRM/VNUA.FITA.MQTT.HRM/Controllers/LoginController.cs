@@ -49,7 +49,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                     bool isValid = (data.TenTaiKhoan == nhanVien.TenTaiKhoan && data.MatKhau == GetMD5(nhanVien.MatKhau));
                     HttpContext.Session.SetString("SessionUser", data.TenTaiKhoan);
                     HttpContext.Session.SetString("SessionImage", data.Anh);
-                    HttpContext.Session.SetString("SessionPhanQuyen", data.PhanQuyen.ToString());
+                    HttpContext.Session.SetString("SessionChucVu", data.ChucVu);
                     return RedirectToAction("Index", "Home");
                 }
                 else
@@ -80,7 +80,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         public IActionResult LogOut()
         {
             HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
-            return RedirectToAction("Index", "Login");
+            return RedirectToAction("Login", "Login");
         }
     }
 }

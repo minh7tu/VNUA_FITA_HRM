@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -22,8 +23,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: ChamCong
         public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int? pageNumber)
         {
-            //var sqlServerDbContext = _context.ChamCongs.Include(c => c.NhanViens);
-            //return View(await sqlServerDbContext.ToListAsync());
+            string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["CurrentSort"] = sortOder;
             if (searchString != null)
             {
@@ -35,7 +35,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             }
 
             ViewData["CurrentFilter"] = searchString;
-            var sqlServerDbContext = from s in _context.ChamCongs.Include(c => c.NhanViens)
+            var sqlServerDbContext = from s in _context.ChamCongs.Include(c => c.NhanViens).Where(m => m.NhanViens.TenTaiKhoan == accconut)
                                      select s;
             if (!String.IsNullOrEmpty(searchString))
             {
@@ -68,7 +68,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: ChamCong/Create
         public IActionResult Create()
         {
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien");
+            ChamCong chamCong = new ChamCong();
+            string accconut = HttpContext.Session.GetString("SessionUser");
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
             return View();
         }
 
@@ -79,19 +81,22 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCong,ThoiGian,TrangThai,GhiChu,IdNhanVien")] ChamCong chamCong)
         {
+            string accconut = HttpContext.Session.GetString("SessionUser");
             if (ModelState.IsValid)
             {
                 _context.Add(chamCong);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
+         
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
             return View(chamCong);
         }
 
         // GET: ChamCong/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            string accconut = HttpContext.Session.GetString("SessionUser");
             if (id == null)
             {
                 return NotFound();
@@ -102,7 +107,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 return NotFound();
             }
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
             return View(chamCong);
         }
 
@@ -113,6 +118,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdCong,ThoiGian,TrangThai,GhiChu,IdNhanVien")] ChamCong chamCong)
         {
+            string accconut = HttpContext.Session.GetString("SessionUser");
             if (id != chamCong.IdCong)
             {
                 return NotFound();
@@ -138,7 +144,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
+            ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
             return View(chamCong);
         }
 
