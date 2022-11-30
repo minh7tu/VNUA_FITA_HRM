@@ -23,6 +23,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: ChamCong
         public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int? pageNumber)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["CurrentSort"] = sortOder;
             if (searchString != null)
@@ -49,6 +52,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: ChamCong/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id == null)
             {
                 return NotFound();
@@ -68,6 +74,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: ChamCong/Create
         public IActionResult Create()
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             ChamCong chamCong = new ChamCong();
             string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
@@ -81,6 +90,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("IdCong,ThoiGian,TrangThai,GhiChu,IdNhanVien")] ChamCong chamCong)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (ModelState.IsValid)
             {
@@ -96,6 +108,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: ChamCong/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (id == null)
             {
@@ -118,6 +133,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("IdCong,ThoiGian,TrangThai,GhiChu,IdNhanVien")] ChamCong chamCong)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (id != chamCong.IdCong)
             {
@@ -151,6 +169,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: ChamCong/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id == null)
             {
                 return NotFound();
@@ -172,6 +193,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var chamCong = await _context.ChamCongs.FindAsync(id);
             _context.ChamCongs.Remove(chamCong);
             await _context.SaveChangesAsync();
@@ -180,6 +204,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
         private bool ChamCongExists(int id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             return _context.ChamCongs.Any(e => e.IdCong == id);
         }
     }
