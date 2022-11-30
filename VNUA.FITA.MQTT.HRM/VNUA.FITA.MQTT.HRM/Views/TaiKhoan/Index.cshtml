@@ -4,7 +4,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 <div class="container-fluid">
     <h1 class="mt-4">Danh Sách Tài Khoản</h1>
     <ol class="breadcrumb mb-4">
@@ -112,9 +112,21 @@
                                         <a asp-action="Details" asp-route-id="@item.IdNhanVien">Details</a> |
                                         <a asp-action="Delete" asp-route-id="@item.IdNhanVien">Delete</a>*@
                                         <div class="btn-group">
-                                            <a asp-action="Edit" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-info">Cập Nhật</a>
-                                            <a asp-action="Details" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-primary ml-1">Xem chi tiết</a>
-                                            <a asp-action="Delete" asp-route-id="@item.IdNhanVien" class="btn btn-sm btn-danger ml-1">Xóa Tài Khoản</a>
+                                            <a asp-action="Edit" asp-route-id="@item.IdNhanVien" >
+                                                <span class="btn btn-sm btn-outline-primary">
+                                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                                </span>
+                                            </a>
+                                            <a asp-action="Details" asp-route-id="@item.IdNhanVien" >
+                                                <span class="btn btn-sm btn-outline-dark">
+                                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                                </span>
+                                            </a>
+                                            <a asp-action="Delete" asp-route-id="@item.IdNhanVien">
+                                                <span class="btn btn-sm btn-outline-danger">
+                                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                                </span>
+                                            </a>
                                         </div>
                                     </td>
                                 </tr>

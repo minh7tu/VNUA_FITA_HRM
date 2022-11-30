@@ -4,6 +4,7 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.0/css/all.css">
 <div class="container-fluid">
     <h1 class="mt-4">Thống kê danh sách chấm công</h1>
     <ol class="breadcrumb mb-4">
@@ -15,7 +16,7 @@
             <div class="row">
                 <div class="col-md-6 col-xs-12">
 
-                    <a asp-action="Create" style="margin-left:20px;">Thực hiện chấm công</a>
+                    <a asp-action="Create" style="margin-left:20px;" >Thực hiện chấm công</a>
 
                 </div>
 
@@ -80,9 +81,21 @@
                         </td>
 
                         <td>
-                            <a asp-action="Edit" asp-route-id="@item.IdCong">Cập nhật</a> |
-                            <a asp-action="Details" asp-route-id="@item.IdCong">Chi tiết</a> |
-                            <a asp-action="Delete" asp-route-id="@item.IdCong">Xóa</a>
+                            <a asp-action="Edit" asp-route-id="@item.IdCong">
+                                <span class="btn btn-sm btn-outline-primary">
+                                    <i class="fa fa-edit" aria-hidden="true"></i>
+                                </span>
+                            </a> 
+                            <a asp-action="Details" asp-route-id="@item.IdCong">
+                                <span class="btn btn-sm btn-outline-dark">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </span>    
+                            </a> 
+                            <a asp-action="Delete" asp-route-id="@item.IdCong">
+                                <span class="btn btn-sm btn-outline-danger">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </span>
+                            </a>
 
                         </td>
                     </tr>
