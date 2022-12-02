@@ -5,12 +5,14 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Index</h1>
-
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
+<div class="container-fluid">
+    <h1 class="mt-4">Tra cứu lương</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a asp-controller="Home" asp-action="Index">Trang chủ</a></li>
+        <li class="breadcrumb-item">Tra cứu lương</li>
+    </ol>
+</div>
+<table class="table table-hover table-striped table-head-bg-primary">
     <thead>
         <tr>
             <th>
@@ -34,10 +36,8 @@
             <th>
                 <span>Trạng thái</span>
             </th>
-            <th hidden>
-                @Html.DisplayNameFor(model => model.NhanViens)
-            </th>
-            <th></th>
+           
+            
         </tr>
     </thead>
     <tbody>
@@ -64,9 +64,7 @@
             <td>
                 @Html.DisplayFor(modelItem => item.TrangThai)
             </td>
-            <td hidden>
-                @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-            </td>
+            
             
         </tr>
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 using System.Threading.Tasks;
@@ -17,19 +18,28 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var displayData = _context.NhanViens.ToList();
             return View(displayData);
         }
 
         public IActionResult Create()
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             return View();
         }
 
         [HttpPost]
         public async Task<IActionResult> Create(Data.Model.BoPhan boPhan)
         {
-            if(ModelState.IsValid)
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            if (ModelState.IsValid)
             {
                 _context.Add(boPhan);
                 await _context.SaveChangesAsync();
@@ -41,6 +51,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [HttpGet]
         public async Task<IActionResult> Index(string maNV)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             ViewData["GetMNV"] = maNV;
 
             var maNhanVien = from x in _context.NhanViens select x;
@@ -52,10 +65,13 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
             return View(await maNhanVien.AsNoTracking().ToListAsync());
         }
-
+        
         public async Task<IActionResult> Edit(int? id)
         {
-            if(id==null)
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            if (id==null)
             {
                 return RedirectToAction("Index");
             }
@@ -68,7 +84,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [HttpPost]
         public async Task<IActionResult> Edit(Data.Model.NhanVien nhanVien)
         {
-            if(ModelState.IsValid)
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            if (ModelState.IsValid)
             {
                 _context.Update(nhanVien);
                 await _context.SaveChangesAsync();
@@ -79,6 +98,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
         public IActionResult GetListBP()
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var displayData = _context.BoPhans.ToList();
             return View(displayData);
         }

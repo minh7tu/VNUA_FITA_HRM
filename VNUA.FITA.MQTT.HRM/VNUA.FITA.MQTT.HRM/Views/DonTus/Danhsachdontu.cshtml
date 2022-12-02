@@ -49,13 +49,13 @@
                 <th scope="col">
                     <span>Trạng thái</span>
                 </th>
-                <th scope="col">
+                <th scope="col" hidden>
                     <span>Ghi chú</span>
                 </th>
                 <th scope="col">
                     <span>Người nhận</span>
                 </th>
-                <th scope="col">
+                <th scope="col" hidden>
                     <span>Phân loại</span>
                 </th>
                 <th scope="col">
@@ -80,13 +80,13 @@
                     <td>
                         @Html.DisplayFor(modelItem => item.TrangThai)
                     </td>
-                    <td>
+                    <td hidden>
                         @Html.DisplayFor(modelItem => item.GhiChu)
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.NguoiNhan)
                     </td>
-                    <td>
+                    <td hidden>
                         @Html.DisplayFor(modelItem => item.PhanLoai)
                     </td>
                     <td>

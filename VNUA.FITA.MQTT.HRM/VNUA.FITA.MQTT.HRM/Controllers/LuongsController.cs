@@ -23,6 +23,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: Luongs
         public async Task<IActionResult> Index()
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             var sqlServerDbContext = _context.Luongs.Where(g => g.NhanViens.TenTaiKhoan == accconut);
             return View(await sqlServerDbContext.ToListAsync());
@@ -31,6 +34,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: Luongs/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id == null)
             {
                 return NotFound();
@@ -50,6 +56,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: Luongs/Create
         public IActionResult Create()
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             ViewData["IdNhanVien"] = new SelectList(_context.NhanViens, "IdNhanVien", "IdNhanVien");
             return View();
         }
@@ -61,6 +70,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("MaLuong,LCoBan,HeSo,PhiPhat,PhiThue,LThucNhan,ThoiGian,TrangThai,IdNhanVien")] Luong luong)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (ModelState.IsValid)
             {
                 _context.Add(luong);
@@ -74,6 +86,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: Luongs/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id == null)
             {
                 return NotFound();
@@ -95,6 +110,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("MaLuong,LCoBan,HeSo,PhiPhat,PhiThue,LThucNhan,ThoiGian,TrangThai,IdNhanVien")] Luong luong)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id != luong.MaLuong)
             {
                 return NotFound();
@@ -127,6 +145,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: Luongs/Delete/5
         public async Task<IActionResult> Delete(int? id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (id == null)
             {
                 return NotFound();
@@ -148,6 +169,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var luong = await _context.Luongs.FindAsync(id);
             _context.Luongs.Remove(luong);
             await _context.SaveChangesAsync();
@@ -156,6 +180,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
         private bool LuongExists(int id)
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             return _context.Luongs.Any(e => e.MaLuong == id);
         }
     }
