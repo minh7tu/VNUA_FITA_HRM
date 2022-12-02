@@ -29,9 +29,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var user = HttpContext.Session.GetString("SessionUser");
-            var count = _context.NhanViens.Count(m =>m.TenTaiKhoan==user&m.PhanQuyen == idChucNang);
+            var counts = _context.NhanViens.Count(m =>m.TenTaiKhoan==user&m.PhanQuyen == idChucNang);
 
-            if (count == 0)
+            if (counts == 0)
             {
                 return false;
             }
