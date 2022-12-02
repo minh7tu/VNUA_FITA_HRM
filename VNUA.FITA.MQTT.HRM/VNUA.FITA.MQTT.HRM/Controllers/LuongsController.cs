@@ -21,13 +21,20 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         }
 
         // GET: Luongs
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> Index( DateTime searchString)
         {
+            
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
+            ViewData["CurrentFilter"] = searchString;
             var sqlServerDbContext = _context.Luongs.Where(g => g.NhanViens.TenTaiKhoan == accconut);
+            if (searchString != null)
+            {
+                sqlServerDbContext = sqlServerDbContext.Where(g => g.NhanViens.TenTaiKhoan == accconut
+                                       && g.ThoiGian.Date == searchString.Date);
+            }
             return View(await sqlServerDbContext.ToListAsync());
         }
 

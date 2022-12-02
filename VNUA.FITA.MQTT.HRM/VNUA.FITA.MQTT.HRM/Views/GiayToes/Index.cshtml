@@ -4,7 +4,13 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+@if (TempData["AlertMessage"] != null)
+{
+<div class="alert alert-success">
+    <strong> Thành Công! </strong> @TempData["AlertMessage"]
 
+</div>
+}
 <div class="container-fluid">
     <h1 class="mt-4">Danh sách giấy tờ</h1>
     <ol class="breadcrumb mb-4">
@@ -16,58 +22,61 @@
     <a asp-action="Create" style="margin-left:20px;">Bổ sung giấy tờ</a>
 </p>
 <body>
-<table class="table table-hover table-striped table-head-bg-primary" style="text-align:center;">
-    <thead>
-        <tr>
-            <th>
-                <span>Tên giấy tờ</span>
-            </th>
-            <th>
-                <span>Ảnh</span>
-            </th>
-            <th>
-                <span>Thời gian</span>
-            </th>
-            <th>
-                <span>Trạng thái</span>
-            </th>
-            <th hidden>
-                @Html.DisplayNameFor(model => model.NhanViens)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-           
+    <table class="table table-hover table-striped table-head-bg-primary" style="text-align:center;">
+        <thead>
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenGT)
-                </td>
-                <td>
-                    <img src="@("/assets/img/"+item.Anh)" alt="Alternate Text" style="width:200px; height:200px;" />
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ThoiGian)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrangThai)
-                </td>
-                <td hidden>
-                    @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaGT">Sửa</a> |
-                    <a asp-action="Details" asp-route-id="@item.MaGT">Chi tiết</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MaGT">Hủy</a> |
-                </td>
+                <th>
+                    <span>Tên giấy tờ</span>
+                </th>
+                <th>
+                    <span>Ảnh</span>
+                </th>
+                <th>
+                    <span>Thời gian</span>
+                </th>
+                <th>
+                    <span>Trạng thái</span>
+                </th>
+                <th hidden>
+                    @Html.DisplayNameFor(model => model.NhanViens)
+                </th>
+                <th></th>
             </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
 
-            
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TenGT)
+                    </td>
+                    <td>
+                        <img src="@("/assets/img/"+item.Anh)" alt="Alternate Text" style="width:200px; height:200px;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ThoiGian)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.TrangThai)
+                    </td>
+                    <td hidden>
+                        @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.MaGT">Sửa</a> |
+                        <a asp-action="Details" asp-route-id="@item.MaGT">Chi tiết</a> |
+                        <a asp-action="Delete" asp-route-id="@item.MaGT">Hủy</a> |
+                    </td>
+                </tr>
 
-        }
-    </tbody>
-</table>
 
-    </body>
+
+            }
+        </tbody>
+    </table>
+    @(Html.Awe().Pager()
+    .Url(Url.Action("Index")) // url to go to
+    .Count((int)ViewData["count"]) // page count
+    .Page((int)ViewData["page"])) @*current page*@
+</body>

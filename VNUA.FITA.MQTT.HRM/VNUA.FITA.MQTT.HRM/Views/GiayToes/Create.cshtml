@@ -21,13 +21,13 @@
                     <input asp-for="TenGT" class="form-control" id="inputFloatingLabel" />
                     <span asp-validation-for="TenGT" class="text-danger"></span>
                 </div>
-               
+
                 <div class="form-group ">
-                    <label  class="control-label">Ảnh</label>
-                    <input  class="form-control" type="file" id="imgInp" name="formfile"/>
-                   
+                    <label class="control-label">Ảnh</label>
+                    <input class="form-control" type="file" id="imgInp" name="formfile" />
+
                 </div>
-                
+
                 <div class="form-group form-floating-label">
                     <label asp-for="ThoiGian" class="control-label">Thời gian</label>
                     <input asp-for="ThoiGian" class="form-control" value="@DateTime.Now.Date" type="datetime" />
@@ -50,7 +50,7 @@
                 </div>
 
             </form>
-            
+
         </div>
         <div class="col-md-6">
             <form>
@@ -68,6 +68,8 @@
             }
         }
     </script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </body>
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

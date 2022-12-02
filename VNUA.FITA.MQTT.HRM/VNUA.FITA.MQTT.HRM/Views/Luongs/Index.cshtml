@@ -12,6 +12,31 @@
         <li class="breadcrumb-item">Tra cứu lương</li>
     </ol>
 </div>
+<div class="row">
+    <div class="col-md-6 col-xs-12">
+        <p>
+            <a href="#"></a>
+        </p>
+
+    </div>
+    <div class="col-md-6 col-xs-12">
+        <form asp-action="Index" method="get" class="form-inline">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
+
+                    <input type="datetime" value="@ViewData["CurrentFilter"]" name="SearchString" class="form-control"  />
+
+                </div>
+                <div class="col-md-6 col-xs-12">
+
+                    <button type="submit" class="btn btn-primary" value="Search">Lọc</button>
+                    <button type="button" onclick="window.location.href='/Luongs/Index'" class="btn btn-dark">Reset</button>
+                </div>
+            </div>
+
+        </form>
+    </div>
+</div>
 <table class="table table-hover table-striped table-head-bg-primary">
     <thead>
         <tr>

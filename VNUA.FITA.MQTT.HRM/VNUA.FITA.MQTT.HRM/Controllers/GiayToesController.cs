@@ -10,7 +10,9 @@ using VNUA.FITA.MQTT.HRM.Data.Model;
 using System.IO;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
+
 namespace VNUA.FITA.MQTT.HRM.Controllers
+
 {
     public class GiayToesController : Controller
     {
@@ -83,6 +85,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (ModelState.IsValid)
             {
+                TempData["AlertMessage"] = "Thêm Giấy tờ Thành công!";
                 string filename = formFile.FileName;
                 giayTo.Anh = filename.ToString(); // tên ảnh
                 var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
