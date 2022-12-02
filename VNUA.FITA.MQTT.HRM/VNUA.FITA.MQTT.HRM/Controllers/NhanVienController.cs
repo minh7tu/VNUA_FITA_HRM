@@ -26,13 +26,32 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             _context = context;
             
         }
-        
+        public bool KiemTranChucNang(int? idChucNang)
+        {
+            string tk = HttpContext.Session.GetString("SessionUser");
+            var count = _context.NhanViens.Count(m => m.TenTaiKhoan == tk & m.PhanQuyen == idChucNang);
+            if (count == 0)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         // GET: NhanVien
         public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int?  pageNumber)
         {
+
+            if (KiemTranChucNang(2) == false)
+            {
+                return RedirectToAction("BaoLoi", "BaoLoi");
+            }
+
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+
             string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["MaNhanVien"] = String.IsNullOrEmpty(sortOder) ? "id_desc" : "";
             ViewData["HoTen"] = sortOder == "HoTen" ? "HoTen_desc" : "HoTen";
@@ -111,22 +130,29 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         
-        public async Task<IActionResult> Create([Bind("MaNhanVien,HoTen,NgaySinh,GioiTinh,DiaChi,SDT,Email,ChucVu,Anh,SoCCCD,TrinhDo,IdBP")] NhanVien nhanVien,IFormFile formFile)
+        public async Task<IActionResult> Create([Bind("IdNhanVien,MaNhanVien,HoTen,NgaySinh,GioiTinh,DiaChi,SDT,Email,ChucVu,Anh,SoCCCD,TrinhDo,IdBP")] NhanVien nhanVien,IFormFile formFile,int ?id)
         {
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             if (ModelState.IsValid)
             {
-                string filename = formFile.FileName;
-                nhanVien.Anh = filename.ToString(); // tên ảnh
-                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
-                formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
-                _context.Add(nhanVien);
-                await _context.SaveChangesAsync();
-                TempData["Message"] = "Thêm nhân viên thành công!";
                 
-                
+                 
+                    if(nhanVien.IdNhanVien!=id)
+                    {
+                        string filename = formFile.FileName;
+                        nhanVien.Anh = filename.ToString(); // tên ảnh
+                        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
+                        formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
+                        _context.Add(nhanVien);
+                        await _context.SaveChangesAsync();
+                        TempData["Message"] = "Thêm nhân viên thành công!";
+                    }
+                    else
+                    {
+                        TempData["Message"] = "Nhân Viên đã có trong danh sách";
+                    }
             }
             else {
                 TempData["Message"] = "Thêm nhân viên thất bại!";
@@ -242,6 +268,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            return _context.NhanViens.Any(e => e.IdNhanVien == id);
+        }
+        public bool KiemTraNhanVien(int id)
+        {
             return _context.NhanViens.Any(e => e.IdNhanVien == id);
         }
     }

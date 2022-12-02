@@ -19,13 +19,18 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             _context = context;
         }
-        public bool KiemTranChucNang(int idChucNang)
+        public bool KiemTranChucNang(int? idChucNang)
         {
+
+            string tk= HttpContext.Session.GetString("SessionUser");
+            var count = _context.NhanViens.Count(m=>m.TenTaiKhoan==tk&m.PhanQuyen==idChucNang);
+
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var user = HttpContext.Session.GetString("SessionUser");
             var count = _context.NhanViens.Count(m =>m.TenTaiKhoan==user&m.PhanQuyen == idChucNang);
+
             if (count == 0)
             {
                 return false;
@@ -38,9 +43,17 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: TaiKhoan
         public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int? pageNumber)
         {
+
+            
+            if (KiemTranChucNang(1)==false)
+            {
+                return RedirectToAction("BaoLoi","BaoLoi");
+            }
+
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+
             ViewData["CurrentSort"] = sortOder;
             if (searchString != null)
             {
@@ -66,9 +79,13 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: TaiKhoan/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+
+           
+
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+
             if (id == null)
             {
                 return NotFound();
@@ -86,11 +103,13 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         }
 
         // GET: TaiKhoan/Create
+
         public IActionResult Create()
         {
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+
             ViewData["IdBP"] = new SelectList(_context.BoPhans, "IdBoPhan", "IdBoPhan");
             return View();
         }
@@ -100,17 +119,22 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdNhanVien,MaNhanVien,HoTen,TenTaiKhoan,SDT,Email,MatKhau,PhanQuyen,IdBP")] NhanVien nhanVien)
+        public async Task<IActionResult> Create([Bind("IdNhanVien,MaNhanVien,HoTen,TenTaiKhoan,SDT,Email,MatKhau,PhanQuyen,ChucVu,IdBP")] NhanVien nhanVien,string ma)
         {
+
+           
+
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+
             if (ModelState.IsValid)
             {
                 _context.Add(nhanVien);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MaNhanVien"] = new SelectList(_context.NhanViens, "MaNhanVien", "MaNhanVien", nhanVien.MaNhanVien);
             ViewData["IdBP"] = new SelectList(_context.BoPhans, "IdBoPhan", "IdBoPhan", nhanVien.IdBP);
             return View(nhanVien);
         }
@@ -217,5 +241,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             return _context.NhanViens.Any(e => e.IdNhanVien == id);
         }
+      
+
     }
 }

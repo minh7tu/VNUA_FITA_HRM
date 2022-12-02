@@ -195,13 +195,13 @@
                                     <div class="user-box">
                                         <div class="avatar-lg"><img src="@("/assets/img/"+ViewBag.SessionImage)" alt="image profile" class="avatar-img rounded"></div>
                                         <div class="u-text">
-                                            <h4>Enginner</h4>
-                                            <p class="text-muted">Enginner@example.com</p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
+                                            <h4>@ViewBag.ChucVu</h4>
+                                            <p class="text-muted"></p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
                                         </div>
                                     </div>
                                 </li>
                                 <li>
-                                    <div class="dropdown-divider"></div>
+                                    <div class="dropdown-divider">@ViewBag.SessionImage</div>
                                     <a class="dropdown-item">Thông tin của tôi</a>
                                     <a class="dropdown-item" href="#">My Balance</a>
                                     <a class="dropdown-item" href="#">Inbox</a>
@@ -530,7 +530,7 @@
                         </div>
                     </li>
                     <li class="mx-4 mt-2">
-                        <a asp-controller="Login"  asp-acclass="btn btn-primary btn-block" asp-action="LogOut"><span class="btn-label mr-2"> <i class='bx bx-log-out'></i> </span>Đăng xuất</a>
+                        <a asp-controller="Login" class="btn btn-primary btn-block" asp-action="LogOut"><span class="btn-label mr-2"> <i class='bx bx-log-out'></i></span>Đăng xuất</a>
             
                     </li>
                 </ul>
