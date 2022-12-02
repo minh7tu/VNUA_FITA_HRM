@@ -19,10 +19,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             _context = context;
         }
-        public bool KiemTranChucNang(int idChucNang)
+        public bool KiemTranChucNang(int? idChucNang)
         {
-            var user = HttpContext.Session.GetString("SessionUser");
-            var count = _context.NhanViens.Count(m =>m.TenTaiKhoan==user&m.PhanQuyen == idChucNang);
+            string tk= HttpContext.Session.GetString("SessionUser");
+            var count = _context.NhanViens.Count(m=>m.TenTaiKhoan==tk&m.PhanQuyen==idChucNang);
             if (count == 0)
             {
                 return false;
@@ -36,6 +36,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int? pageNumber)
         {
             
+            if (KiemTranChucNang(1)==false)
+            {
+                return RedirectToAction("BaoLoi","BaoLoi");
+            }
             ViewData["CurrentSort"] = sortOder;
             if (searchString != null)
             {
@@ -61,6 +65,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: TaiKhoan/Details/5
         public async Task<IActionResult> Details(int? id)
         {
+           
             if (id == null)
             {
                 return NotFound();
@@ -78,8 +83,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         }
 
         // GET: TaiKhoan/Create
-        public IActionResult Create()
-        { 
+        public async Task<IActionResult> Create()
+        {
+            
+            ViewData["MaNhanVien"] = new SelectList(_context.NhanViens, "MaNhanVien", "MaNhanVien");
             ViewData["IdBP"] = new SelectList(_context.BoPhans, "IdBoPhan", "IdBoPhan");
             return View();
         }
@@ -89,14 +96,16 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("IdNhanVien,MaNhanVien,HoTen,TenTaiKhoan,SDT,Email,MatKhau,PhanQuyen,IdBP")] NhanVien nhanVien)
+        public async Task<IActionResult> Create([Bind("IdNhanVien,MaNhanVien,HoTen,TenTaiKhoan,SDT,Email,MatKhau,PhanQuyen,ChucVu,IdBP")] NhanVien nhanVien,string ma)
         {
+           
             if (ModelState.IsValid)
             {
                 _context.Add(nhanVien);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
+            ViewData["MaNhanVien"] = new SelectList(_context.NhanViens, "MaNhanVien", "MaNhanVien", nhanVien.MaNhanVien);
             ViewData["IdBP"] = new SelectList(_context.BoPhans, "IdBoPhan", "IdBoPhan", nhanVien.IdBP);
             return View(nhanVien);
         }
@@ -188,5 +197,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             return _context.NhanViens.Any(e => e.IdNhanVien == id);
         }
+      
+
     }
 }

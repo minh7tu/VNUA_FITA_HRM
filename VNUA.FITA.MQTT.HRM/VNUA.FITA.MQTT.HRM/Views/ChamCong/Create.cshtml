@@ -11,7 +11,6 @@
         <li class="breadcrumb-item active">Thực hiện chấm công</li>
     </ol>
     <hr />
-
     <form asp-action="Create">
         <div class="row">
             <div class="col-md-6">
@@ -22,7 +21,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="ThoiGian" class="control-label">Thời Gian</label>
-                    <input asp-for="ThoiGian" class="form-control" />
+                    <input asp-for="ThoiGian" class="form-control" value="@DateTime.Now.ToString("dddd,dd/MM/yyyy h:mm tt")" type="datetime" />
                     <span asp-validation-for="ThoiGian" class="text-danger"></span>
                 </div>
             </div>
@@ -30,19 +29,19 @@
                 <div class="form-group">
                     <label asp-for="TrangThai" class="control-label">Trạng Thái</label><br />
                     <div class="row">
-                    <div class="form-group form-inline">
-                        <input asp-for="TrangThai" class="form-control" type="checkbox" id="check1" value="Có mặt" onclick="myFunction(this)" />
-                        <label class="form-check-label" asp-for="TrangThai">:Có mặt</label>
-                    </div>
-                    <div class="form-group form-inline">
-                        <input asp-for="TrangThai" class="form-control" type="checkbox" id="check2" value="Vắng" onclick="myFunction(this)" />
-                        <label class="form-check-label" asp-for="TrangThai">:Vắng</label>
+                        <div class="form-group form-inline">
+                            <input asp-for="TrangThai" class="form-control" type="checkbox" id="check1" value="Có mặt" onclick="myFunction(this)" />
+                            <label class="form-check-label" asp-for="TrangThai">:Có mặt</label>
+                        </div>
+                        <div class="form-group form-inline">
+                            <input asp-for="TrangThai" class="form-control" type="checkbox" id="check2" value="Vắng" onclick="myFunction(this)" />
+                            <label class="form-check-label" asp-for="TrangThai">:Vắng</label>
 
-                    </div>
-                    <div class="form-group form-inline">
-                        <input asp-for="TrangThai" class="form-control" type="checkbox" id="check3" value="Chưa chấm công" checked onclick="myFunction(this)" />
-                        <label class="form-check-label" asp-for="TrangThai">:Chưa chấm công</label>
-                    </div>
+                        </div>
+                        <div class="form-group form-inline">
+                            <input asp-for="TrangThai" class="form-control" type="checkbox" id="check3" value="Chưa chấm công" checked onclick="myFunction(this)" />
+                            <label class="form-check-label" asp-for="TrangThai">:Chưa chấm công</label>
+                        </div>
                     </div>
                 </div>
                 <div class="form-group">
@@ -67,7 +66,7 @@
         var checkBox = document.getElementById("check1");
         var checkBox2 = document.getElementById("check2");
         var checkBox3 = document.getElementById("check3");
-        
+
 
         if (element === checkBox && checkBox.checked) {
             checkBox2.checked = false;

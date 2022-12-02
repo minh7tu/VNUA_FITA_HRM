@@ -40,7 +40,8 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
         [StringLength(100, ErrorMessage = "Vui lòng nhập email")]
         public string Email { get; set; }
         
-        [StringLength(20)]
+        [StringLength(20, MinimumLength = 3, ErrorMessage = "{0} dài {1} đến {2}")]
+        [RegularExpression(@"^[a-z0-9-]*$", ErrorMessage = "Chỉ dùng các ký tự [a-z0-9-]")]
         [Display(Name = "Mật Khẩu")]
         public string MatKhau { get; set; }
         [Display(Name = "Phân Quyền")]

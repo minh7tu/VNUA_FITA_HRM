@@ -39,7 +39,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                                      select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                sqlServerDbContext = sqlServerDbContext.Where(s => s.IdNhanVien.ToString().Contains(searchString)
+                sqlServerDbContext = sqlServerDbContext.Where(s => s.ThoiGian.ToString().Contains(searchString)
                                       );
             }
             int pageSize = 3;
@@ -86,9 +86,13 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 _context.Add(chamCong);
                 await _context.SaveChangesAsync();
+                TempData["Message"] = "Bạn đã hoàn thành chấm công";
                 return RedirectToAction(nameof(Index));
             }
-         
+            else
+            {
+                TempData["Message"] = "Bạn đã chấm công thất bại!";
+            }
             ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
             return View(chamCong);
         }

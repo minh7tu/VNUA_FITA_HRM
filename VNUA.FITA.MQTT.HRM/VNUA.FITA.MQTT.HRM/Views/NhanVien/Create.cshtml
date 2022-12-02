@@ -85,12 +85,12 @@
                     <div class="form-group" hidden>
                         <label asp-for="IdBP" class="control-label"></label>
                         <select asp-for="IdBP" class="form-control" asp-items="ViewBag.IdBP"></select>
-                    </div>
+                    </div><br/>
                     <div class="form-group">
-                        <input type="submit" value="Thêm nhân viên" class="btn btn-primary" />
-                        <div>
-                            <a asp-action="Index">Quay lại danh sách nhân viên</a>
-                        </div>
+                        <input type="submit" value="Thêm nhân viên" class="btn btn-outline-primary btn-sm" />|
+                       
+                            <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Quay lại danh sách nhân viên</a>
+                        
                     </div>
                 </div>
             </div>

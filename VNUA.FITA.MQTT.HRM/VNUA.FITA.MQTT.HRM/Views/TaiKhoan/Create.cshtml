@@ -3,6 +3,7 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    
 }
 
 <div class="container-fluid">
@@ -17,7 +18,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="MaNhanVien" class="control-label"></label>
-                    <input asp-for="MaNhanVien" class="form-control" />
+                    <input asp-for="MaNhanVien" class="form-control"/>
                     <span asp-validation-for="MaNhanVien" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -40,17 +41,22 @@
             <div class="col-md-6">
                 <div class="form-group">
                     <label asp-for="TenTaiKhoan" class="control-label"></label>
-                    <input asp-for="TenTaiKhoan" class="form-control" />
+                    <input asp-for="TenTaiKhoan" class="form-control" data-val="true" data-val-required="Tài khoản hợp lệ" />
                     <span asp-validation-for="TenTaiKhoan" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="MatKhau" class="control-label"></label>
-                    <input asp-for="MatKhau" class="form-control" />
+                    <input asp-for="MatKhau" class="form-control"  data-val="true" data-val-required="Mật khẩu hợp lệ"/>
                     <span asp-validation-for="MatKhau" class="text-danger"></span>
                 </div>
                 <div class="form-group">
                     <label asp-for="PhanQuyen" class="control-label"></label>
-                    <input asp-for="PhanQuyen" class="form-control" />
+                    <select asp-for="PhanQuyen" class="form-control">
+                        <option value="1">Nhân Viên</option>
+                        <option value="2">Nhân Sự</option>
+                        <option value="3">Trưởng Phòng</option>
+                        <option value="4">Quản Trị Hệ Thống</option>
+                    </select>
                     <span asp-validation-for="PhanQuyen" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -71,6 +77,7 @@
         <div class="form-group">
             <input type="submit" value="Tạo Tài Khoản" class="btn btn-outline-primary btn-sm" /> |
             <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Trở lại danh sách</a>
+            <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
         </div>
     </form>
 </div>
