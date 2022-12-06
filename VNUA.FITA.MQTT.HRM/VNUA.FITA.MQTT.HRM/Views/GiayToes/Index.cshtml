@@ -6,9 +6,10 @@
 }
 @if (TempData["AlertMessage"] != null)
 {
-<div class="alert alert-success">
+<div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong> Thành Công! </strong> @TempData["AlertMessage"]
-
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close"/>
+        <span aria-hidden="true">&times;</span>
 </div>
 }
 <div class="container-fluid">
@@ -75,8 +76,5 @@
             }
         </tbody>
     </table>
-    @(Html.Awe().Pager()
-    .Url(Url.Action("Index")) // url to go to
-    .Count((int)ViewData["count"]) // page count
-    .Page((int)ViewData["page"])) @*current page*@
+    
 </body>
