@@ -1,5 +1,5 @@
-﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.DonTu>
-
+﻿@model PaginatedList<VNUA.FITA.MQTT.HRM.Data.Model.DonTu>
+@using PagedList.Mvc;
 @{
     ViewData["Title"] = "Danhsachdontu";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -11,7 +11,7 @@
         <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
         <li class="breadcrumb-item active"> Lịch sử đơn đã gửi</li>
     </ol>
-    </div>
+</div>
 <div class="row">
     <div class="col-md-6 col-xs-12">
         <p>
@@ -37,83 +37,102 @@
         </form>
     </div>
 </div>
-    <table class="table table-hover table-striped table-head-bg-primary">
-        <thead>
-            <tr style="text-align:center;">
-                <th scope="col">
-                    <span>Tiêu đề</span>
-                </th>
-                <th scope="col">
-                    <span>Nội dung</span>
-                </th>
-                <th scope="col">
-                    <span>Trạng thái</span>
-                </th>
-                <th scope="col" hidden>
-                    <span>Ghi chú</span>
-                </th>
-                <th scope="col">
-                    <span>Người nhận</span>
-                </th>
-                <th scope="col" hidden>
-                    <span>Phân loại</span>
-                </th>
-                <th scope="col">
-                    <span>Thời gian</span>
-                </th>
-                <th scope="col">
-                    <span>Hành động</span>
-                </th>
+<table class="table table-hover table-striped table-head-bg-primary">
+    <thead>
+        <tr style="text-align:center;">
+            <th scope="col">
+                <span>Tiêu đề</span>
+            </th>
+            <th scope="col">
+                <span>Nội dung</span>
+            </th>
+            <th scope="col">
+                <span>Trạng thái</span>
+            </th>
+            <th scope="col" hidden>
+                <span>Ghi chú</span>
+            </th>
+            <th scope="col">
+                <span>Người nhận</span>
+            </th>
+            <th scope="col" hidden>
+                <span>Phân loại</span>
+            </th>
+            <th scope="col">
+                <span>Thời gian</span>
+            </th>
+            <th scope="col">
+                <span>Hành động</span>
+            </th>
 
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var item in Model)
-            {
-                <tr>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TieuDe)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NoiDung)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.TrangThai)
-                    </td>
-                    <td hidden>
-                        @Html.DisplayFor(modelItem => item.GhiChu)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.NguoiNhan)
-                    </td>
-                    <td hidden>
-                        @Html.DisplayFor(modelItem => item.PhanLoai)
-                    </td>
-                    <td>
-                        @Html.DisplayFor(modelItem => item.ThoiGian)
-                    </td>
-                    <td hidden>
-                        @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-                    </td>
-                    @{
-                        if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
-                        {
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bx-pencil'></i></a>
-                                <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
-                                <a asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bxs-hand'></i></a>
-                            </td>
-                        }
-                        else
-                        {
-                            <td>
-                                <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='bx bx-pencil'></i></a>
-                                <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
-                                <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
-                            </td>
-                        }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TieuDe)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NoiDung)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TrangThai)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.GhiChu)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.NguoiNhan)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.PhanLoai)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ThoiGian)
+                </td>
+                <td hidden>
+                    @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                </td>
+                @{
+                    if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                    {
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bx-pencil'></i></a>
+                            <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bxs-hand'></i></a>
+                        </td>
                     }
-                </tr>
-            }
-        </tbody>
-    </table>
+                    else
+                    {
+                        <td>
+                            <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='bx bx-pencil'></i></a>
+                            <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
+                            <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
+                        </td>
+                    }
+                }
+            </tr>
+        }
+    </tbody>
+</table>
+@{
+    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+}
+
+<a asp-action="Danhsachdontu"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex - 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn  btn-primary @prevDisabled">
+    Trước
+</a>
+<a asp-action="Danhsachdontu"
+   asp-route-sortOrder="@ViewData["CurrentSort"]"
+   asp-route-pageNumber="@(Model.PageIndex + 1)"
+   asp-route-currentFilter="@ViewData["CurrentFilter"]"
+   class="btn  btn-primary @nextDisabled">
+    Sau
+</a>
