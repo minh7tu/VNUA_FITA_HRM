@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using VNUA.FITA.MQTT.HRM.Data.Access;
 using VNUA.FITA.MQTT.HRM.Data.Model;
-
+using PagedList;
 namespace VNUA.FITA.MQTT.HRM.Controllers
 {
     
@@ -22,8 +22,17 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         }
 
         // GET: DonTus
-        public async Task<IActionResult> Danhsachdontu(string searchString)
+        public async Task<IActionResult> Danhsachdontu(string searchString, string currentFilter, int? pageNumber)
         {
+            if (searchString != null)
+            {
+                pageNumber = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
@@ -33,9 +42,12 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             if (!String.IsNullOrEmpty(searchString))
             {
                 sqlServerDbContext = sqlServerDbContext.Where(g => g.NhanViens.TenTaiKhoan == accconut
-                                       && g.TieuDe.Contains(searchString));
+                                       && g.IdDonTu.ToString() == searchString || g.TieuDe.Contains(searchString));
             }
-            return View(await sqlServerDbContext.ToListAsync());
+
+
+            int pageSize = 3;
+            return View(await PaginatedList<DonTu>.CreateAsync(sqlServerDbContext.AsNoTracking(), pageNumber ?? 1, pageSize));
         }
 
         // GET: DonTus/Details/5
@@ -67,9 +79,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
-            NhanVien nhanVien = new NhanVien();
+            var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
 
-            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == 3), "HoTen", "HoTen");
+            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == nhanVien.IdBP && g.ChucVu.Equals("Trưởng Phòng")), "HoTen", "HoTen");
             ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien");
             return View();
         }
@@ -91,9 +103,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Danhsachdontu));
             }
-            NhanVien nhanVien = new NhanVien();
-            
-            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == 3), "HoTen", "HoTen", nhanVien.HoTen);
+            var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
+
+            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == nhanVien.IdBP && g.ChucVu.Equals("Trưởng Phòng")), "HoTen", "HoTen");
             ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien",nhanVien.IdNhanVien );
             return View(donTu);
         }
@@ -115,7 +127,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 return NotFound();
             }
+            var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
 
+            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == nhanVien.IdBP && g.ChucVu.Equals("Trưởng Phòng")), "HoTen", "HoTen");
             ViewData["IdNhanVien"] = new SelectList(_context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
             return View(donTu);
         }
@@ -140,6 +154,8 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 try
                 {
+                    TempData["AlertMessage"] = "Cập nhật thành công!,Mã đơn :"+ donTu.IdDonTu;
+                    donTu.GhiChu = "Được cập nhật lại  vào lúc :" + DateTime.Now;
                     _context.Update(donTu);
                     await _context.SaveChangesAsync();
                 }
@@ -156,6 +172,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 }
                 return RedirectToAction(nameof(Danhsachdontu));
             }
+
             ViewData["IdNhanVien"] = new SelectList(_context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
             return View(donTu);
         }
