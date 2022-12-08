@@ -7,56 +7,56 @@
 <h1>Hủy</h1>
 <h3>Bạn muốn hủy lá đơn này?</h3>
 <p>@Html.DisplayFor(model => model.TieuDe)</p>
-<div style="margin:auto;">
+<div style="width:50%; margin:auto;">
     <h4>sau khi hủy bạn không thể thao tác trên lá đơn này nữa!</h4>
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TieuDe)
+            <span>Tiêu đề</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TieuDe)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NoiDung)
+            <span>Nội dung</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NoiDung)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.TrangThai)
+            <span>Trạng thái</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.TrangThai)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.GhiChu)
+            <span>Ghi chú</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.GhiChu)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.NguoiNhan)
+            <span>Người nhận</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.NguoiNhan)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-2" hidden>
             @Html.DisplayNameFor(model => model.PhanLoai)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10" hidden>
             @Html.DisplayFor(model => model.PhanLoai)
         </dd>
         <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ThoiGian)
+            <span>Thời gian</span>
         </dt>
         <dd class="col-sm-10">
             @Html.DisplayFor(model => model.ThoiGian)
         </dd>
-        <dt class="col-sm-2">
+        <dt class="col-sm-2" hidden>
             @Html.DisplayNameFor(model => model.NhanViens)
         </dt>
-        <dd class="col-sm-10">
+        <dd class="col-sm-10" hidden>
             @Html.DisplayFor(model => model.NhanViens.IdNhanVien)
         </dd>
     </dl>
