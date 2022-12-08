@@ -12,23 +12,7 @@
   </ItemGroup>
 
   <ItemGroup>
-<<<<<<< 08/12
-    <None Remove="Reporter\BaoCaoLuong.rdlc" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Content Include="Reporter\BaoCaoLuong.rdlc">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="AspNetCore.Reporting" Version="2.1.0" />
     <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
-    <PackageReference Include="Dapper" Version="2.0.123" />
-=======
-    <PackageReference Include="AspNetCoreHero.ToastNotification" Version="1.1.0" />
->>>>>>> main
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
     <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.30">
@@ -40,14 +24,9 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="Microsoft.ReportingServices.ReportViewerControl.WebForms" Version="150.1537.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
-<<<<<<< 08/12
-    <PackageReference Include="System.CodeDom" Version="7.0.0" />
-=======
     <PackageReference Include="PagedList" Version="1.17.0" />
     <PackageReference Include="PagedList.Mvc" Version="4.5.0" />
->>>>>>> main
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
     <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
     <PackageReference Include="X.PagedList.Mvc.Core" Version="8.4.3" />
