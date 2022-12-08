@@ -44,7 +44,7 @@
                 <button class="topbar-toggler more"><i class="flaticon-down-arrow-2"></i></button>
                 <div class="nav-toggle">
                     <button class="btn btn-toggle toggle-sidebar">
-                       <i class="flaticon-down-arrow-2"></i>
+                        <i class="flaticon-down-arrow-2"></i>
                     </button>
                 </div>
             </div>
@@ -186,14 +186,16 @@
                         <li class="nav-item dropdown hidden-caret">
                             <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
                                 <div class="avatar-sm">
-                                    <img src="@("/assets/img/"+ViewBag.SessionImage)" alt="..." class="avatar-img rounded-circle">
+                                    <img src="@("/assets/img/"+ViewBag.SessionImage)" alt="image profile" class="avatar-img rounded">
                                 </div>
                             </a>
                             <ul class="dropdown-menu dropdown-user animated fadeIn">
                                 <div class="dropdown-user-scroll scrollbar-outer">
                                 <li>
                                     <div class="user-box">
-                                        <div class="avatar-lg"><img src="@("/assets/img/"+ViewBag.SessionImage)" alt="image profile" class="avatar-img rounded"></div>
+                                        <div class="avatar-lg">
+                                            <img src="@("/assets/img/"+ViewBag.SessionImage)" alt="image profile" class="avatar-img rounded">
+                                        </div>
                                         <div class="u-text">
                                             <h4>@ViewBag.ChucVu</h4>
                                             <p class="text-muted"></p><a href="profile.html" class="btn btn-xs btn-secondary btn-sm">View Profile</a>
@@ -280,13 +282,13 @@
                         </a>
                         <div class="collapse" id="Giaytocanhan">
                             <ul class="nav nav-collapse">
-                                
+
                                 <li>
                                     <a asp-controller="GiayToes" asp-action="Index">
                                         <span class="sub-item">Xem danh sách giấy tờ</span>
                                     </a>
                                 </li>
-                               
+
 
                             </ul>
                         </div>
@@ -325,7 +327,7 @@
                                         <span class="sub-item">Gửi đơn từ</span>
                                     </a>
                                 </li>
-                                
+
                                 <li>
                                     <a asp-controller="DonTus" asp-action="Danhsachdontu">
                                         <span class="sub-item">Xem lịch sử đơn từ</span>
@@ -394,7 +396,7 @@
                                         <span class="sub-item">Danh sách tài Khoản</span>
                                     </a>
                                 </li>
-                              
+
                             </ul>
                         </div>
                     </li>
@@ -449,12 +451,12 @@
                         <div class="collapse" id="ql-chamcong">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a >
+                                    <a>
                                         <span class="sub-item">Xác nhận chấm công</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a >
+                                    <a>
                                         <span class="sub-item">Xem công</span>
                                     </a>
                                 </li>
@@ -531,7 +533,7 @@
                     </li>
                     <li class="mx-4 mt-2">
                         <a asp-controller="Login" class="btn btn-primary btn-block" asp-action="LogOut"><span class="btn-label mr-2"> <i class='bx bx-log-out'></i></span>Đăng xuất</a>
-            
+
                     </li>
                 </ul>
             </div>
@@ -573,7 +575,7 @@
         </footer>
     </div>
 
-   
+
     <!--   Core JS Files   -->
     <script src="/assets/js/core/jquery.3.2.1.min.js"></script>
     <script src="/assets/js/core/popper.min.js"></script>
@@ -612,6 +614,10 @@
     <script src="/assets/js/atlantis.min.js"></script>
 
     @RenderSection("Scripts", required: false)
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await Component.InvokeAsync("Notyf")
    
 </body>
 </html>

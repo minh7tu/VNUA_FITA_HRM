@@ -1,3 +1,5 @@
+using AspNetCoreHero.ToastNotification;
+using AspNetCoreHero.ToastNotification.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -31,7 +33,7 @@ namespace VNUA.FITA.MQTT.HRM
                 options.Cookie.IsEssential = true;
 
             });
-            
+            services.AddNotyf(config => { config.DurationInSeconds = 10; config.IsDismissable = true; config.Position = NotyfPosition.TopCenter; });
 
         }
 
@@ -49,14 +51,13 @@ namespace VNUA.FITA.MQTT.HRM
             app.UseRouting();
 
             app.UseAuthorization();
-
+            app.UseNotyf();
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Login}/{action=Login}/{id?}");
-                
-        });
+            });
         }
     }
 }

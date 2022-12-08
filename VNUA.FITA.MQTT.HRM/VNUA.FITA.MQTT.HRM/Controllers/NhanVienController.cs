@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -19,12 +20,13 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
     public class NhanVienController : Controller
     {
         private readonly SqlServerDbContext _context;
-        
+        private readonly INotyfService _notyfService;
 
-        public NhanVienController(SqlServerDbContext context)
+        public NhanVienController(INotyfService notyfService, SqlServerDbContext context)
         {
             _context = context;
-            
+            _notyfService = notyfService;
+
         }
         public bool KiemTranChucNang(int? idChucNang)
         {
@@ -43,7 +45,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int?  pageNumber)
         {
 
-            if (KiemTranChucNang(2) == false)
+            if (KiemTranChucNang(2) == false & KiemTranChucNang(1)==false)
             {
                 return RedirectToAction("BaoLoi", "BaoLoi");
             }
@@ -130,7 +132,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         
-        public async Task<IActionResult> Create([Bind("IdNhanVien,MaNhanVien,HoTen,NgaySinh,GioiTinh,DiaChi,SDT,Email,ChucVu,Anh,SoCCCD,TrinhDo,IdBP")] NhanVien nhanVien,IFormFile formFile,int ?id)
+        public async Task<IActionResult> Create([Bind("IdNhanVien,MaNhanVien,HoTen,NgaySinh,GioiTinh,DiaChi,SDT,Email,ChucVu,Anh,SoCCCD,TrinhDo,IdBP")] NhanVien nhanVien,IFormFile formFile,string maNhanVien)
         {
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
@@ -139,7 +141,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 
                  
-                    if(nhanVien.IdNhanVien!=id)
+                    if(nhanVien.MaNhanVien!=maNhanVien)
                     {
                         string filename = formFile.FileName;
                         nhanVien.Anh = filename.ToString(); // tên ảnh
@@ -147,15 +149,15 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                         formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
                         _context.Add(nhanVien);
                         await _context.SaveChangesAsync();
-                        TempData["Message"] = "Thêm nhân viên thành công!";
+                        _notyfService.Success("Bạn đã thêm nhân viên thành công.");
                     }
                     else
                     {
-                        TempData["Message"] = "Nhân Viên đã có trong danh sách";
+                        _notyfService.Warning("Nhân Viên đã có trong danh sách");
                     }
             }
             else {
-                TempData["Message"] = "Thêm nhân viên thất bại!";
+                _notyfService.Error("Bạn thêm nhân viên thất bại");
             }
      
             ViewData["IdBP"] = new SelectList(_context.BoPhans, "IdBoPhan", "IdBoPhan", nhanVien.IdBP);
@@ -208,6 +210,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                     formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
                     _context.Update(nhanVien);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Bạn đã cập nhật thông tin nhân viên thành công.");
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -260,6 +263,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             var nhanVien = await _context.NhanViens.FindAsync(id);
             _context.NhanViens.Remove(nhanVien);
             await _context.SaveChangesAsync();
+            _notyfService.Success("Bạn đã xóa thông tin của nhân viên thành công.");
             return RedirectToAction(nameof(Index));
         }
 
@@ -274,5 +278,71 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             return _context.NhanViens.Any(e => e.IdNhanVien == id);
         }
+      
+        
+        //public IActionResult XuatExcel()
+        //{
+        //    GridView gv = new GridView();
+        //    var data = _context.NhanViens.Include(w => w.IdNhanVien).Include(w => w.MaNhanVien).Include(w => w.).Include(w => w.web_kategori3).Include(w => w.web_kategori4).ToList();
+
+        //    gv.AutoGenerateColumns = false;
+        //    gv.Columns.Add(new ImageField { HeaderText = "IMG", DataImageUrlField = "Imagepath", DataImageUrlFormatString = "https://localhost:44353/img/{0}.jpeg", });
+        //    gv.Columns.Add(new BoundField { HeaderText = "ID", DataField = "ID" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "Email", DataField = "emailid" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "Date", DataField = "date" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "Task 1", DataField = "task1" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "", DataField = "t1kategoriid" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "", DataField = "task2" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "", DataField = "t2kategoriid" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "", DataField = "task3" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "", DataField = "t3kategoriid" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "", DataField = "task4" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "", DataField = "t4kategoriid" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "", DataField = "task5" });
+        //    gv.Columns.Add(new BoundField { HeaderText = "", DataField = "t5kategoriid" });
+
+        //    DataTable dt = new DataTable();
+        //    dt.Columns.Add("Imagepath");
+        //    dt.Columns.Add("ID");
+        //    dt.Columns.Add("emailid");
+        //    dt.Columns.Add("date");
+        //    dt.Columns.Add("task1");
+        //    dt.Columns.Add("t1kategoriid");
+        //    dt.Columns.Add("task2");
+        //    dt.Columns.Add("t2kategoriid");
+        //    dt.Columns.Add("task3");
+        //    dt.Columns.Add("t3kategoriid");
+        //    dt.Columns.Add("task4");
+        //    dt.Columns.Add("t4kategoriid");
+        //    dt.Columns.Add("task5");
+        //    dt.Columns.Add("t5kategoriid");
+
+        //    foreach (var item in data)
+        //    {
+        //        dt.Rows.Add(item.emailid, item.ID, item.emailid, item.date, item.task1, item.t1kategoriid, item.task2, item.t2kategoriid, item.task3, item.t3kategoriid, item.task4, item.t4kategoriid, item.task5, item.t5kategoriid);
+        //    }
+
+        //    gv.DataSource = dt;
+        //    gv.DataBind();
+
+        //    for (int i = 0; i < data.Count; i++)
+        //    {
+        //        gv.Rows[i].Height = 40;
+        //    }
+
+        //    Response.ClearContent();
+        //    Response.Buffer = true;
+        //    Response.AddHeader("content-disposition", "attachment; filename=WeeklyReports.xls");
+        //    Response.ContentType = "application/ms-excel";
+        //    Response.Charset = "";
+        //    StringWriter sw = new StringWriter();
+        //    HtmlTextWriter htw = new HtmlTextWriter(sw);
+        //    gv.RenderControl(htw);
+        //    Response.Output.Write(sw.ToString());
+        //    Response.Flush();
+        //    Response.End();
+
+        //    return RedirectToAction("adminreports");
+        //}
     }
 }
