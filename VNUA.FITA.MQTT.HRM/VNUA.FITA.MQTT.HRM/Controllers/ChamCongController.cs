@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,10 +15,12 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
     public class ChamCongController : Controller
     {
         private readonly SqlServerDbContext _context;
+        private readonly INotyfService _notyfService;
 
-        public ChamCongController(SqlServerDbContext context)
+        public ChamCongController(INotyfService notyfService,SqlServerDbContext context)
         {
             _context = context;
+            _notyfService = notyfService;
         }
 
         // GET: ChamCong
@@ -98,12 +101,12 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 _context.Add(chamCong);
                 await _context.SaveChangesAsync();
-                TempData["Message"] = "Bạn đã hoàn thành chấm công";
+                _notyfService.Success("Bạn đã hoàn thành chấm công.");
                 return RedirectToAction(nameof(Index));
             }
             else
             {
-                TempData["Message"] = "Bạn đã chấm công thất bại!";
+                _notyfService.Error("Bạn chấm công thất bại,Vui lòng kiểm tra lại thông tin!!");
             }
             ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
             return View(chamCong);
@@ -152,6 +155,8 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 {
                     _context.Update(chamCong);
                     await _context.SaveChangesAsync();
+                    _notyfService.Success("Bạn đã chỉnh sửa chấm công thành công.");
+
                 }
                 catch (DbUpdateConcurrencyException)
                 {
@@ -165,6 +170,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                     }
                 }
                 return RedirectToAction(nameof(Index));
+            }
+            else
+            {
+                _notyfService.Error("Bạn đã chỉnh sửa chấm công thất bại.");
             }
             ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", chamCong.IdNhanVien);
             return View(chamCong);

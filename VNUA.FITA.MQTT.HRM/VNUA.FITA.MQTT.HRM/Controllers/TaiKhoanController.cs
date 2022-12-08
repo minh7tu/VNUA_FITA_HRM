@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -14,10 +15,11 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
     public class TaiKhoanController : Controller
     {
         private readonly SqlServerDbContext _context;
-
-        public TaiKhoanController(SqlServerDbContext context)
+        private readonly INotyfService _notyfService;
+        public TaiKhoanController(INotyfService notyfService, SqlServerDbContext context)
         {
             _context = context;
+            _notyfService = notyfService;
         }
         public bool KiemTranChucNang(int? idChucNang)
         {
@@ -132,6 +134,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 _context.Add(nhanVien);
                 await _context.SaveChangesAsync();
+                _notyfService.Success("Bạn đã tạo tài khoản thành công.");
                 return RedirectToAction(nameof(Index));
             }
             ViewData["MaNhanVien"] = new SelectList(_context.NhanViens, "MaNhanVien", "MaNhanVien", nhanVien.MaNhanVien);

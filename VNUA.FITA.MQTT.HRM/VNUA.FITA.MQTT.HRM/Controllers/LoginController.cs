@@ -1,4 +1,5 @@
 ﻿
+using AspNetCoreHero.ToastNotification.Abstractions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -20,9 +21,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
     public class LoginController : Controller
     {
         private readonly SqlServerDbContext context;
-      
 
-        public LoginController(SqlServerDbContext context)
+        private readonly INotyfService _notyfService;
+        public LoginController(INotyfService notyfService, SqlServerDbContext context)
         {
             this.context = context;
         }
@@ -54,7 +55,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 }
                 else
                 {
-                    TempData["MessageTaikhoan"] = "Không tìm thấy tài khoản!";
+                    _notyfService.Error("Kiểm tra lại thông tin tài khoản,mật khẩu");
                     return View(nhanVien);
                 }
             }
