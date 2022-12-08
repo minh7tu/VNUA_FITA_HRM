@@ -66,14 +66,12 @@
             </div>
             <div class="form-group">
                 <input type="submit" value="Gửi đi" class="btn btn-primary" />
+                <button class="btn btn-danger" asp-action="Danhsachdontu" value="Hủy">Hủy</button>
             </div>
             
         </div>
     </div>
 </form>
-<div>
-    <a asp-action="Danhsachdontu">Back to List</a>
-</div>
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
