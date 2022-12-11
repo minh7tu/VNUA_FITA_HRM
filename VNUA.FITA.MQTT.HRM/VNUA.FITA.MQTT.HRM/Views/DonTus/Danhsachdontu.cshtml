@@ -6,11 +6,13 @@
 }
 @if (TempData["AlertMessage"] != null)
 {
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong> Thành Công! </strong> @TempData["AlertMessage"]
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
-        <span aria-hidden="true">&times;</span>
-    </div>
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong> Thành Công! </strong> @TempData["AlertMessage"]
+    <a asp-action="Details" asp-route-id="@TempData["IDdontu"]">xem</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
+
+    <span aria-hidden="true">&times;</span>
+</div>
 }
 <div class="container-fluid">
     <h1 class="mt-4">Lịch sử đơn đã gửi</h1>
@@ -36,12 +38,21 @@
                     <div class="dataTables_filter">
                         <form asp-action="Danhsachdontu" method="get">
 
+                            <div class="form-control-sm ">
+                                <label for="inputFloatingLabel" class="placeholder">Trạng thái</label>
+                                <select aria-controls="basic-datatables" name="status">
+
+                                    <option value=""></option>
+                                    <option value="Đã Hủy">Đã Hủy</option>
+                                    <option value=">Đã được duyệt">Đã được duyệt</option>
+                                    <option value="Chờ duyệt">Chờ duyệt</option>
+                                </select>
+                            </div>
                             <input type="text" value="@ViewData["CurrentFilter"]" name="SearchString" class="form-control form-control-sm" aria-controls="basic-datatables" placeholder="Nhập từ khóa tìm kiếm" />
 
-
-                            <button type="submit" class="btn btn-primary btn-sm" value="Search">Tìm</button>
+                            <button type="submit" class="btn btn-primary btn-sm" value="Search"><i class="fa fa-search"></i></button>
                             <button type="button" onclick="window.location.href='/Dontus/Danhsachdontu'" class="btn btn-dark btn-sm">Reset</button>
-                            </form>
+                        </form>
                     </div>
                
             </div>
@@ -140,7 +151,7 @@
                             if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
                             {
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bx-pencil'></i></a>
+                                    <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='fa fa-edit'></i></a>
                                     <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
                                     <a asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bxs-hand'></i></a>
                                 </td>
@@ -148,7 +159,7 @@
                             else
                             {
                                 <td>
-                                    <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='bx bx-pencil'></i></a>
+                                    <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='fa fa-edit'></i></a>
                                     <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
                                     <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
                                 </td>

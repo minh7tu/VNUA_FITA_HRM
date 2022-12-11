@@ -22,7 +22,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         }
 
         // GET: DonTus
-        public async Task<IActionResult> Danhsachdontu(string searchString, string currentFilter, int? pageNumber)
+        public async Task<IActionResult> Danhsachdontu(string searchString, string currentFilter, int? pageNumber,string status)
         {
             if (searchString != null)
             {
@@ -38,13 +38,26 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["CurrentFilter"] = searchString;
-            var sqlServerDbContext = _context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut);
-            if (!String.IsNullOrEmpty(searchString))
+            var sqlServerDbContext = _context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut).OrderByDescending(d => d.ThoiGian);
+          
+            if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(status))
             {
                 sqlServerDbContext = sqlServerDbContext.Where(g => g.NhanViens.TenTaiKhoan == accconut
-                                       && g.IdDonTu.ToString() == searchString || g.TieuDe.Contains(searchString));
+                                       && g.IdDonTu.ToString() == searchString || g.TieuDe.Contains(searchString) && g.TrangThai == status).OrderByDescending(d => d.ThoiGian);
+                
             }
-
+            if (!String.IsNullOrEmpty(searchString) && String.IsNullOrEmpty(status))
+            {
+                sqlServerDbContext = sqlServerDbContext.Where(g => g.NhanViens.TenTaiKhoan == accconut
+                                       && g.IdDonTu.ToString() == searchString || g.TieuDe.Contains(searchString)).OrderByDescending(d => d.ThoiGian);
+                
+            }
+            else if (String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(status))
+            {
+                sqlServerDbContext = sqlServerDbContext.Where(g => g.NhanViens.TenTaiKhoan == accconut
+                                       && g.TrangThai == status).OrderByDescending(d => d.ThoiGian);
+                
+            }
 
             int pageSize = 3;
             return View(await PaginatedList<DonTu>.CreateAsync(sqlServerDbContext.AsNoTracking(), pageNumber ?? 1, pageSize));
@@ -155,6 +168,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 try
                 {
                     TempData["AlertMessage"] = "Cập nhật thành công!,Mã đơn :"+ donTu.IdDonTu;
+                    TempData["IDdontu"] = donTu.IdDonTu;
                     donTu.GhiChu = "Được cập nhật lại  vào lúc :" + DateTime.Now;
                     _context.Update(donTu);
                     await _context.SaveChangesAsync();
