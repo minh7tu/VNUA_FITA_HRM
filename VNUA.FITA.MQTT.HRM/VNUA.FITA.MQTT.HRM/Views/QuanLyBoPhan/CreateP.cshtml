@@ -1,0 +1,52 @@
+﻿@model VNUA.FITA.MQTT.HRM.Data.Model.Phong
+
+@{
+    ViewData["Title"] = "CreateP";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h4>Tạo phòng ban</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="CreateP">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="MaP" class="control-label"></label>
+                <input asp-for="MaP" class="form-control" />
+                <span asp-validation-for="MaP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="TenP" class="control-label"></label>
+                <input asp-for="TenP" class="form-control" />
+                <span asp-validation-for="TenP" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Email" class="control-label"></label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SoLuong" class="control-label"></label>
+                <input asp-for="SoLuong" class="form-control" />
+                <span asp-validation-for="SoLuong" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="SDT" class="control-label"></label>
+                <input asp-for="SDT" class="form-control" />
+                <span asp-validation-for="SDT" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Tạo phòng ban" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="GetListP">Quay lại danh sách phòng ban</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,60 @@
+﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.Phong>
+
+@{
+    ViewData["Title"] = "QL";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Danh sách phòng ban</h1>
+
+<p>
+    <a asp-action="CreateP">Tạo phòng ban</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TenP)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Email)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SoLuong)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.SDT)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TenP)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SoLuong)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.SDT)
+            </td>
+            <td>
+                <a asp-action="EditP" asp-route-id="@item.IdPhong">Cập nhập</a> |
+                
+                <a asp-action="Delete" asp-route-id="@item.IdPhong">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
