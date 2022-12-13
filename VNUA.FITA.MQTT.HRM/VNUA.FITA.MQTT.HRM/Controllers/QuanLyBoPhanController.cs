@@ -96,6 +96,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             return View(nhanVien);
         }
 
+
         public IActionResult GetListBP()
         {
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
@@ -105,6 +106,66 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             return View(displayData);
         }
 
-       
+        public IActionResult GetListP()
+        {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            var displayData = _context.Phongs.ToList();
+            return View(displayData);
+        }
+
+        public async Task<IActionResult> EditP(int? id)
+        {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            if (id == null)
+            {
+                return RedirectToAction("Index");
+            }
+
+            var getData = await _context.Phongs.FindAsync(id);
+
+            return View(getData);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditP(Data.Model.Phong phong)
+        {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            if (ModelState.IsValid)
+            {
+                _context.Update(phong);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("Index");
+            }
+            return View(phong);
+        }
+
+        public IActionResult CreateP()
+        {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateP(Data.Model.Phong phong)
+        {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            if (ModelState.IsValid)
+            {
+                _context.Add(phong);
+                await _context.SaveChangesAsync();
+                return RedirectToAction("GetListP");
+            }
+            return View(phong);
+        }
     }
 }

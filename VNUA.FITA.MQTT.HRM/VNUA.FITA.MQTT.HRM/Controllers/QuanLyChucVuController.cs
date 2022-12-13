@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -19,25 +20,11 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
         public IActionResult Index()
         {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var displayData = _context.NhanViens.ToList();
             return View(displayData);
-        }
-
-        public IActionResult Create()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Create(Data.Model.NhanVien nhanVien)
-        {
-            if (ModelState.IsValid)
-            {
-                _context.Add(nhanVien);
-                await _context.SaveChangesAsync();
-                return RedirectToAction("GetListCV");
-            }
-            return View(nhanVien);
         }
 
         [HttpGet]

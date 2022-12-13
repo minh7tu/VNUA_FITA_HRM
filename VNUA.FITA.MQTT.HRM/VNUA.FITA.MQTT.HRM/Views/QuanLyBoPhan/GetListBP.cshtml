@@ -15,6 +15,9 @@
     <thead>
         <tr>
             <th>
+                @Html.DisplayNameFor(model => model.IdBoPhan)
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.MaBP)
             </th>
             <th>
@@ -39,6 +42,9 @@
 @foreach (var item in Model) {
         <tr>
             <td>
+                @Html.DisplayFor(modelItem => item.IdBoPhan)
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.MaBP)
             </td>
             <td>
@@ -57,7 +63,7 @@
                 @Html.DisplayFor(modelItem => item.IdPhong)
             </td>
             <td>
-                <a asp-action="EditBP">Thay đổi</a> | 
+                <a asp-action="EditBP">Thay đổi</a> |
                 <a asp-action="Delete">Xóa</a>
             </td>
         </tr>

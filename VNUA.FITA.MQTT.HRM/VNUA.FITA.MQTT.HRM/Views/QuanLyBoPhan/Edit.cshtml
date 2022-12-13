@@ -2,10 +2,10 @@
 
 @{
     ViewData["Title"] = "Edit";
-    Layout = "~/Views/Home/Index.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Thay đổi chức vụ</h1>
+<h1>Thay đổi bộ phận</h1>
 
 <hr />
 <div class="row">
@@ -15,7 +15,7 @@
             <input type="hidden" asp-for="IdNhanVien" />
             <div class="form-group">
                 <label asp-for="MaNhanVien" class="control-label"></label>
-                <input asp-for="MaNhanVien" class="form-control" />
+                <input asp-for="MaNhanVien" class="form-control"/>
                 <span asp-validation-for="MaNhanVien" class="text-danger"></span>
             </div>
             <div class="form-group">
@@ -24,67 +24,67 @@
                 <span asp-validation-for="HoTen" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TenTaiKhoan" class="control-label"></label>
-                <input asp-for="TenTaiKhoan" class="form-control" />
+                <label asp-for="TenTaiKhoan" class="control-label" type="hidden"></label>
+                <input asp-for="TenTaiKhoan" class="form-control" type="hidden"/>
                 <span asp-validation-for="TenTaiKhoan" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="NgaySinh" class="control-label"></label>
-                <input asp-for="NgaySinh" class="form-control" />
+                <label asp-for="NgaySinh" class="control-label" type="hidden"></label>
+                <input asp-for="NgaySinh" class="form-control" type="hidden" />
                 <span asp-validation-for="NgaySinh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="GioiTinh" class="control-label"></label>
-                <input asp-for="GioiTinh" class="form-control" />
+                <label asp-for="GioiTinh" class="control-label" type="hidden"></label>
+                <input asp-for="GioiTinh" class="form-control" type="hidden" />
                 <span asp-validation-for="GioiTinh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="DiaChi" class="control-label"></label>
-                <input asp-for="DiaChi" class="form-control" />
+                <label asp-for="DiaChi" class="control-label" type="hidden"></label>
+                <input asp-for="DiaChi" class="form-control" type="hidden" />
                 <span asp-validation-for="DiaChi" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SDT" class="control-label"></label>
-                <input asp-for="SDT" class="form-control" />
+                <label asp-for="SDT" class="control-label" type="hidden"></label>
+                <input asp-for="SDT" class="form-control" type="hidden"/>
                 <span asp-validation-for="SDT" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Email" class="control-label"></label>
-                <input asp-for="Email" class="form-control" />
+                <label asp-for="Email" class="control-label" type="hidden"></label>
+                <input asp-for="Email" class="form-control" type="hidden"/>
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="MatKhau" class="control-label"></label>
-                <input asp-for="MatKhau" class="form-control" />
+                <label asp-for="MatKhau" class="control-label" type="hidden"></label>
+                <input asp-for="MatKhau" class="form-control" type="hidden"/>
                 <span asp-validation-for="MatKhau" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="PhanQuyen" class="control-label"></label>
-                <input asp-for="PhanQuyen" class="form-control" />
+                <label asp-for="PhanQuyen" class="control-label" type="hidden"></label>
+                <input asp-for="PhanQuyen" class="form-control" type="hidden" />
                 <span asp-validation-for="PhanQuyen" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="ChucVu" class="control-label"></label>
-                <input asp-for="ChucVu" class="form-control" />
+                <label asp-for="ChucVu" class="control-label" type="hidden"></label>
+                <input asp-for="ChucVu" class="form-control" type="hidden"/>
                 <span asp-validation-for="ChucVu" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="Anh" class="control-label"></label>
-                <input asp-for="Anh" class="form-control" />
+                <label asp-for="Anh" class="control-label" type="hidden"></label>
+                <input asp-for="Anh" class="form-control" type="hidden"/>
                 <span asp-validation-for="Anh" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="SoCCCD" class="control-label"></label>
-                <input asp-for="SoCCCD" class="form-control" />
+                <label asp-for="SoCCCD" class="control-label" type="hidden"></label>
+                <input asp-for="SoCCCD" class="form-control" type="hidden"/>
                 <span asp-validation-for="SoCCCD" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="TrinhDo" class="control-label"></label>
-                <input asp-for="TrinhDo" class="form-control" />
+                <label asp-for="TrinhDo" class="control-label" type="hidden"></label>
+                <input asp-for="TrinhDo" class="form-control" type="hidden"/>
                 <span asp-validation-for="TrinhDo" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <label asp-for="IdBP" class="control-label"></label>
+                <label asp-for="IdBP" class="control-label">Mã bộ phận</label>
                 <input asp-for="IdBP" class="form-control"/>
                 <span asp-validation-for="IdBP" class="text-danger"></span>
             </div>

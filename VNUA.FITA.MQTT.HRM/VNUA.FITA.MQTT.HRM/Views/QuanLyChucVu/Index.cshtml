@@ -1,0 +1,47 @@
+﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.NhanVien>
+
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h1>Quản lý chức vụ/ Thay đổi chức vụ cho nhân viên</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MaNhanVien)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.HoTen)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ChucVu)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MaNhanVien)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.HoTen)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.ChucVu)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.BoPhans.IdBoPhan)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.IdNhanVien" asp-controller="QuanLyChucVu">Cập nhập</a> |
+                <a asp-action="Delete" asp-route-id="@item.IdNhanVien">Xóa</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
