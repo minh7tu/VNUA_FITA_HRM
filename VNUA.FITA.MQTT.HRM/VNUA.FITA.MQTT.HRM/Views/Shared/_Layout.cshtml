@@ -461,45 +461,41 @@
                             </ul>
                         </div>
                     </li>
+
+
+
+                    //Tú 
                     <li class="nav-item">
                         <a data-toggle="collapse" href="#ql-dontu">
                             <i class='bx bx-mail-send'></i>
-                            <p>Quản lý đơn từ</p>
+                            <p>Quản lý giấy tờ</p>
                             <span class="caret"></span>
                         </a>
                         <div class="collapse" id="ql-dontu">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="sidebar-style-1.html">
-                                        <span class="sub-item">Xem thông tin đơn từ</span>
+                                    <a asp-controller="QLgiayto" asp-action="Index">
+                                        <span class="sub-item">Duyệt giấy tờ</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="overlay-sidebar.html">
-                                        <span class="sub-item">Duyệt thông tin đơn</span>
-                                    </a>
-                                </li>
+                               
                             </ul>
                         </div>
                     </li>
                     <li class="nav-item">
                         <a data-toggle="collapse" href="#ql-giayto">
                             <i class='bx bx-copy-alt'></i>
-                            <p>Quản lý giấy tờ</p>
+                            <p>Quản lý đơn từ</p>
                             <span class="caret"></span>
                         </a>
                         <div class="collapse" id="ql-giayto">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="sidebar-style-1.html">
-                                        <span class="sub-item">xem thông tin đơn từ</span>
+                                    <a asp-controller="QLDonTu" asp-action="Index">
+                                        <span class="sub-item">Duyệt đơn từ</span>
                                     </a>
                                 </li>
-                                <li>
-                                    <a href="overlay-sidebar.html">
-                                        <span class="sub-item">Duyệt thông tin đơn từ</span>
-                                    </a>
-                                </li>
+                               
                             </ul>
                         </div>
                     </li>
@@ -511,19 +507,11 @@
                         </a>
                         <div class="collapse" id="ql-luong">
                             <ul class="nav nav-collapse">
+                                
+                                
                                 <li>
-                                    <a href="sidebar-style-1.html">
-                                        <span class="sub-item">Cập nhật lương</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="overlay-sidebar.html">
-                                        <span class="sub-item">Xem lương</span>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="overlay-sidebar.html">
-                                        <span class="sub-item">Chuyển trạng thái</span>
+                                    <a asp-controller="QLLuong" asp-action="Index">
+                                        <span class="sub-item">Duyệt lương</span>
                                     </a>
                                 </li>
                             </ul>
