@@ -70,6 +70,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewData["CurrentFilter"] = searchString;
             var sqlServerDbContext = from s in _context.NhanViens.Include(n=>n.BoPhans)
                                      select s;
+            ViewData["nv"]= (from s in _context.NhanViens
+                            select s.IdNhanVien).Count();
+
             if (!String.IsNullOrEmpty(searchString))
             {
                 sqlServerDbContext = sqlServerDbContext.Where(s => s.MaNhanVien.Contains(searchString)
