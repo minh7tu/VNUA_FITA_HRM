@@ -69,14 +69,26 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            string accconut = HttpContext.Session.GetString("SessionUser");
             if (id == null)
             {
                 return NotFound();
             }
+            var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
+            int idbophan = nhanVien.IdBP;
+            var Bophan = _context.BoPhans.Where(n => n.IdBoPhan == idbophan).SingleOrDefault();
+            TempData["HoTen"] = nhanVien.HoTen;
+            TempData["ChucVu"] = nhanVien.ChucVu;
+            TempData["Bophan"] = Bophan.TenBP;
 
+           
             var donTu = await _context.DonTus
                 .Include(d => d.NhanViens)
                 .FirstOrDefaultAsync(m => m.IdDonTu == id);
+            var nhanVien2 = _context.NhanViens.Where(n => n.HoTen.Equals(donTu.NguoiNhan)).SingleOrDefault();
+            TempData["HoTen2"] = nhanVien2.HoTen;
+            TempData["ChucVu2"] = nhanVien2.ChucVu;
+            TempData["Bophan2"] = Bophan.TenBP;
             if (donTu == null)
             {
                 return NotFound();
