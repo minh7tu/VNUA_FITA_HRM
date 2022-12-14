@@ -51,9 +51,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                     bool isValid = (data.TenTaiKhoan == nhanVien.TenTaiKhoan && data.MatKhau ==nhanVien.MatKhau);
                     if (isValid)
                     {
-                        HttpContext.Session.SetString("SessionUser", data.TenTaiKhoan);
-                        HttpContext.Session.SetString("SessionImage", data.Anh);
-                        HttpContext.Session.SetString("SessionChucVu", data.ChucVu);
+                        HttpContext.Session.SetString("SessionUser", data?.TenTaiKhoan);
+                        HttpContext.Session.SetString("SessionImage", data?.Anh ?? "");//Thuyết - Check nếu không có link ảnh gắn null
+                        HttpContext.Session.SetString("SessionChucVu", data?.ChucVu ?? "");
                         _notyfService.Success("Đăng nhập thành công");
                         return RedirectToAction("Index", "Home");
                     }
