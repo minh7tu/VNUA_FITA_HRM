@@ -3,7 +3,7 @@
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    
+
 }
 
 <div class="container-fluid">
@@ -18,7 +18,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="MaNhanVien" class="control-label"></label>
-                    <input asp-for="MaNhanVien" class="form-control"/>
+                    <input asp-for="MaNhanVien" class="form-control" />
                     <span asp-validation-for="MaNhanVien" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -46,7 +46,7 @@
                 </div>
                 <div class="form-group">
                     <label asp-for="MatKhau" class="control-label"></label>
-                    <input asp-for="MatKhau" class="form-control"  data-val="true" data-val-required="Mật khẩu hợp lệ"/>
+                    <input asp-for="MatKhau" class="form-control" data-val="true" data-val-required="Mật khẩu hợp lệ" />
                     <span asp-validation-for="MatKhau" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -69,15 +69,14 @@
                     <select asp-for="IdBP" class="form-control" asp-items="ViewBag.IdBP"></select>
                 </div>
             </div>
-        </div>
-        @section Scripts {
-            @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
-        }
-        <hr />
-        <div class="form-group">
-            <input type="submit" value="Tạo Tài Khoản" class="btn btn-outline-primary btn-sm" /> |
-            <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Trở lại danh sách</a>
-            <input name="__RequestVerificationToken" type="hidden" value="<removed for brevity>">
-        </div>
+            <hr />
+            <div class="form-group">
+                <input type="submit" value="Tạo Tài Khoản" class="btn btn-outline-primary btn-sm" /> |
+                <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Trở lại danh sách</a>
+            </div>
     </form>
 </div>
+ </div>
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -26,6 +26,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         public LoginController(INotyfService notyfService, SqlServerDbContext context)
         {
             this.context = context;
+            _notyfService = notyfService;
         }
         [AllowAnonymous]
         public IActionResult Index()
@@ -44,25 +45,36 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
 
                 //success
-                var data = context.NhanViens.Where(e => e.TenTaiKhoan == nhanVien.TenTaiKhoan && e.MatKhau == nhanVien.MatKhau).SingleOrDefault();
+                var data = context.NhanViens.Where(e => e.TenTaiKhoan == nhanVien.TenTaiKhoan).SingleOrDefault();
                 if (data != null)
                 {
-                    bool isValid = (data.TenTaiKhoan == nhanVien.TenTaiKhoan && data.MatKhau == GetMD5(nhanVien.MatKhau));
-                    HttpContext.Session.SetString("SessionUser", data.TenTaiKhoan);
-                    HttpContext.Session.SetString("SessionImage", data.Anh);
-                    HttpContext.Session.SetString("SessionChucVu", data.ChucVu);
-                    return RedirectToAction("Index", "Home");
+                    bool isValid = (data.TenTaiKhoan == nhanVien.TenTaiKhoan && data.MatKhau ==nhanVien.MatKhau);
+                    if (isValid)
+                    {
+                        HttpContext.Session.SetString("SessionUser", data.TenTaiKhoan);
+                        HttpContext.Session.SetString("SessionImage", data.Anh);
+                        HttpContext.Session.SetString("SessionChucVu", data.ChucVu);
+                        _notyfService.Success("Đăng nhập thành công");
+                        return RedirectToAction("Index", "Home");
+                    }
+                    else
+                    {
+                        TempData["MatKhau"] = "Mật khẩu sai!";
+                        return View(nhanVien);
+                    }
                 }
                 else
                 {
-                    _notyfService.Error("Kiểm tra lại thông tin tài khoản,mật khẩu");
+                    TempData["Taikhoan"] = "Không tìm thấy tài khoản!";
                     return View(nhanVien);
                 }
             }
             else
             {
+                TempData["MessageTaiKhoan"] = "Không tìm thấy tài khoản!";
                 return View(nhanVien);
             }
+           
         }
         public static string GetMD5(string str)
         {
