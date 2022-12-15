@@ -450,8 +450,10 @@
                 <p><b>Trạng thái:</b>  @Html.DisplayFor(model => model.TrangThai)</p>
                 <p><b>Thời gian cập nhật:</b> @Html.DisplayFor(model => model.ThoiGian)</p>
                 <div>
+                    <form>
                     <button class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@Model.MaGT">Sửa</button> |
                     <button class="btn btn-sm btn-outline-primary" asp-action="Index"> Trở lại danh sách</button>
+                        </form>
                 </div>
             </div><!-- / project-info-box -->
 
