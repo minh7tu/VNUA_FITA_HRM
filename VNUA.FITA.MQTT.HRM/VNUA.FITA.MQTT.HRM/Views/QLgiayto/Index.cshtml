@@ -1,90 +1,135 @@
-﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.GiayTo>
+﻿@model PaginatedList<VNUA.FITA.MQTT.HRM.Data.Model.GiayTo>
 
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
+<div class="container-fluid">
+    <h1 class="mt-4">Quản lí thông tin giấy tờ</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">Quản lí thông tin giấy tờ</li>
+    </ol>
+    <div class="card mb-12">
+        <div class="card-header">
+            <div class="row">
+                <div class="col-md-6 col-xs-12">
 
-<h1>Quản lí thông tin giấy tờ</h1>
-<div class="row">
-    <div class="col-md-6 col-xs-12">
-       
-    </div>
-    <div class="col-md-6 col-xs-12">
-        <form asp-action="Index" method="get" class="form-inline">
-            <div class="row">  
-                <div class="col-md  ">
-                    
-                    <div class="row">
-                        <div class="form-inline">
-                            <select name="cars" id="cars">
-                                <div class="col">
-                                <option value="@ViewData["CurrentFilter"]">chưa duyệt</option>
+                </div>
+                <div class="col-md-6 col-xs-12">
+                    <form asp-action="Index" method="get" class="form-inline">
+                        <div class="row">
+                            <div class="col-md-6 col-xs-12">
+
+
+                                <div class="form-inline">
+                                    <select name="cars" id="cars" style="width:100px;height:43px;">
+
+                                        <option value="@ViewData["CurrentFilter"]">Chưa duyệt</option>
+
+
+                                        <option value="@ViewData["CurrentFilter"]">Đã duyệt</option>
+
+                                    </select>
+
+
+                                    <button type="submit" class="btn btn-primary" value="Search">Tìm</button>
+                                    <button type="button" onclick="window.location.href='/QLgiayto/Index'" class="btn btn-dark">Hủy</button>
+                                </div>
+                            </div>
                         </div>
-
-                        <div class="col">
-                            <option value="@ViewData["CurrentFilter"]">Đã duyệt</option>
-                        </div>
-                        </select>
-
-
-                        <button type="submit" class="btn btn-primary" value="Search">Tìm</button>
-                        <button type="button" onclick="window.location.href='/QLgiayto/Index'" class="btn btn-dark">Hủy</button>
-                    </div>
-                    </div>
-                        </div>
+                    </form>
+                </div>
             </div>
-        </form>
-    </div>
+        </div>
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead class="table-head-bg-primary">
+                    <tr>
+                        <th>
 
-        
+                            @Html.ActionLink("Tên Giấy Tờ", "Index", new { sortOrder = @ViewData["MaNhanVien"], currentFilter = @ViewData["CurrentFilter"] })
+                            <i class="fa-sharp fa-solid fa-sort"></i>
+                        </th>
+                        <th>
+
+                            @Html.ActionLink("Ảnh", "Index", new { sortOrder = @ViewData["MaNhanVien"], currentFilter = @ViewData["CurrentFilter"] })
+                            <i class="fa-sharp fa-solid fa-sort"></i>
+                        </th>
+                        <th>
+
+                            @Html.ActionLink("Thời Gian", "Index", new { sortOrder = @ViewData["MaNhanVien"], currentFilter = @ViewData["CurrentFilter"] })
+                            <i class="fa-sharp fa-solid fa-sort"></i>
+                        </th>
+                        <th>
+
+                            @Html.ActionLink(" Trạng Thái", "Index", new { sortOrder = @ViewData["MaNhanVien"], currentFilter = @ViewData["CurrentFilter"] })
+                            <i class="fa-sharp fa-solid fa-sort"></i>
+                        </th>
+                        <th>
+
+                            @Html.ActionLink("Nhân Viên", "Index", new { sortOrder = @ViewData["MaNhanVien"], currentFilter = @ViewData["CurrentFilter"] })
+                            <i class="fa-sharp fa-solid fa-sort"></i>
+                        </th>
+                        <th>Thao Tác </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenGT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Anh)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ThoiGian)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrangThai)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                            </td>
+                            <td>
+                                @*<a asp-action="Edit" asp-route-id="@item.MaGT">Edit</a> |
+                                <a asp-action="Details" asp-route-id="@item.MaGT">Details</a> |
+                                <a asp-action="Delete" asp-route-id="@item.MaGT">Delete</a>*@
+                                <div class="btn-group">
+                                    <a asp-action="Edit" asp-route-id="@item.MaGT" class="btn btn-sm btn-info">Duyệt giấy tờ</a>
+                                    <a asp-action="Details" asp-route-id="@item.MaGT" class="btn btn-sm btn-primary ml-1">Xem chi tiết</a>
+                                    <a asp-action="Delete" asp-route-id="@item.MaGT" class="btn btn-sm btn-danger ml-1">Xóa giấy tờ</a>
+
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <br />
+            @{
+                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+            }
+
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex - 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="btn  btn-primary @prevDisabled">
+                Trước
+            </a>
+            <a asp-action="Index"
+               asp-route-sortOrder="@ViewData["CurrentSort"]"
+               asp-route-pageNumber="@(Model.PageIndex + 1)"
+               asp-route-currentFilter="@ViewData["CurrentFilter"]"
+               class="btn  btn-primary @nextDisabled">
+                Sau
+            </a>
+        </div>
+    </div>
 </div>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TenGT)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Anh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThoiGian)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NhanViens)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TenGT)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Anh)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.ThoiGian)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.TrangThai)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.MaGT">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.MaGT">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.MaGT">Delete</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+
