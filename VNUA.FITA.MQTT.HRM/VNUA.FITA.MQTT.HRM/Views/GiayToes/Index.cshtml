@@ -66,7 +66,7 @@
                                             @Html.DisplayFor(modelItem => item.TenGT)
                                         </td>
                                         <td>
-                                            <img src="@("/assets/img/"+item.Anh)" alt="Alternate Text" style="width:200px; height:200px;" />
+                                            @Html.DisplayFor(modelItem => item.Anh)
                                         </td>
                                         <td>
                                             @Html.DisplayFor(modelItem => item.ThoiGian)
@@ -80,7 +80,6 @@
                                         <td>
                                             <a asp-action="Edit" asp-route-id="@item.MaGT">Sửa</a> |
                                             <a asp-action="Details" asp-route-id="@item.MaGT">Chi tiết</a> |
-                                            <a asp-action="Delete" asp-route-id="@item.MaGT">Hủy</a> |
                                         </td>
                                     </tr>
 

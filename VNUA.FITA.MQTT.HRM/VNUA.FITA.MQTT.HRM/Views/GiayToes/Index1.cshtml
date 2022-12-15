@@ -7,7 +7,7 @@
 <style>
     body {
         background: #f5f5f5;
-      
+        margin-top: 20px;
     }
     /*------- portfolio -------*/
     .project {
@@ -442,17 +442,14 @@
     <div class="row">
         <div class="col-md-5">
             <div class="project-info-box mt-0">
-              <strong><p style="font-size:20px;">@Html.DisplayFor(model => model.TenGT)</p></strong>
-
+                <h5>   @Html.DisplayFor(model => model.TenGT)</h5>
+              
             </div><!-- / project-info-box -->
 
             <div class="project-info-box">
                 <p><b>Trạng thái:</b>  @Html.DisplayFor(model => model.TrangThai)</p>
-                <p><b>Thời gian cập nhật:</b> @Html.DisplayFor(model => model.ThoiGian)</p>
-                <div>
-                    <button class="btn btn-sm btn-primary" asp-action="Edit" asp-route-id="@Model.MaGT">Sửa</button> |
-                    <button class="btn btn-sm btn-outline-primary" asp-action="Index"> Trở lại danh sách</button>
-                </div>
+                <p><b>Thời gian:</b> @Html.DisplayFor(model => model.ThoiGian)</p>
+               
             </div><!-- / project-info-box -->
 
 
@@ -460,7 +457,10 @@
 
         <div class="col-md-7">
             <img src="@("/assets/img/"+Model.Anh)" alt="project-image" class="rounded" height="600" width="430">
-            
+            <div>
+                <a asp-action="Edit" asp-route-id="@Model.MaGT">Sửa</a> |
+                <a asp-action="Index"> Trở lại danh sách</a>
+            </div>
 
         </div><!-- / column -->
     </div>

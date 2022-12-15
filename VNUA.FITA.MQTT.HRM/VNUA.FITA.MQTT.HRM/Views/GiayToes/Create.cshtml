@@ -1,9 +1,17 @@
-﻿@model  VNUA.FITA.MQTT.HRM.Data.Model.GiayTo
+﻿@model VNUA.FITA.MQTT.HRM.Data.Model.GiayTo
 
 @{
     ViewData["Title"] = "Create";
     Layout = "~/Views/Shared/_Layout.cshtml";
-   
+
+}
+@if (TempData["AlertMessage"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <strong> @TempData["AlertMessage"]</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
+        <span aria-hidden="true">&times;</span>
+    </div>
 }
 <style>
 </style>
@@ -15,6 +23,7 @@
     <div class="row">
         <div class="col-md-6">
             <form asp-action="Create" style="margin-left:25px;" class="form-floating-label" enctype="multipart/form-data">
+
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group form-floating-label">
                     <label asp-for="TenGT" class="control-label">Tên giấy tờ</label>
@@ -24,8 +33,11 @@
 
                 <div class="form-group ">
                     <label class="control-label">Ảnh</label>
-                    <input class="form-control" type="file" id="imgInp" name="formfile" />
 
+                    <input class="form-control" type="file" id="imgInp" name="formfile" value="" data-val-required="Select a file" accept="png|bmp|jpg|jpeg"
+                           data-val-accept="Only following types supported png|bmp|jpg|jpeg" />
+
+                    <span asp-validation-for="Anh" class="text-danger"></span>
                 </div>
 
                 <div class="form-group form-floating-label">
@@ -67,6 +79,7 @@
                 blah.src = URL.createObjectURL(file)
             }
         }
+
     </script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
