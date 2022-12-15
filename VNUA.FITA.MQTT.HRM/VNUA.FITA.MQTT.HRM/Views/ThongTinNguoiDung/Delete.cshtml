@@ -5,9 +5,9 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>Delete</h1>
+<h1>Xóa thông tin</h1>
 
-<h3>Are you sure you want to delete this?</h3>
+<h3>Bạn có muốn xóa thông tin của mình?</h3>
 <div>
     <h4>NhanVien</h4>
     <hr />
@@ -60,16 +60,16 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.Email)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2" hidden>
             @Html.DisplayNameFor(model => model.MatKhau)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10" hidden>
             @Html.DisplayFor(model => model.MatKhau)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2" hidden>
             @Html.DisplayNameFor(model => model.PhanQuyen)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10" hidden>
             @Html.DisplayFor(model => model.PhanQuyen)
         </dd>
         <dt class = "col-sm-2">
@@ -96,10 +96,10 @@
         <dd class = "col-sm-10">
             @Html.DisplayFor(model => model.TrinhDo)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class = "col-sm-2" hidden>
             @Html.DisplayNameFor(model => model.BoPhans)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class = "col-sm-10" hidden>
             @Html.DisplayFor(model => model.BoPhans.IdBoPhan)
         </dd class>
     </dl>
@@ -107,6 +107,6 @@
     <form asp-action="Delete">
         <input type="hidden" asp-for="IdNhanVien" />
         <input type="submit" value="Delete" class="btn btn-danger" /> |
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index">Quay thông tin cá nhân</a>
     </form>
 </div>
