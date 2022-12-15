@@ -79,20 +79,34 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         [ValidateAntiForgeryToken]     
         public async Task<IActionResult> Create(GiayTo giayTo, IFormFile formFile)
         {
+            var supportedTypes = new[] { "jpg", "jpeg", "png" };
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (ModelState.IsValid)
             {
-                TempData["AlertMessage"] = "Thêm Giấy tờ Thành công!";
                 string filename = formFile.FileName;
-                giayTo.Anh = filename.ToString(); // tên ảnh
-                var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
-                formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
-                _context.Add(giayTo);
-                await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Index));
+                if (formFile.Length > 2097152 || !supportedTypes.Contains(filename) || formFile.FileName == null)
+                {
+                    TempData["AlertMessage"] = "kích thước tệp quá lớn hoặc không đúng định dạng tệp!";
+                    ViewBag.ErrorMessage = "kích thước tệp quá lớn hoặc không đúng định dạng tệp";
+                    RedirectToAction("Create");
+                }
+                else
+                {
+                    TempData["AlertMessage"] = "Thêm Giấy tờ Thành công!";           
+                    TempData["filename"] = filename;
+                    giayTo.Anh = filename.ToString(); // tên ảnh
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
+                    formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
+                    _context.Add(giayTo);
+                    await _context.SaveChangesAsync();
+                    return RedirectToAction(nameof(Index));
+
+                }
+              
+               
             }
             ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", giayTo.IdNhanVien);
             return View(giayTo);
