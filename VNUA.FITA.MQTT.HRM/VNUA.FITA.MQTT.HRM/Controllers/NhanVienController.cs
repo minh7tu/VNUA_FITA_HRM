@@ -45,7 +45,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int?  pageNumber)
         {
 
-            
+
 
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
@@ -130,6 +130,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: NhanVien/Create
         public IActionResult Create()
         {
+            if (KiemTranChucNang(2) == false & KiemTranChucNang(3) == false)
+            {
+                return RedirectToAction("BaoLoi", "BaoLoi");
+            }
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
@@ -151,6 +155,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         
         public async Task<IActionResult> Create([Bind("IdNhanVien,MaNhanVien,HoTen,NgaySinh,GioiTinh,DiaChi,SDT,Email,ChucVu,Anh,SoCCCD,TrinhDo,IdBP")] NhanVien nhanVien,IFormFile formFile,string maNhanVien)
         {
+            if (KiemTranChucNang(2) == false & KiemTranChucNang(3) == false)
+            {
+                return RedirectToAction("BaoLoi", "BaoLoi");
+            }
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
@@ -162,27 +170,25 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
             if (ModelState.IsValid)
             {
-                
-                 
-                    if(nhanVien.MaNhanVien!=maNhanVien)
-                    {
-                        string filename = formFile.FileName;
-                        nhanVien.Anh = filename.ToString(); // tên ảnh
-                        var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
-                        formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
-                        _context.Add(nhanVien);
-                        await _context.SaveChangesAsync();
-                        _notyfService.Success("Bạn đã thêm nhân viên thành công.");
-                    }
-                    else
-                    {
-                        _notyfService.Warning("Nhân Viên đã có trong danh sách");
-                    }
+                if (!KiemTraNhanVien(nhanVien.MaNhanVien))
+                {
+                    string filename = formFile.FileName;
+                    nhanVien.Anh = filename.ToString(); // tên ảnh
+                    var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
+                    formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
+                    _context.Add(nhanVien);
+                    await _context.SaveChangesAsync();
+                    _notyfService.Success("Bạn đã thêm thông tin nhân viên thành công.");
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    _notyfService.Warning("Thông tin nhân viên đã có trong hệ thống");
+                }
             }
-            else {
-                _notyfService.Error("Bạn thêm nhân viên thất bại");
+            else{
+                _notyfService.Error("Vui lòng nhập thông tin");
             }
-     
             ViewData["IdBP"] = new SelectList(_context.BoPhans, "IdBoPhan", "IdBoPhan", nhanVien.IdBP);
             return View(nhanVien);
         }
@@ -321,9 +327,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             return _context.NhanViens.Any(e => e.IdNhanVien == id);
         }
-        public bool KiemTraNhanVien(int id)
+        public bool KiemTraNhanVien(string ma)
         {
-            return _context.NhanViens.Any(e => e.IdNhanVien == id);
+            return _context.NhanViens.Any(e => e.MaNhanVien == ma);
         }
       
         
