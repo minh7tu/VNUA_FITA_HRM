@@ -106,7 +106,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             string accconut = HttpContext.Session.GetString("SessionUser");
             var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
 
-            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == nhanVien.IdBP && g.ChucVu.Equals("Trưởng Phòng")), "HoTen", "HoTen");
+            ViewData["HoTen"] = new SelectList(_context.NhanViens.Where(g => g.IdBP == nhanVien.IdBP && g.ChucVu.Equals("Trưởng phòng")), "HoTen", "HoTen");
             ViewData["IdNhanVien"] = new SelectList(_context.NhanViens.Where(g => g.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien");
             return View();
         }
