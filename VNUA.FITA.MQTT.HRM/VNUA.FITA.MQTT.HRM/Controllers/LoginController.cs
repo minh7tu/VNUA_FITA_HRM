@@ -54,6 +54,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                         HttpContext.Session.SetString("SessionUser", data?.TenTaiKhoan);
                         HttpContext.Session.SetString("SessionImage", data?.Anh ?? "");//Thuyết - Check nếu không có link ảnh gắn null
                         HttpContext.Session.SetString("SessionChucVu", data?.ChucVu ?? "");
+                        HttpContext.Session.SetString("SessionPhanQuyen", data?.PhanQuyen.ToString() ?? "");
                         _notyfService.Success("Đăng nhập thành công");
                         return RedirectToAction("Index", "Home");
                     }
