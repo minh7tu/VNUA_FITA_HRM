@@ -15,10 +15,12 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
         [Key]
         public int IdDonTu { get; set; }
 
-        [StringLength(100)]
+        [StringLength(100, MinimumLength = 3, ErrorMessage = "hãy nhập tối thiểu 3 kí tự và tối đa 100 kí tự")]
+        [Required(ErrorMessage = "Tiêu đề không được bỏ trống")]
         public string TieuDe { get; set; }
 
         [StringLength(255)]
+        [Required(ErrorMessage = "nội dung không được bỏ trống")]
         public string NoiDung { get; set; }
 
         [StringLength(100)]
