@@ -8,8 +8,7 @@
 <h1>Danh sách bộ phận</h1>
 
 <p>
-    <a asp-action="Create">Tạo mới bộ phận</a> |
-    <a asp-action="Edit">Quay lại</a>
+    <a asp-action="Create">Tạo bộ phận</a> 
 </p>
 <table class="table">
     <thead>
@@ -63,8 +62,8 @@
                 @Html.DisplayFor(modelItem => item.IdPhong)
             </td>
             <td>
-                <a asp-action="EditBP">Thay đổi</a> |
-                <a asp-action="Delete">Xóa</a>
+                <a asp-action="EditBP" asp-route-id="@item.IdBoPhan">Thay đổi</a> |
+                <a asp-action="DeleteBP" asp-route-id="@item.IdBoPhan">Xóa</a>
             </td>
         </tr>
 }
