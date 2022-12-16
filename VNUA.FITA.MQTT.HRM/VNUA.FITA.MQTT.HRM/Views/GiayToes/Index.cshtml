@@ -4,10 +4,10 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-@if (TempData["AlertMessage"] != null)
+@if (TempData["AlertMessage1"] != null)
 {
 <div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong> Thành Công! </strong> @TempData["AlertMessage"]
+    <strong> Thành Công! </strong> @TempData["AlertMessage1"]
     <button type="button" class="close" data-dismiss="alert" aria-label="Close"/>
         <span aria-hidden="true">&times;</span>
 </div>

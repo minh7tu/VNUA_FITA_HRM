@@ -86,16 +86,26 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (ModelState.IsValid)
             {
-                string filename = formFile.FileName;
-                if (formFile.Length > 2097152 || !supportedTypes.Contains(filename) || formFile.FileName == null)
+                string filename = "";
+                if (formFile == null)
                 {
-                    TempData["AlertMessage"] = "kích thước tệp quá lớn hoặc không đúng định dạng tệp!";
+                    TempData["AlertMessage2"] = "vui lòng chọn tệp!";
+                    return View(giayTo);
+                }
+                else
+                {
+                    filename = formFile.FileName;
+                }
+                
+                if (formFile.Length > 2097152 || filename.Contains("png") == false)
+                {
+                    TempData["AlertMessage2"] = "kích thước tệp quá lớn hoặc không đúng định dạng tệp!";
                     ViewBag.ErrorMessage = "kích thước tệp quá lớn hoặc không đúng định dạng tệp";
                     RedirectToAction("Create");
                 }
                 else
                 {
-                    TempData["AlertMessage"] = "Thêm Giấy tờ Thành công!";           
+                    TempData["AlertMessage1"] = "Thêm Giấy tờ Thành công!";           
                     TempData["filename"] = filename;
                     giayTo.Anh = filename.ToString(); // tên ảnh
                     var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);

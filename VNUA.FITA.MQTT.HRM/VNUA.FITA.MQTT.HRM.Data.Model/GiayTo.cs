@@ -16,13 +16,14 @@ namespace VNUA.FITA.MQTT.HRM.Data.Model
         public int MaGT { get; set; }
 
         [Required(ErrorMessage = "Vui lòng nhập tiêu đề")]
-        [StringLength(60, MinimumLength = 3)]
-        
+        [StringLength(60, MinimumLength = 3, ErrorMessage = "hãy nhập tối thiểu 3 kí tự và tối đa 60 kí tự")]
+
         public string TenGT { get; set; }
 
-        [Required(ErrorMessage = "Vui lòng chọn tệp!")]
+        
         [RegularExpression(@"([a-zA-Z0-9\s_\\.\-:])+(.png|.jpg|.gif)$", ErrorMessage = "Only Image files allowed.")]
         [StringLength(100)]
+
         public string Anh { get; set; }
 
         public DateTime ThoiGian { get; set; }
