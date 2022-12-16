@@ -18,7 +18,7 @@
                 <div asp-validation-summary="ModelOnly" class="text-danger"></div>
                 <div class="form-group">
                     <label asp-for="MaNhanVien" class="control-label"></label>
-                    <input asp-for="MaNhanVien" class="form-control" />
+                    <select asp-for="MaNhanVien" class="form-control" asp-items="ViewBag.MaNhanVien"></select>
                     <span asp-validation-for="MaNhanVien" class="text-danger"></span>
                 </div>
                 <div class="form-group">
@@ -74,9 +74,10 @@
                 <input type="submit" value="Tạo Tài Khoản" class="btn btn-outline-primary btn-sm" /> |
                 <a asp-action="Index" class="btn btn-sm btn-outline-secondary">Trở lại danh sách</a>
             </div>
+        </div>
     </form>
 </div>
- </div>
+
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

@@ -10,6 +10,12 @@
     <hr />
     <dl class="row">
         <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.IdNhanVien)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.IdNhanVien)
+        </dd>
+        <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.MaNhanVien)
         </dt>
         <dd class="col-sm-10">
@@ -62,7 +68,7 @@
             @Html.DisplayNameFor(model => model.Anh)
         </dt>
         <dd class="col-sm-10">
-            <img src="@("/assets/img/"+Model.Anh)" alt="Alternate Text" />
+            <img src="@("/assets/img/"+Model.Anh)" alt="Alternate Text" style="width:200px;height:200px;"/>
         </dd>
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.SoCCCD)
@@ -85,5 +91,6 @@
     </dl>
 </div>
 <div>
-    <a asp-action="Index" asp-controller="Home"><i class="fa-solid fa-arrow-left"></i></a>
+    <a asp-action="Edit" asp-route-id="@Model.IdNhanVien">Cập Nhật</a> |
+    <a asp-action="Index">Quay lại danh sách nhân viên</a>
 </div>
