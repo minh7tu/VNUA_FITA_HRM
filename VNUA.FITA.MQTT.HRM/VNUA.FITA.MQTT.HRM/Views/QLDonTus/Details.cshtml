@@ -166,10 +166,10 @@
 
                         @if (Model.TrangThai.Equals("Chờ duyệt"))
                         {
-                            <button class="btn btn-primary  btn-sm" asp-action="Edit" asp-route-id="@Model.IdDonTu">Sửa</button>
+                            <button class="btn btn-primary  btn-sm" asp-action="Delete" asp-route-id="@Model.IdDonTu">Duyệt</button>
                         }
                         
-                        <button class="btn btn-danger btn-sm" asp-action="Danhsachdontu" value="Hủy">Danh sách đơn từ</button>
+                        <button class="btn btn-light btn-sm" asp-action="QLDanhsachdontu" value="Hủy">Danh sách đơn từ</button>
 
                     </div>
                 </form>

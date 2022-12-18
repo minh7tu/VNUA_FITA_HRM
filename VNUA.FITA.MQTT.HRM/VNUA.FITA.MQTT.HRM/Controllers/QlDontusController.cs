@@ -12,18 +12,19 @@ using PagedList;
 namespace VNUA.FITA.MQTT.HRM.Controllers
 {
     
-    public class DonTusController : Controller
+    public class QLDonTusController : Controller
     {
         private readonly SqlServerDbContext _context;
 
-        public DonTusController(SqlServerDbContext context)
+        public QLDonTusController(SqlServerDbContext context)
         {
             _context = context;
         }
 
         // GET: DonTus
-        public async Task<IActionResult> Danhsachdontu(string searchString, string currentFilter, int? pageNumber,string status)
+        public async Task<IActionResult> QLDanhsachdontu(string searchString, string currentFilter, int? pageNumber,string status)
         {
+            
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -38,7 +39,8 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["CurrentFilter"] = searchString;
-            var sqlServerDbContext = _context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut).OrderByDescending(d => d.ThoiGian);
+            var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
+            var sqlServerDbContext = _context.DonTus.Where(g=>g.NguoiNhan == nhanVien.HoTen).OrderByDescending(d => d.ThoiGian);
           
             if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(status))
             {
@@ -74,7 +76,15 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 return NotFound();
             }
-            var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
+            var dontu1 = _context.DonTus.Find(id);
+            int idnhanvien = dontu1.IdNhanVien;
+            if (dontu1.TrangThai.Equals("chờ xét duyệt"))
+            {
+                dontu1.GhiChu = " Đã được Xem lúc :" + DateTime.Now;
+            }        
+            _context.DonTus.Update(dontu1);
+            await _context.SaveChangesAsync();
+            var nhanVien = _context.NhanViens.Where(n=>n.IdNhanVien == idnhanvien).SingleOrDefault();
             int idbophan = nhanVien.IdBP;
             var Bophan = _context.BoPhans.Where(n => n.IdBoPhan == idbophan).SingleOrDefault();
             TempData["HoTen"] = nhanVien.HoTen;
@@ -86,9 +96,11 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 .Include(d => d.NhanViens)
                 .FirstOrDefaultAsync(m => m.IdDonTu == id);
             var nhanVien2 = _context.NhanViens.Where(n => n.HoTen.Equals(donTu.NguoiNhan)).SingleOrDefault();
+            int idbophan2 = nhanVien2.IdBP;
+            var Bophan2 = _context.BoPhans.Where(n => n.IdBoPhan == idbophan2).SingleOrDefault();
             TempData["HoTen2"] = nhanVien2.HoTen;
             TempData["ChucVu2"] = nhanVien2.ChucVu;
-            TempData["Bophan2"] = Bophan.TenBP;
+            TempData["Bophan2"] = Bophan2.TenBP;
             if (donTu == null)
             {
                 return NotFound();
@@ -126,7 +138,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 _context.Add(donTu);
                 await _context.SaveChangesAsync();
-                return RedirectToAction(nameof(Danhsachdontu));
+                return RedirectToAction(nameof(QLDanhsachdontu));
             }
             var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
 
@@ -179,9 +191,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 try
                 {
-                    TempData["thongbao"] = "Cập nhật thành công!,Mã đơn :"+ donTu.IdDonTu;
+                    TempData["AlertMessage"] = "Cập nhật thành công!,Mã đơn :"+ donTu.IdDonTu;
                     TempData["IDdontu"] = donTu.IdDonTu;
-                    donTu.GhiChu = "Được cập nhật lại  vào lúc :" + DateTime.Now;
+                    donTu.GhiChu = "Được duyệt  vào lúc :" + DateTime.Now;
                     _context.Update(donTu);
                     await _context.SaveChangesAsync();
                 }
@@ -196,7 +208,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                         throw;
                     }
                 }
-                return RedirectToAction(nameof(Danhsachdontu));
+                return RedirectToAction(nameof(QLDanhsachdontu));
             }
 
             ViewData["IdNhanVien"] = new SelectList(_context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut), "IdNhanVien", "IdNhanVien", donTu.IdNhanVien);
@@ -235,11 +247,12 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var dontu1 = _context.DonTus.Find(id);
             donTu = dontu1;
-            string status = "Đã Hủy";
+            string status = "Đã được duyệt";
             donTu.TrangThai = status;
+            donTu.GhiChu = "Đã được duyệt lúc :" + DateTime.Now;
             _context.DonTus.Update(donTu);
             await _context.SaveChangesAsync();
-            return RedirectToAction(nameof(Danhsachdontu));
+            return RedirectToAction(nameof(QLDanhsachdontu));
         }
 
         private bool DonTuExists(int id)

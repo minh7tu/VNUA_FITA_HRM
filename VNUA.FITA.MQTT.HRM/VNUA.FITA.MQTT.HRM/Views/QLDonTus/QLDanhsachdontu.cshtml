@@ -1,0 +1,202 @@
+﻿@model PaginatedList<VNUA.FITA.MQTT.HRM.Data.Model.DonTu>
+    @using PagedList.Mvc;
+    @{
+        ViewData["Title"] = "Danhsachdontu";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        TempData["new"] = 0;
+        int newdontu = 0;
+    }
+    @if (TempData["AlertMessage"] != null)
+    {
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong> Thành Công! </strong> @TempData["AlertMessage"]
+        <a asp-action="Details" asp-route-id="@TempData[" IDdontu"]">xem</a>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
+
+        <span aria-hidden="true">&times;</span>
+    </div>
+    }
+    <div class="container-fluid">
+        <h1 class="mt-4">Quản lý đơn đã gửi</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Quản lý đơn đã gửi</li>
+        </ol>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <div class="dataTables_wrapper container-fluid dt-bootstrap4">
+                <div class="row">
+                    
+                    <div class="col-sm-12 col-md-6">
+
+                        <div class="dataTables_filter">
+                            <form asp-action="Danhsachdontu" method="get">
+
+                                <div class="form-control-sm ">
+                                    <label for="inputFloatingLabel" class="placeholder">Trạng thái</label>
+                                    <select aria-controls="basic-datatables" name="status">
+
+                                        <option value=""></option>
+                                        <option value="Đã Hủy">Đã Hủy</option>
+                                        <option value=">Đã được duyệt">Đã được duyệt</option>
+                                        <option value="Chờ duyệt">Chờ duyệt</option>
+                                    </select>
+                                </div>
+                                <input type="text" value="@ViewData[" CurrentFilter"]" name="SearchString" class="form-control form-control-sm" aria-controls="basic-datatables" placeholder="Nhập từ khóa tìm kiếm" />
+
+                                <button type="submit" class="btn btn-primary btn-sm" value="Search"><i class="fa fa-search"></i></button>
+                                <button type="button" onclick="window.location.href='/Dontus/Danhsachdontu'" class="btn btn-dark btn-sm">Reset</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+               
+                <table class="display table table-striped table-hover dataTable" role="grid" id="basic-datatables" aria-describedby="basic-datatables_info">
+                    <thead>
+                        <tr style="text-align:center;" role="row">
+                            <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                                <span>Tiêu đề</span>
+                            </th>
+                            <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                                <span>Nội dung</span>
+                            </th>
+                            <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                                <span>Trạng thái</span>
+                            </th>
+                            <th scope="col" hidden>
+                                <span>Ghi chú</span>
+                            </th>
+                            <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables" hidden>
+                                <span>Người nhận</span>
+                            </th>
+                            <th scope="col" hidden>
+                                <span>Phân loại</span>
+                            </th>
+                            <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                                <span>Thời gian</span>
+                            </th>
+                            <th scope="col">
+                                <span>Hành động</span>
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (item.GhiChu == null)
+                                    {
+                                        <span class="badge-pill badge-light">Mới</span>
+
+                                        newdontu++;
+                                    }
+                                    @if (item.TrangThai.Equals("Chờ duyệt") && item.GhiChu != null)
+                                    {
+                                        <a class="notification">
+                                            <span class="badge-pill badge-warning">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            @Html.DisplayFor(modelItem => item.TieuDe)
+
+                                        </a>
+                                    }
+                                    else if (item.TrangThai.Equals("Đã được duyệt"))
+                                    {
+                                        <a class="notification">
+                                            <span class="badge-pill badge-success">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            @Html.DisplayFor(modelItem => item.TieuDe)
+
+                                        </a>
+                                    }
+                                    else if (item.TrangThai.Equals("Đã Hủy"))
+                                    {
+                                        <a class="notification">
+                                            <span class="badge-pill badge-danger">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            @Html.DisplayFor(modelItem => item.TieuDe)
+
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="notification">
+                                            <span class="badge-pill badge-info">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            @Html.DisplayFor(modelItem => item.TieuDe)
+
+                                        </a>
+
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NoiDung)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TrangThai)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.GhiChu)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.NguoiNhan)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.PhanLoai)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ThoiGian)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                                </td>
+                                @{
+                                    if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                                    {
+                                        <td>
+                                            <form>
+                                                <button class="btn btn-light  btn-sm" asp-action="Details" asp-route-id="@item.IdDonTu" value="Chi tiết">Chi tiết</button>
+                                                <button class="btn btn-success  btn-sm" asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;" value="Duyệt">Duyệt</button>
+                                             </form>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <form>
+                                                <button class="btn btn-light  btn-sm" asp-action="Details" asp-route-id="@item.IdDonTu" value="Chi tiết">Chi tiết</button>
+                                                <button class="btn btn-success  btn-sm" asp-action="Delete" asp-route-id="@item.IdDonTu" value="Duyệt">Duyệt</button>
+                                            </form>
+                                        </td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                    <p>Hiện có @newdontu đơn mới</p>
+                </table>
+                <div style="margin:auto; width:50%;">
+                    @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                    }
+                    <div style="margin:auto; width:50%;">
+                        <a asp-action="Danhsachdontu" style="margin:auto;"
+                           asp-route-sortOrder="@ViewData[" CurrentSort"]"
+                           asp-route-pageNumber="@(Model.PageIndex - 1)"
+                           asp-route-currentFilter="@ViewData[" CurrentFilter"]"
+                           class="btn  btn-primary @prevDisabled">
+                            Trước
+                        </a>
+                        <a asp-action="Danhsachdontu" style="margin:auto;"
+                           asp-route-sortOrder="@ViewData[" CurrentSort"]"
+                           asp-route-pageNumber="@(Model.PageIndex + 1)"
+                           asp-route-currentFilter="@ViewData[" CurrentFilter"]"
+                           class="btn  btn-primary @nextDisabled">
+                            Sau
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

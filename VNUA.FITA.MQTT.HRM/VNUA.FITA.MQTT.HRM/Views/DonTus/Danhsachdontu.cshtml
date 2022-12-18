@@ -3,17 +3,12 @@
 @{
     ViewData["Title"] = "Danhsachdontu";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    int donmoi = 0;
 }
-@if (TempData["AlertMessage"] != null)
-{
-<div class="alert alert-success alert-dismissible fade show" role="alert">
-    <strong> Thành Công! </strong> @TempData["AlertMessage"]
-    <a asp-action="Details" asp-route-id="@TempData["IDdontu"]">xem</a>
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
 
-    <span aria-hidden="true">&times;</span>
-</div>
-}
+<!DOCTYPE html>
+
+
 <div class="container-fluid">
     <h1 class="mt-4">Lịch sử đơn đã gửi</h1>
     <ol class="breadcrumb mb-4">
@@ -25,16 +20,16 @@
 <div class="card-body">
     <div class="table-responsive">
         <div class="dataTables_wrapper container-fluid dt-bootstrap4">
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
-                <div class="dataTables_length">   
-                <span>
-                    <a asp-action="Create" style="margin-left:20px;">Tạo đơn mới</a>
-                </span>
+            <div class="row">
+                <div class="col-sm-12 col-md-6">
+                    <div class="dataTables_length">
+                        <span>
+                            <a asp-action="Create" style="margin-left:20px;">Tạo đơn mới</a>
+                        </span>
+                    </div>
                 </div>
-            </div>
-            <div class="col-sm-12 col-md-6">
-                
+                <div class="col-sm-12 col-md-6">
+
                     <div class="dataTables_filter">
                         <form asp-action="Danhsachdontu" method="get">
 
@@ -54,143 +49,160 @@
                             <button type="button" onclick="window.location.href='/Dontus/Danhsachdontu'" class="btn btn-dark btn-sm">Reset</button>
                         </form>
                     </div>
-               
+
+                </div>
             </div>
-        </div>
-        <table class="display table table-striped table-hover dataTable" role="grid" id="basic-datatables" aria-describedby="basic-datatables_info">
-            <thead>
-                <tr style="text-align:center;" role="row">
-                    <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
-                        <span>Tiêu đề</span>
-                    </th>
-                    <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
-                        <span>Nội dung</span>
-                    </th>
-                    <th scope="col"  class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
-                        <span>Trạng thái</span>
-                    </th>
-                    <th scope="col" hidden>
-                        <span>Ghi chú</span>
-                    </th>
-                    <th scope="col"  class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
-                        <span>Người nhận</span>
-                    </th>
-                    <th scope="col" hidden>
-                        <span>Phân loại</span>
-                    </th>
-                    <th scope="col"  class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
-                        <span>Thời gian</span>
-                    </th>
-                    <th scope="col">
-                        <span>Hành động</span>
-                    </th>
+            <table class="display table table-striped table-hover dataTable" role="grid" id="basic-datatables" aria-describedby="basic-datatables_info">
+                <thead>
+                    <tr style="text-align:center;" role="row">
+                        <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                            <span>Tiêu đề</span>
+                        </th>
+                        <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                            <span>Nội dung</span>
+                        </th>
+                        <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                            <span>Trạng thái</span>
+                        </th>
+                        <th scope="col" hidden>
+                            <span>Ghi chú</span>
+                        </th>
+                        <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                            <span>Người nhận</span>
+                        </th>
+                        <th scope="col" hidden>
+                            <span>Phân loại</span>
+                        </th>
+                        <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                            <span>Thời gian</span>
+                        </th>
+                        <th scope="col">
+                            <span>Hành động</span>
+                        </th>
 
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var item in Model)
-                {
-                    <tr>
-                        <td>
-                            @if (item.TrangThai.Equals("Chờ duyệt") && item.GhiChu != null)
-                            {
-                                <a class="notification">
-                                    <span class="badge-pill badge-warning">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
-                                    @Html.DisplayFor(modelItem => item.TieuDe)
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+                            <td>
+                                @if (item.GhiChu == null)
+                                {
+                                    <span class="badge-pill badge-secondary">Mới</span>
+                                    donmoi++;
 
-                                </a>
-                            }
-                            else if (item.TrangThai.Equals("Đã được duyệt"))
-                            {
-                                <a class="notification">
-                                    <span class="badge-pill badge-success">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
-                                    @Html.DisplayFor(modelItem => item.TieuDe)
+                                }
+                                @if (item.TrangThai.Equals("Chờ duyệt") && item.GhiChu != null)
+                                {
+                                    <a class="notification">
+                                        <span class="badge-pill badge-warning">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                        @Html.DisplayFor(modelItem => item.TieuDe)
 
-                                </a>
-                            }
-                            else if (item.TrangThai.Equals("Đã Hủy"))
-                            {
-                                <a class="notification">
-                                    <span class="badge-pill badge-danger">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
-                                    @Html.DisplayFor(modelItem => item.TieuDe)
+                                    </a>
+                                }
+                                else if (item.TrangThai.Equals("Đã được duyệt"))
+                                {
+                                    <a class="notification">
+                                        <span class="badge-pill badge-success">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                        @Html.DisplayFor(modelItem => item.TieuDe)
 
-                                </a>
-                            }
-                            else
-                            {
-                                <a class="notification">
-                                <span class="badge-pill badge-info">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
-                                  @Html.DisplayFor(modelItem => item.TieuDe)
+                                    </a>
+                                }
+                                else if (item.TrangThai.Equals("Đã Hủy"))
+                                {
+                                    <a class="notification">
+                                        <span class="badge-pill badge-danger">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                        @Html.DisplayFor(modelItem => item.TieuDe)
+
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="notification">
+                                        <span class="badge-pill badge-info">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                        @Html.DisplayFor(modelItem => item.TieuDe)
 
                                     </a>
 
-                                }                        
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NoiDung)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.TrangThai)
-                        </td>
-                        <td hidden>
-                            @Html.DisplayFor(modelItem => item.GhiChu)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.NguoiNhan)
-                        </td>
-                        <td hidden>
-                            @Html.DisplayFor(modelItem => item.PhanLoai)
-                        </td>
-                        <td>
-                            @Html.DisplayFor(modelItem => item.ThoiGian)
-                        </td>
-                        <td hidden>
-                            @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-                        </td>
-                        @{
-                            if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
-                            {
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='fa fa-edit'></i></a>
-                                    <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
-                                    <a asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bxs-hand'></i></a>
-                                </td>
+                                }
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NoiDung)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrangThai)
+                            </td>
+                            <td hidden>
+                                @Html.DisplayFor(modelItem => item.GhiChu)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NguoiNhan)
+                            </td>
+                            <td hidden>
+                                @Html.DisplayFor(modelItem => item.PhanLoai)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ThoiGian)
+                            </td>
+                            <td hidden>
+                                @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                            </td>
+                            @{
+                                if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                                {
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='fa fa-edit'></i></a>
+                                        <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bxs-hand'></i></a>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='fa fa-edit'></i></a>
+                                        <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
+                                        <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
+                                    </td>
+                                }
                             }
-                            else
-                            {
-                                <td>
-                                    <a asp-action="Edit" asp-route-id="@item.IdDonTu"><i class='fa fa-edit'></i></a>
-                                    <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
-                                    <a asp-action="Delete" asp-route-id="@item.IdDonTu"><i class='bx bxs-hand'></i></a>
-                                </td>
-                            }
-                        }
-                    </tr>
-                }
-            </tbody>
-        </table>
-        <div style="margin:auto; width:50%;">
-            @{
-                var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
-                var nextDisabled = !Model.HasNextPage ? "disabled" : "";
-            }
+                        </tr>
+                    }
+                </tbody>
+            </table>
+            <span>Đơn mới hoặc chưa đọc : @donmoi</span>
             <div style="margin:auto; width:50%;">
-                <a asp-action="Danhsachdontu" style="margin:auto;"
-                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                   asp-route-pageNumber="@(Model.PageIndex - 1)"
-                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                   class="btn  btn-primary @prevDisabled">
-                    Trước
-                </a>
-                <a asp-action="Danhsachdontu" style="margin:auto;"
-                   asp-route-sortOrder="@ViewData["CurrentSort"]"
-                   asp-route-pageNumber="@(Model.PageIndex + 1)"
-                   asp-route-currentFilter="@ViewData["CurrentFilter"]"
-                   class="btn  btn-primary @nextDisabled">
-                    Sau
-                </a>
+                @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                }
+                <div style="margin:auto; width:50%;">
+                    <a asp-action="Danhsachdontu" style="margin:auto;"
+                       asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.PageIndex - 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="btn  btn-primary @prevDisabled">
+                        Trước
+                    </a>
+                    <a asp-action="Danhsachdontu" style="margin:auto;"
+                       asp-route-sortOrder="@ViewData["CurrentSort"]"
+                       asp-route-pageNumber="@(Model.PageIndex + 1)"
+                       asp-route-currentFilter="@ViewData["CurrentFilter"]"
+                       class="btn  btn-primary @nextDisabled">
+                        Sau
+                    </a>
+                </div>
             </div>
         </div>
-            </div>
     </div>
 </div>
+@if (TempData["thongbao"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong> Thành Công! </strong> @TempData["thongbao"]
+        <a asp-action="Details" asp-route-id="@TempData[" IDdontu"]">xem</a>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
+
+        <span aria-hidden="true">&times;</span>
+    </div>
+}
