@@ -39,6 +39,8 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["CurrentFilter"] = searchString;
+            int count = _context.DonTus.Where(d => d.GhiChu == null).Count();
+            TempData["donmoi"] = count;
             var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
             var sqlServerDbContext = _context.DonTus.Where(g=>g.NguoiNhan == nhanVien.HoTen).OrderByDescending(d => d.ThoiGian);
           
