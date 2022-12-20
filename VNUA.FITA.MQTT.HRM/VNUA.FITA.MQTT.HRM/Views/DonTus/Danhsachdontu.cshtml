@@ -8,7 +8,12 @@
 
 <!DOCTYPE html>
 
-
+<style>
+    .distable{
+        
+        cursor:not-allowed;
+    }
+</style>
 <div class="container-fluid">
     <h1 class="mt-4">Lịch sử đơn đã gửi</h1>
     <ol class="breadcrumb mb-4">
@@ -152,9 +157,9 @@
                                 if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
                                 {
                                     <td>
-                                        <a asp-action="Edit" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='fa fa-edit'></i></a>
+                                        <a class="distable" data-toggle="tooltip" data-placement="top" title="bạn không thể sửa đơn này"><i class='fa fa-edit'></i></a>
                                         <a asp-action="Details" asp-route-id="@item.IdDonTu"><i class='bx bx-detail'></i></a>
-                                        <a asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;"><i class='bx bxs-hand'></i></a>
+                                        <a class="distable" title="bạn không thể hủy đơn này"><i class='bx bxs-hand'></i></a>
                                     </td>
                                 }
                                 else
@@ -206,3 +211,9 @@
         <span aria-hidden="true">&times;</span>
     </div>
 }
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<script>
+    $(function () {
+        $('[data-toggle="tooltip"]').tooltip()
+    })
+</script>   

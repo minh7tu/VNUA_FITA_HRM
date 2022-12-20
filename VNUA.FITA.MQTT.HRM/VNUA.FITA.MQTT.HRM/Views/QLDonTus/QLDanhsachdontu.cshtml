@@ -3,8 +3,8 @@
     @{
         ViewData["Title"] = "Danhsachdontu";
         Layout = "~/Views/Shared/_Layout.cshtml";
-        TempData["new"] = 0;
-        int newdontu = 0;
+        
+       
     }
     @if (TempData["AlertMessage"] != null)
     {
@@ -92,13 +92,13 @@
                                     @if (item.GhiChu == null)
                                     {
                                         <span class="badge-pill badge-light">Mới</span>
-
-                                        newdontu++;
+                                        
+                                       
                                     }
                                     @if (item.TrangThai.Equals("Chờ duyệt") && item.GhiChu != null)
                                     {
                                         <a class="notification">
-                                            <span class="badge-pill badge-warning">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            <span class="badge-pill badge-warning">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
                                             @Html.DisplayFor(modelItem => item.TieuDe)
 
                                         </a>
@@ -106,7 +106,7 @@
                                     else if (item.TrangThai.Equals("Đã được duyệt"))
                                     {
                                         <a class="notification">
-                                            <span class="badge-pill badge-success">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            <span class="badge-pill badge-success">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
                                             @Html.DisplayFor(modelItem => item.TieuDe)
 
                                         </a>
@@ -114,7 +114,7 @@
                                     else if (item.TrangThai.Equals("Đã Hủy"))
                                     {
                                         <a class="notification">
-                                            <span class="badge-pill badge-danger">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            <span class="badge-pill badge-danger">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
                                             @Html.DisplayFor(modelItem => item.TieuDe)
 
                                         </a>
@@ -122,7 +122,7 @@
                                     else
                                     {
                                         <a class="notification">
-                                            <span class="badge-pill badge-info">ID:@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            <span class="badge-p badge-info">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
                                             @Html.DisplayFor(modelItem => item.TieuDe)
 
                                         </a>
@@ -155,8 +155,8 @@
                                     {
                                         <td>
                                             <form>
-                                                <button class="btn btn-light  btn-sm" asp-action="Details" asp-route-id="@item.IdDonTu" value="Chi tiết">Chi tiết</button>
-                                                <button class="btn btn-success  btn-sm" asp-action="Delete" asp-route-id="@item.IdDonTu" style="pointer-events:none;" value="Duyệt">Duyệt</button>
+                                                <button class="btn btn-light  btn-xs" asp-action="Details" asp-route-id="@item.IdDonTu" value="Chi tiết">Chi tiết</button>
+                                                <button class="btn btn-success  btn-xs" style="cursor:not-allowed;" title="bạn không thể duyệt đơn này" value="Duyệt">duyệt</button>
                                              </form>
                                         </td>
                                     }
@@ -164,8 +164,9 @@
                                     {
                                         <td>
                                             <form>
-                                                <button class="btn btn-light  btn-sm" asp-action="Details" asp-route-id="@item.IdDonTu" value="Chi tiết">Chi tiết</button>
-                                                <button class="btn btn-success  btn-sm" asp-action="Delete" asp-route-id="@item.IdDonTu" value="Duyệt">Duyệt</button>
+                                                <button class="btn btn-light  btn-xs" asp-action="Details" asp-route-id="@item.IdDonTu" value="Chi tiết">Chi tiết</button>
+                                                <button class="btn btn-success  btn-xs" asp-action="Delete" asp-route-id="@item.IdDonTu" title="duyệt đơn" value="Duyệt">duyệt</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#CancelDontu" data-url="@Url.Action("HuyDontu")"></button>
                                             </form>
                                         </td>
                                     }
@@ -173,7 +174,7 @@
                             </tr>
                         }
                     </tbody>
-                    <p>Hiện có @newdontu đơn mới</p>
+                    <p>Hiện có  @TempData["donmoi"] đơn mới</p>
                 </table>
                 <div style="margin:auto; width:50%;">
                     @{
@@ -200,3 +201,24 @@
             </div>
         </div>
     </div>
+    <div class="modal fade" id="CancelDontu" tabindex="-1" role="dialog" aria-labelledby="exaple">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form  method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="#exaple">Hủy đơn từ</h5>
+                        <button type="button"class="close" data-dismiss="modal" aria-label="Đóng">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-body">
+                <h2>bạn có chắc muốn từ chối đơn này</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+  
