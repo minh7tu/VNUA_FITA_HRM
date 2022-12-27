@@ -25,7 +25,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                               select s.IdNhanVien).Count();
             ViewData["phong"] = (from s in _context.Phongs
                               select s.IdPhong).Count();
-            ViewData["dontu"] = (from s in _context.DonTus
+            string accconut = HttpContext.Session.GetString("SessionUser");
+            var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
+            int idnhanvien = nhanVien.IdNhanVien;
+            ViewData["dontu"] = (from s in _context.DonTus.Where(n=>n.IdNhanVien==idnhanvien)
                               select s.IdDonTu).Count();
             return View();
         }
