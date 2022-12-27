@@ -5,14 +5,23 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
 }
-@if (TempData["AlertMessage"] != null)
+@if (TempData["AlertMessage1"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
-      <strong> @TempData["AlertMessage"]</strong>
+        <strong> @TempData["AlertMessage"]</strong>
         <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
         <span aria-hidden="true">&times;</span>
     </div>
 }
+else if (TempData["AlertMessage2"] != null)
+{
+    <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <strong> @TempData["AlertMessage2"]</strong>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
+        <span aria-hidden="true">&times;</span>
+    </div>
+}
+
 <style>
 </style>
 <body>

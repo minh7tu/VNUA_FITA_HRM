@@ -19,11 +19,29 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         {
             _context = context;
         }
+        public bool KiemTranChucNang(int? phanQuyen)
+        {
+            string tk = HttpContext.Session.GetString("SessionUser");
+            string pg = HttpContext.Session.GetString("SessionPhanQuyen");
 
+            //var count = _context.NhanViens.CountConvert.ToInt32(pg));
+
+            if (Convert.ToInt32(pg) != phanQuyen)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
+            }
+        }
         // GET: QLgiayto
         public async Task<IActionResult> Index(string sortOder, string searchString, string currentFilter, int? pageNumber)
         {
-
+            if (!KiemTranChucNang(3))
+            {
+                return RedirectToAction("BaoLoi", "BaoLoi");
+            }
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");

@@ -1,0 +1,224 @@
+﻿@model PaginatedList<VNUA.FITA.MQTT.HRM.Data.Model.DonTu>
+    @using PagedList.Mvc;
+    @{
+        ViewData["Title"] = "Danhsachdontu";
+        Layout = "~/Views/Shared/_Layout.cshtml";
+        
+       
+    }
+    @if (TempData["AlertMessage"] != null)
+    {
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong> Thành Công! </strong> @TempData["AlertMessage"]
+        <a asp-action="Details" asp-route-id="@TempData[" IDdontu"]">xem</a>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
+
+        <span aria-hidden="true">&times;</span>
+    </div>
+    }
+    <div class="container-fluid">
+        <h1 class="mt-4">Quản lý đơn đã gửi</h1>
+        <ol class="breadcrumb mb-4">
+            <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+            <li class="breadcrumb-item active">Quản lý đơn đã gửi</li>
+        </ol>
+    </div>
+
+    <div class="card-body">
+        <div class="table-responsive">
+            <div class="dataTables_wrapper container-fluid dt-bootstrap4">
+                <div class="row">
+                    
+                    <div class="col-sm-12 col-md-6">
+
+                        <div class="dataTables_filter">
+                            <form asp-action="Danhsachdontu" method="get">
+
+                                <div class="form-control-sm ">
+                                    <label for="inputFloatingLabel" class="placeholder">Trạng thái</label>
+                                    <select aria-controls="basic-datatables" name="status">
+
+                                        <option value=""></option>
+                                        <option value="Đã Hủy">Đã Hủy</option>
+                                        <option value=">Đã được duyệt">Đã được duyệt</option>
+                                        <option value="Chờ duyệt">Chờ duyệt</option>
+                                    </select>
+                                </div>
+                                <input type="text" value="@ViewData[" CurrentFilter"]" name="SearchString" class="form-control form-control-sm" aria-controls="basic-datatables" placeholder="Nhập từ khóa tìm kiếm" />
+
+                                <button type="submit" class="btn btn-primary btn-sm" value="Search"><i class="fa fa-search"></i></button>
+                                <button type="button" onclick="window.location.href='/Dontus/Danhsachdontu'" class="btn btn-dark btn-sm">Reset</button>
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+               
+                <table class="display table table-striped table-hover dataTable" role="grid" id="basic-datatables" aria-describedby="basic-datatables_info">
+                    <thead>
+                        <tr style="text-align:center;" role="row">
+                            <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                                <span>Tiêu đề</span>
+                            </th>
+                            <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                                <span>Nội dung</span>
+                            </th>
+                            <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                                <span>Trạng thái</span>
+                            </th>
+                            <th scope="col" hidden>
+                                <span>Ghi chú</span>
+                            </th>
+                            <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables" hidden>
+                                <span>Người nhận</span>
+                            </th>
+                            <th scope="col" hidden>
+                                <span>Phân loại</span>
+                            </th>
+                            <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                                <span>Thời gian</span>
+                            </th>
+                            <th scope="col">
+                                <span>Hành động</span>
+                            </th>
+
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model)
+                        {
+                            <tr>
+                                <td>
+                                    @if (item.GhiChu == null)
+                                    {
+                                        <span class="badge-pill badge-light">Mới</span>
+                                        
+                                       
+                                    }
+                                    @if (item.TrangThai.Equals("Chờ duyệt") && item.GhiChu != null)
+                                    {
+                                        <a class="notification">
+                                            <span class="badge-pill badge-warning">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            @Html.DisplayFor(modelItem => item.TieuDe)
+
+                                        </a>
+                                    }
+                                    else if (item.TrangThai.Equals("Đã được duyệt"))
+                                    {
+                                        <a class="notification">
+                                            <span class="badge-pill badge-success">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            @Html.DisplayFor(modelItem => item.TieuDe)
+
+                                        </a>
+                                    }
+                                    else if (item.TrangThai.Equals("Đã Hủy"))
+                                    {
+                                        <a class="notification">
+                                            <span class="badge-pill badge-danger">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            @Html.DisplayFor(modelItem => item.TieuDe)
+
+                                        </a>
+                                    }
+                                    else
+                                    {
+                                        <a class="notification">
+                                            <span class="badge-p badge-info">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
+                                            @Html.DisplayFor(modelItem => item.TieuDe)
+
+                                        </a>
+
+                                    }
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.NoiDung)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.TrangThai)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.GhiChu)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.NguoiNhan)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.PhanLoai)
+                                </td>
+                                <td>
+                                    @Html.DisplayFor(modelItem => item.ThoiGian)
+                                </td>
+                                <td hidden>
+                                    @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                                </td>
+                                @{
+                                    if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                                    {
+                                        <td>
+                                            <form>
+                                                <button class="btn btn-light  btn-xs" asp-action="Details" asp-route-id="@item.IdDonTu" value="Chi tiết">Chi tiết</button>
+                                                <button class="btn btn-success  btn-xs" style="cursor:not-allowed;" title="bạn không thể duyệt đơn này" value="Duyệt">duyệt</button>
+                                             </form>
+                                        </td>
+                                    }
+                                    else
+                                    {
+                                        <td>
+                                            <form>
+                                                <button class="btn btn-light  btn-xs" asp-action="Details" asp-route-id="@item.IdDonTu" value="Chi tiết">Chi tiết</button>
+                                                <button class="btn btn-success  btn-xs" asp-action="Delete" asp-route-id="@item.IdDonTu" title="duyệt đơn" value="Duyệt">duyệt</button>
+                                                <button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#CancelDontu" data-url="@Url.Action("HuyDontu")"></button>
+                                            </form>
+                                        </td>
+                                    }
+                                }
+                            </tr>
+                        }
+                    </tbody>
+                    <p>Hiện có  @TempData["donmoi"] đơn mới</p>
+                </table>
+                <div style="margin:auto; width:50%;">
+                    @{
+                    var prevDisabled = !Model.HasPreviousPage ? "disabled" : "";
+                    var nextDisabled = !Model.HasNextPage ? "disabled" : "";
+                    }
+                    <div style="margin:auto; width:50%;">
+                        <a asp-action="Danhsachdontu" style="margin:auto;"
+                           asp-route-sortOrder="@ViewData[" CurrentSort"]"
+                           asp-route-pageNumber="@(Model.PageIndex - 1)"
+                           asp-route-currentFilter="@ViewData[" CurrentFilter"]"
+                           class="btn  btn-primary @prevDisabled">
+                            Trước
+                        </a>
+                        <a asp-action="Danhsachdontu" style="margin:auto;"
+                           asp-route-sortOrder="@ViewData[" CurrentSort"]"
+                           asp-route-pageNumber="@(Model.PageIndex + 1)"
+                           asp-route-currentFilter="@ViewData[" CurrentFilter"]"
+                           class="btn  btn-primary @nextDisabled">
+                            Sau
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="CancelDontu" tabindex="-1" role="dialog" aria-labelledby="exaple">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <form  method="post">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="#exaple">Hủy đơn từ</h5>
+                        <button type="button"class="close" data-dismiss="modal" aria-label="Đóng">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-body">
+                <h2>bạn có chắc muốn từ chối đơn này</h2>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary"data-dismiss="modal">Đóng</button>
+            </div>
+        </div>
+    </div>
+  

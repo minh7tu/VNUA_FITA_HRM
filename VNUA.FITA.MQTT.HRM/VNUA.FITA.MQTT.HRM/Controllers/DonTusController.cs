@@ -179,7 +179,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             {
                 try
                 {
-                    TempData["AlertMessage"] = "Cập nhật thành công!,Mã đơn :"+ donTu.IdDonTu;
+                    TempData["thongbao"] = "Cập nhật thành công!,Mã đơn :"+ donTu.IdDonTu;
                     TempData["IDdontu"] = donTu.IdDonTu;
                     donTu.GhiChu = "Được cập nhật lại  vào lúc :" + DateTime.Now;
                     _context.Update(donTu);

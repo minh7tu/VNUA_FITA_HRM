@@ -28,11 +28,14 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             _notyfService = notyfService;
 
         }
-        public bool KiemTranChucNang(int? idChucNang)
+        public bool KiemTranChucNang(int? phanQuyen)
         {
             string tk = HttpContext.Session.GetString("SessionUser");
-            var count = _context.NhanViens.Count(m => m.TenTaiKhoan == tk & m.PhanQuyen == idChucNang);
-            if (count == 0)
+            string pg = HttpContext.Session.GetString("SessionPhanQuyen");
+
+            //var count = _context.NhanViens.CountConvert.ToInt32(pg));
+
+            if (Convert.ToInt32(pg) != phanQuyen)
             {
                 return false;
             }
@@ -51,7 +54,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
 
-            if (KiemTranChucNang(1) == false || KiemTranChucNang(3) == false || KiemTranChucNang(4) == false)
+            if (!KiemTranChucNang(2))
             {
                 return RedirectToAction("BaoLoi", "BaoLoi");
             }
@@ -106,7 +109,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
 
-            if (KiemTranChucNang(1) == false || KiemTranChucNang(3) == false || KiemTranChucNang(4) == false)
+            if (!KiemTranChucNang(2))
             {
                 return RedirectToAction("BaoLoi", "BaoLoi");
             }
@@ -138,7 +141,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
 
-            if (KiemTranChucNang(1) == false || KiemTranChucNang(3) == false || KiemTranChucNang(4) == false)
+            if (!KiemTranChucNang(2))
             {
                 return RedirectToAction("BaoLoi", "BaoLoi");
             }
@@ -163,7 +166,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
 
-            if (KiemTranChucNang(1) == false || KiemTranChucNang(3) == false || KiemTranChucNang(4) == false)
+            if (!KiemTranChucNang(2))
             {
                 return RedirectToAction("BaoLoi", "BaoLoi");
             }
@@ -200,7 +203,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
 
-            if (KiemTranChucNang(1) == false || KiemTranChucNang(3) == false || KiemTranChucNang(4) == false)
+            if (!KiemTranChucNang(2))
             {
                 return RedirectToAction("BaoLoi", "BaoLoi");
             }
@@ -231,7 +234,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
 
-            if (KiemTranChucNang(1) == false || KiemTranChucNang(3) == false || KiemTranChucNang(4) == false)
+            if (!KiemTranChucNang(2))
             {
                 return RedirectToAction("BaoLoi", "BaoLoi");
             }
@@ -278,7 +281,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
 
-            if (KiemTranChucNang(1) == false || KiemTranChucNang(3) == false || KiemTranChucNang(4) == false)
+            if (!KiemTranChucNang(2))
             {
                 return RedirectToAction("BaoLoi", "BaoLoi");
             }
@@ -308,7 +311,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
 
-            if (KiemTranChucNang(1) == false || KiemTranChucNang(3) == false || KiemTranChucNang(4) == false)
+            if (!KiemTranChucNang(2))
             {
                 return RedirectToAction("BaoLoi", "BaoLoi");
             }

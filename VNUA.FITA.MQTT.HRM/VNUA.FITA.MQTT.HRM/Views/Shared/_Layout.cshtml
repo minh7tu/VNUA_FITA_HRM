@@ -33,7 +33,7 @@
             <!-- Logo Header -->
             <div class="logo-header" data-background-color="blue">
 
-                <a href="index.html" class="logo">
+                <a href="#" class="logo">
                     <img src="../assets/img/logo.svg" alt="navbar brand" class="navbar-brand">
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -365,11 +365,11 @@
                         </a>
                         <div class="collapse" id="Ql-thongtincanhan">
                             <ul class="nav nav-collapse">
-                                <li>
-                                    <a asp-action="Create" asp-controller="NhanVien">
-                                        <span class="sub-item">Cập nhật thông tin cá nhân</span>
-                                    </a>
-                                </li>
+                                @*<li>
+                        <a asp-action="Create" asp-controller="NhanVien">
+                            <span class="sub-item">Cập nhật thông tin cá nhân</span>
+                        </a>
+                    </li>*@
                                 <li>
                                     <a asp-action="Index" asp-controller="NhanVien">
                                         <span class="sub-item">Xem thông tin cá nhân</span>
@@ -415,7 +415,23 @@
                                 </li>
                                 <li>
                                     <a asp-controller="QuanLyBoPhan" asp-action="GetListBP">
-                                        <span class="sub-item">Xem bộ phận</span>
+                                        <span class="sub-item">Xem danh sách bộ phận</span>
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a href="#ql-phongban" data-toggle="collapse">
+                            <i class='bx bxs-buildings'></i>
+                            <p>Quản lý phòng ban</p>
+                            <span class="caret"></span>
+                        </a>
+                        <div class="collapse" id="ql-phongban">
+                            <ul class="nav nav-collapse">
+                                <li>
+                                    <a asp-controller="QuanLyBoPhan" asp-action="GetListP">
+                                        <span class="sub-item">Xem danh sách phòng</span>
                                     </a>
                                 </li>
                             </ul>
@@ -424,7 +440,7 @@
                     <li class="nav-item">
                         <a href="#ql-chucvu" data-toggle="collapse">
                             <i class='bx bx-sitemap'></i>
-                            <p>Quản lý Chức vụ</p>
+                            <p>Quản lý chức vụ</p>
                             <span class="caret"></span>
                         </a>
                         <div class="collapse" id="ql-chucvu">
@@ -435,10 +451,10 @@
                                     </a>
                                 </li>
                                 @*<li>
-                                    <a href="charts/sparkline.html">
-                                        <span class="sub-item">Xem chức vụ</span>
-                                    </a>
-                                </li>*@
+                        <a href="charts/sparkline.html">
+                            <span class="sub-item">Xem chức vụ</span>
+                        </a>
+                    </li>*@
                             </ul>
                         </div>
                     </li>
@@ -472,15 +488,15 @@
                         <div class="collapse" id="ql-dontu">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="sidebar-style-1.html">
+                                    <a asp-controller="QLDontus" asp-action="QLDanhsachdontu">
                                         <span class="sub-item">Xem thông tin đơn từ</span>
                                     </a>
                                 </li>
-                                <li>
+                                @*<li>
                                     <a href="overlay-sidebar.html">
                                         <span class="sub-item">Duyệt thông tin đơn</span>
                                     </a>
-                                </li>
+                                </li>*@
                             </ul>
                         </div>
                     </li>
@@ -493,12 +509,12 @@
                         <div class="collapse" id="ql-giayto">
                             <ul class="nav nav-collapse">
                                 <li>
-                                    <a href="sidebar-style-1.html">
-                                        <span class="sub-item">xem thông tin đơn từ</span>
+                                    <a asp-controller="QuanLyGiayTo" asp-action="Index">
+                                        <span class="sub-item">Xem thông tin đơn từ</span>
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="overlay-sidebar.html">
+                                    <a>
                                         <span class="sub-item">Duyệt thông tin đơn từ</span>
                                     </a>
                                 </li>
