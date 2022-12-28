@@ -4,57 +4,133 @@
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    <strong> Thành Công! </strong> @TempData["AlertMessage"]
+    <a asp-action="Details" asp-route-id="@TempData[" GiayTo"]">xem</a>
+    <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
 
-<h1>Index</h1>
+    <span aria-hidden="true">&times;</span>
+</div>
+    }
+<div class="container-fluid">
+    <h1 class="mt-4">Quản lý giấy tờ nhân viên </h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item"><a href="/">Trang chủ</a></li>
+        <li class="breadcrumb-item active">quản lý Giấy tờ nhân viên</li>
+    </ol>
+</div>
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.TenGT)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Anh)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.ThoiGian)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.TrangThai)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.NhanViens)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.TenGT)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Anh)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ThoiGian)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.TrangThai)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.MaGT">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.MaGT">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.MaGT">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<div class="card-body">
+    <div class="table-responsive">
+        <div class="dataTables_wrapper container-fluid dt-bootstrap4">
+
+
+            <div class="row">
+
+                <div class="col-sm-12 col-md-6">
+
+                    <div class="dataTables_filter">
+                        <form asp-action="Danhsachdontu" method="get">
+
+                            <div class="form-control-sm ">
+                                <label for="inputFloatingLabel" class="placeholder">Trạng thái</label>
+                                <select aria-controls="basic-datatables" name="status">
+
+                                    <option value=""></option>
+                                    <option value="Đã Hủy">Đã Hủy</option>
+                                    <option value=">Đã được duyệt">Đã được duyệt</option>
+                                    <option value="Chờ duyệt">Chờ duyệt</option>
+                                </select>
+                            </div>
+                            <input type="text" value="@ViewData[" CurrentFilter"]" name="SearchString" class="form-control form-control-sm" aria-controls="basic-datatables" placeholder="Nhập từ khóa tìm kiếm" />
+
+                            <button type="submit" class="btn btn-primary btn-sm" value="Search"><i class="fa fa-search"></i></button>
+                            <button type="button" onclick="window.location.href='/QuanLyGiayTo/Index'" class="btn btn-dark btn-sm">Reset</button>
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+            <table class="table">
+                <thead>
+                    <tr style="text-align:center;" role="row">
+                        <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                            <span>Tên Giấy tờ</span>
+                        </th>
+                        <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                            <span>Ảnh</span>
+                        </th>
+                        <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                            <span>Thời Gian</span>
+                        </th>
+                        <th scope="col">
+                            <span>Trạng thái</span>
+                        </th>
+                        <th scope="col" class="sorting" tabindex="0" rowspan="1" colspan="1" aria-controls="basic-datatables">
+                            <span>Nhân Viên</span>
+                        </th>
+
+                        <th scope="col">
+                            <span>Hành động</span>
+                        </th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr>
+
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TenGT)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.Anh)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.ThoiGian)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.TrangThai)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
+                            </td>
+                            <td>
+
+                                @{
+                                    if (item.TrangThai.Equals("Đã hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                                    {
+                                    <td>
+                                        <form>
+                                            <button class="btn btn-light  btn-xs" asp-action="Details" asp-route-id="@item.MaGT" value="Chi tiết">Chi tiết</button>
+                                        </form>
+                                    </td>
+                                }
+                                else
+                                {
+                                    <td>
+                                        <form>
+                                            <button class="btn btn-light  btn-xs" asp-action="Details" asp-route-id="@item.MaGT" value="Chi tiết">Chi tiết</button>
+                                            <button class="btn btn-danger  btn-xs" asp-action="Delete" asp-route-id="@item.MaGT" title="Hủy" value="Duyệt">Từ Chối</button>
+
+                                        </form>
+                                    </td>
+                                }
+
+                                }
+
+
+
+
+                            </tr>
+                        }
+                </tbody>
+                <p>Hiện có  @TempData["donmoi"] đơn mới</p>
+
+            </table>
+
+</div>
+</div>
+</div>
