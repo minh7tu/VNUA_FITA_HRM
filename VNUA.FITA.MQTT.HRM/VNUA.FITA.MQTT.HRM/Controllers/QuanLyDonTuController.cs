@@ -30,6 +30,27 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             return View(await sqlServerDbContext.ToListAsync());
         }
 
+        //phan quyen
+        public bool KiemTranChucNang(int? phanQuyen)
+        {
+            string tk = HttpContext.Session.GetString("SessionUser");
+            string pg = HttpContext.Session.GetString("SessionPhanQuyen");
+
+            //var count = _context.NhanViens.CountConvert.ToInt32(pg));
+
+            if (Convert.ToInt32(pg) != phanQuyen)
+            {
+                return false;
+            }
+
+            else
+            {
+                return true;
+            }
+        }
+
+
+
         // GET: QLDonTu/Details/5
         public async Task<IActionResult> Details(int? id)
         {
