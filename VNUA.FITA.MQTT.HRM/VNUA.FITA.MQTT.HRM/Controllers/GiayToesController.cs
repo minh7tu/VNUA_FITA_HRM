@@ -96,8 +96,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                 {
                     filename = formFile.FileName;
                 }
-                
-                if (formFile.Length > 2097152 || filename.Contains("jpeg") == false || filename.Contains("jpg") == false)
+                string FileExtension = filename.Substring(filename.LastIndexOf('.') + 1).ToLower();
+
+
+                if (formFile.Length > 2097152 || FileExtension != "jpg")
                 {
                     TempData["AlertMessage2"] = "kích thước tệp quá lớn hoặc không đúng định dạng tệp!";
                     ViewBag.ErrorMessage = "kích thước tệp quá lớn hoặc không đúng định dạng tệp";
