@@ -5,13 +5,22 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
     int donmoi = 0;
 }
+@if (TempData["thongbao"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong> Thành Công! </strong> @TempData["thongbao"]
+        <a asp-action="Details" asp-route-id="@TempData["IDdontu"]">xem</a>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
+
+        <span aria-hidden="true">&times;</span>
+    </div>
+}
 
 <!DOCTYPE html>
 
 <style>
-    .distable{
-        
-        cursor:not-allowed;
+    .distable {
+        cursor: not-allowed;
     }
 </style>
 <div class="container-fluid">
@@ -43,7 +52,7 @@
                                 <select aria-controls="basic-datatables" name="status">
 
                                     <option value=""></option>
-                                    <option value="Đã Hủy">Đã Hủy</option>
+                                    <option value="Đã hủy">Đã hủy</option>
                                     <option value=">Đã được duyệt">Đã được duyệt</option>
                                     <option value="Chờ duyệt">Chờ duyệt</option>
                                 </select>
@@ -114,7 +123,7 @@
 
                                     </a>
                                 }
-                                else if (item.TrangThai.Equals("Đã Hủy"))
+                                else if (item.TrangThai.Equals("Đã hủy"))
                                 {
                                     <a class="notification">
                                         <span class="badge-pill badge-danger">#@Html.DisplayFor(modelItem => item.IdDonTu)</span>
@@ -154,7 +163,7 @@
                                 @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
                             </td>
                             @{
-                                if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                                if (item.TrangThai.Equals("Đã hủy") || item.TrangThai.Equals("Đã được duyệt"))
                                 {
                                     <td>
                                         <a class="distable" data-toggle="tooltip" data-placement="top" title="bạn không thể sửa đơn này"><i class='fa fa-edit'></i></a>
@@ -201,16 +210,7 @@
         </div>
     </div>
 </div>
-@if (TempData["thongbao"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        <strong> Thành Công! </strong> @TempData["thongbao"]
-        <a asp-action="Details" asp-route-id="@TempData[" IDdontu"]">xem</a>
-        <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
 
-        <span aria-hidden="true">&times;</span>
-    </div>
-}
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
 <script>
     $(function () {

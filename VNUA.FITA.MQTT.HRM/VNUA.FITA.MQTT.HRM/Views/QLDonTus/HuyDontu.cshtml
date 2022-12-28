@@ -1,6 +1,70 @@
-﻿@model DonTu
+﻿@model VNUA.FITA.MQTT.HRM.Data.Model.DonTu
 
-    <div class="modal fade" id="CancelDontu">
-        
+@{
+    ViewData["Title"] = "Tuchoidon";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 
-    </div>
+}
+<h1>Từ chối đơn</h1>
+<h3>Bạn muốn từ chối lá đơn này? @Html.DisplayFor(model => model.IdDonTu)</h3>
+<p>@Html.DisplayFor(model => model.TieuDe)</p>
+<div style="width:50%; margin:auto;">
+    <h4>sau khi từ chối bạn không thể thao tác trên lá đơn này nữa!</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            <span>Tiêu đề</span>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TieuDe)
+        </dd>
+        <dt class="col-sm-2">
+            <span>Nội dung</span>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NoiDung)
+        </dd>
+        <dt class="col-sm-2">
+            <span>Trạng thái</span>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.TrangThai)
+        </dd>
+        <dt class="col-sm-2">
+            <span>Ghi chú</span>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.GhiChu)
+        </dd>
+        <dt class="col-sm-2">
+            <span>Người nhận</span>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.NguoiNhan)
+        </dd>
+        <dt class="col-sm-2" hidden>
+            @Html.DisplayNameFor(model => model.PhanLoai)
+        </dt>
+        <dd class="col-sm-10" hidden>
+            @Html.DisplayFor(model => model.PhanLoai)
+        </dd>
+        <dt class="col-sm-2">
+            <span>Thời gian</span>
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.ThoiGian)
+        </dd>
+        <dt class="col-sm-2" hidden>
+            @Html.DisplayNameFor(model => model.NhanViens)
+        </dt>
+        <dd class="col-sm-10" hidden>
+            @Html.DisplayFor(model => model.NhanViens.IdNhanVien)
+        </dd>
+    </dl>
+
+    <form asp-action="HuyDontu">
+        <input type="hidden" asp-for="IdDonTu" />
+        <input type="submit" value="Từ chối" class="btn btn-danger" /> |
+        <a asp-action="QLDanhsachdontu">Trở về danh sách</a>
+    </form>
+</div>
