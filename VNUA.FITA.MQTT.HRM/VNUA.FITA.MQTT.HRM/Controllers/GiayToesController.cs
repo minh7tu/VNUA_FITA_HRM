@@ -1,4 +1,4 @@
-﻿using System;
+﻿    using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -97,7 +97,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                     filename = formFile.FileName;
                 }
                 
-                if (formFile.Length > 2097152 || filename.Contains("png") == false)
+                if (formFile.Length > 2097152 || filename.Contains("jpeg") == false || filename.Contains("jpg") == false)
                 {
                     TempData["AlertMessage2"] = "kích thước tệp quá lớn hoặc không đúng định dạng tệp!";
                     ViewBag.ErrorMessage = "kích thước tệp quá lớn hoặc không đúng định dạng tệp";
@@ -167,6 +167,9 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
                     giayTo.Anh = filename.ToString(); // tên ảnh
                     var imagePath = Path.Combine(Directory.GetCurrentDirectory(), "wwwroot/assets/img", filename);
                     formFile.CopyTo(new FileStream(imagePath, FileMode.Create));
+                    string trangthai = "Chờ duyệt";
+                    giayTo.TrangThai = trangthai;
+                    TempData["AlertMessage1"] = "giấy tờ đã được sửa!" + giayTo.MaGT;
                     _context.Update(giayTo);
                     await _context.SaveChangesAsync();
                 }
