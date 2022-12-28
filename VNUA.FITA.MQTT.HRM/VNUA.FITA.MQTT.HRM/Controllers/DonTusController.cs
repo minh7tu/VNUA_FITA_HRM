@@ -38,6 +38,8 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["CurrentFilter"] = searchString;
+            int count = _context.DonTus.Where(d => d.GhiChu == null && d.NhanViens.TenTaiKhoan == accconut).Count();
+            TempData["donmoi"] = count;
             var sqlServerDbContext = _context.DonTus.Where(g => g.NhanViens.TenTaiKhoan == accconut).OrderByDescending(d => d.ThoiGian);
           
             if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(status))
@@ -124,6 +126,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             string accconut = HttpContext.Session.GetString("SessionUser");
             if (ModelState.IsValid)
             {
+                TempData["thongbao"] = "thêm đơn mới thành công!,Mã đơn :" + donTu.IdDonTu;
                 _context.Add(donTu);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Danhsachdontu));
@@ -235,7 +238,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             var dontu1 = _context.DonTus.Find(id);
             donTu = dontu1;
-            string status = "Đã Hủy";
+            string status = "Đã hủy";
             donTu.TrangThai = status;
             _context.DonTus.Update(donTu);
             await _context.SaveChangesAsync();

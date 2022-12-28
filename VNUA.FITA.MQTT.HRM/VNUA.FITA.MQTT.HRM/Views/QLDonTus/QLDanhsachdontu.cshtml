@@ -47,7 +47,7 @@
                                 <input type="text" value="@ViewData[" CurrentFilter"]" name="SearchString" class="form-control form-control-sm" aria-controls="basic-datatables" placeholder="Nhập từ khóa tìm kiếm" />
 
                                 <button type="submit" class="btn btn-primary btn-sm" value="Search"><i class="fa fa-search"></i></button>
-                                <button type="button" onclick="window.location.href='/Dontus/Danhsachdontu'" class="btn btn-dark btn-sm">Reset</button>
+                                <button type="button" onclick="window.location.href='/Dontus/QLDanhsachdontu'" class="btn btn-dark btn-sm">Reset</button>
                             </form>
                         </div>
 
@@ -151,12 +151,11 @@
                                     @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
                                 </td>
                                 @{
-                                    if (item.TrangThai.Equals("Đã Hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                                    if (item.TrangThai.Equals("Đã hủy") || item.TrangThai.Equals("Đã được duyệt"))
                                     {
                                         <td>
                                             <form>
                                                 <button class="btn btn-light  btn-xs" asp-action="Details" asp-route-id="@item.IdDonTu" value="Chi tiết">Chi tiết</button>
-                                                <button class="btn btn-success  btn-xs" style="cursor:not-allowed;" title="bạn không thể duyệt đơn này" value="Duyệt">duyệt</button>
                                              </form>
                                         </td>
                                     }
@@ -166,7 +165,7 @@
                                             <form>
                                                 <button class="btn btn-light  btn-xs" asp-action="Details" asp-route-id="@item.IdDonTu" value="Chi tiết">Chi tiết</button>
                                                 <button class="btn btn-success  btn-xs" asp-action="Delete" asp-route-id="@item.IdDonTu" title="duyệt đơn" value="Duyệt">duyệt</button>
-                                                <button type="button" class="btn btn-danger" data-toggle="ajax-modal" data-target="#CancelDontu" data-url="@Url.Action("HuyDontu")"></button>
+                                                <button class="btn btn-danger  btn-xs" asp-action="HuyDontu" asp-route-id="@item.IdDonTu" title="hủy đơn" value="Từ chối">Từ chối</button>
                                             </form>
                                         </td>
                                     }
@@ -182,14 +181,14 @@
                     var nextDisabled = !Model.HasNextPage ? "disabled" : "";
                     }
                     <div style="margin:auto; width:50%;">
-                        <a asp-action="Danhsachdontu" style="margin:auto;"
+                        <a asp-action="QLDanhsachdontu" style="margin:auto;"
                            asp-route-sortOrder="@ViewData[" CurrentSort"]"
                            asp-route-pageNumber="@(Model.PageIndex - 1)"
                            asp-route-currentFilter="@ViewData[" CurrentFilter"]"
                            class="btn  btn-primary @prevDisabled">
                             Trước
                         </a>
-                        <a asp-action="Danhsachdontu" style="margin:auto;"
+                        <a asp-action="QLDanhsachdontu" style="margin:auto;"
                            asp-route-sortOrder="@ViewData[" CurrentSort"]"
                            asp-route-pageNumber="@(Model.PageIndex + 1)"
                            asp-route-currentFilter="@ViewData[" CurrentFilter"]"

@@ -39,9 +39,10 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
             string accconut = HttpContext.Session.GetString("SessionUser");
             ViewData["CurrentFilter"] = searchString;
-            int count = _context.DonTus.Where(d => d.GhiChu == null).Count();
-            TempData["donmoi"] = count;
+           
             var nhanVien = _context.NhanViens.Where(n => n.TenTaiKhoan.Equals(accconut)).SingleOrDefault();
+            int count = _context.DonTus.Where(d => d.GhiChu == null && d.NguoiNhan == nhanVien.HoTen).Count();
+            TempData["donmoi"] = count;
             var sqlServerDbContext = _context.DonTus.Where(g=>g.NguoiNhan == nhanVien.HoTen).OrderByDescending(d => d.ThoiGian);
           
             if (!String.IsNullOrEmpty(searchString) && !String.IsNullOrEmpty(status))
@@ -80,7 +81,7 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             }
             var dontu1 = _context.DonTus.Find(id);
             int idnhanvien = dontu1.IdNhanVien;
-            if (dontu1.TrangThai.Equals("chờ xét duyệt"))
+            if (dontu1.TrangThai.Equals("Chờ duyệt"))
             {
                 dontu1.GhiChu = " Đã được Xem lúc :" + DateTime.Now;
             }        
@@ -238,9 +239,28 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
 
             return View(donTu);
         }
+        public async Task<IActionResult> HuyDontu(int? id)
+        {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            if (id == null)
+            {
+                return NotFound();
+            }
 
-        // POST: DonTus/Delete/5
-        [HttpPost, ActionName("Delete")]
+            var donTu = await _context.DonTus
+                .Include(d => d.NhanViens)
+                .FirstOrDefaultAsync(m => m.IdDonTu == id);
+            if (donTu == null)
+            {
+                return NotFound();
+            }
+
+            return View(donTu);
+        }
+      // POST: DonTus/Delete/5
+      [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id, [Bind("IdDonTu,TieuDe,NoiDung,TrangThai,GhiChu,NguoiNhan,PhanLoai,ThoiGian,IdNhanVien")] DonTu donTu)
         {
@@ -252,6 +272,23 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             string status = "Đã được duyệt";
             donTu.TrangThai = status;
             donTu.GhiChu = "Đã được duyệt lúc :" + DateTime.Now;
+            _context.DonTus.Update(donTu);
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(QLDanhsachdontu));
+        }
+        // POST: DonTus/Delete/5
+        [HttpPost, ActionName("HuyDontu")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> CancelConfirmed(int id, [Bind("IdDonTu,TieuDe,NoiDung,TrangThai,GhiChu,NguoiNhan,PhanLoai,ThoiGian,IdNhanVien")] DonTu donTu)
+        {
+            ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
+            ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
+            ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+            var dontu1 = _context.DonTus.Find(id);
+            donTu = dontu1;
+            string status = "Đã hủy";
+            donTu.TrangThai = status;
+            donTu.GhiChu = "Đã bị từ chối lúc lúc :" + DateTime.Now;
             _context.DonTus.Update(donTu);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(QLDanhsachdontu));
