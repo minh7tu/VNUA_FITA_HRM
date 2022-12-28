@@ -24,7 +24,11 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
         // GET: DonTus
         public async Task<IActionResult> QLDanhsachdontu(string searchString, string currentFilter, int? pageNumber,string status)
         {
-            
+            if (!KiemTranChucNang(3))
+            {
+                return RedirectToAction("BaoLoi", "BaoLoi");
+            }
+
             if (searchString != null)
             {
                 pageNumber = 1;
@@ -292,6 +296,24 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             _context.DonTus.Update(donTu);
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(QLDanhsachdontu));
+        }
+
+        public bool KiemTranChucNang(int? phanQuyen)
+        {
+            string tk = HttpContext.Session.GetString("SessionUser");
+            string pg = HttpContext.Session.GetString("SessionPhanQuyen");
+
+            //var count = _context.NhanViens.CountConvert.ToInt32(pg));
+
+            if (Convert.ToInt32(pg) != phanQuyen)
+            {
+                return false;
+            }
+
+            else
+            {
+                return true;
+            }
         }
 
         private bool DonTuExists(int id)

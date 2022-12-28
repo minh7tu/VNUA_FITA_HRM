@@ -26,6 +26,12 @@ namespace VNUA.FITA.MQTT.HRM.Controllers
             ViewBag.SessionUser = HttpContext.Session.GetString("SessionUser");
             ViewBag.SessionImage = HttpContext.Session.GetString("SessionImage");
             ViewBag.ChucVu = HttpContext.Session.GetString("SessionChucVu");
+
+            if (!KiemTranChucNang(3))
+            {
+                return RedirectToAction("BaoLoi", "BaoLoi");
+            }
+
             var sqlServerDbContext = _context.DonTus.Include(d => d.NhanViens);
             return View(await sqlServerDbContext.ToListAsync());
         }

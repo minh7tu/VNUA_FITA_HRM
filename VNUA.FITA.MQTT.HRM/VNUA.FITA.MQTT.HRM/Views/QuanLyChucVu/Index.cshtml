@@ -7,6 +7,13 @@
 
 <h1>Quản lý chức vụ/ Thay đổi chức vụ cho nhân viên</h1>
 
+<form method="get" asp-action="Index">
+    <p>
+        <input type="search" placeholder="Nhập mã nhân viên" value="@ViewData["GetMNV"]" name="maNV" />
+        <input type="submit" value="Tìm kiếm" />
+    </p>
+</form>
+
 <table class="table">
     <thead>
         <tr>
