@@ -46,9 +46,12 @@
     </div>
 </div>
 
-<div>
-    <a asp-action="Index">Back to List</a>
-</div>
+<form asp-action="HuyDontu">
+    <input type="hidden" asp-for="MaGT" />
+    <input type="submit" value="Từ chối" class="btn btn-danger" /> |
+    <a asp-action="Index">Trở về danh sách</a>
+</form>
+
 
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}

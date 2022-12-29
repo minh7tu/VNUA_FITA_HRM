@@ -1,12 +1,12 @@
 ﻿@model IEnumerable<VNUA.FITA.MQTT.HRM.Data.Model.GiayTo>
-
+    @using PagedList.Mvc;
 @{
     ViewData["Title"] = "Index";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 <div class="alert alert-success alert-dismissible fade show" role="alert">
     <strong> Thành Công! </strong> @TempData["AlertMessage"]
-    <a asp-action="Details" asp-route-id="@TempData[" GiayTo"]">xem</a>
+    <a asp-action="Details" asp-route-id="@TempData[" IDgiayto"]">xem</a>
     <button type="button" class="close" data-dismiss="alert" aria-label="Close" />
 
     <span aria-hidden="true">&times;</span>
@@ -45,7 +45,7 @@
                             <input type="text" value="@ViewData[" CurrentFilter"]" name="SearchString" class="form-control form-control-sm" aria-controls="basic-datatables" placeholder="Nhập từ khóa tìm kiếm" />
 
                             <button type="submit" class="btn btn-primary btn-sm" value="Search"><i class="fa fa-search"></i></button>
-                            <button type="button" onclick="window.location.href='/QuanLyGiayTo/Index'" class="btn btn-dark btn-sm">Reset</button>
+                            <button type="button" onclick="window.location.href='/QuanLyGiayTo/Index'" class="btn btn-dark btn-sm">Làm mớit</button>
                         </form>
                     </div>
 
@@ -75,12 +75,56 @@
                             <span>Hành động</span>
                         </th>
 
+
                     </tr>
                 </thead>
                 <tbody>
                     @foreach (var item in Model)
                     {
                         <tr>
+                            <td>
+                                @if (item.TenGT == null)
+                                {
+                                    <span class="badge-pill badge-light">Mới</span>
+
+
+                                }
+                                @if (item.TrangThai.Equals("Chờ duyệt"))
+                                {
+                                    <a class="notification">
+                                        <span class="badge-pill badge-warning">#@Html.DisplayFor(modelItem => item.MaGT)</span>
+                                        @Html.DisplayFor(modelItem => item.TenGT)
+
+                                    </a>
+                                }
+                                else if (item.TrangThai.Equals("Đã được duyệt"))
+                                {
+                                    <a class="notification">
+                                        <span class="badge-pill badge-success">#@Html.DisplayFor(modelItem => item.MaGT)</span>
+                                        @Html.DisplayFor(modelItem => item.TenGT)
+
+                                    </a>
+                                }
+                                else if (item.TrangThai.Equals("Đã Hủy"))
+                                {
+                                    <a class="notification">
+                                        <span class="badge-pill badge-danger">#@Html.DisplayFor(modelItem => item.MaGT)</span>
+                                        @Html.DisplayFor(modelItem => item.TenGT)
+
+                                    </a>
+                                }
+                                else
+                                {
+                                    <a class="notification">
+                                        <span class="badge-p badge-info">#@Html.DisplayFor(modelItem => item.MaGT)</span>
+                                        @Html.DisplayFor(modelItem => item.TenGT)
+
+                                    </a>
+
+                                }
+                            </td>
+
+
 
                             <td>
                                 @Html.DisplayFor(modelItem => item.TenGT)
@@ -97,40 +141,65 @@
                             <td>
                                 @Html.DisplayFor(modelItem => item.NhanViens.IdNhanVien)
                             </td>
-                            <td>
 
-                                @{
-                                    if (item.TrangThai.Equals("Đã hủy") || item.TrangThai.Equals("Đã được duyệt"))
-                                    {
-                                    <td>
+
+                            @{
+                                if (item.TrangThai.Equals("Đã hủy") || item.TrangThai.Equals("Đã được duyệt"))
+                                {
+                                    <th>
                                         <form>
                                             <button class="btn btn-light  btn-xs" asp-action="Details" asp-route-id="@item.MaGT" value="Chi tiết">Chi tiết</button>
                                         </form>
-                                    </td>
+                                    </th>
                                 }
                                 else
                                 {
-                                    <td>
+                                    <th>
                                         <form>
                                             <button class="btn btn-light  btn-xs" asp-action="Details" asp-route-id="@item.MaGT" value="Chi tiết">Chi tiết</button>
                                             <button class="btn btn-danger  btn-xs" asp-action="Delete" asp-route-id="@item.MaGT" title="Hủy" value="Duyệt">Từ Chối</button>
-
+                                            <button class="btn btn-success  btn-xs" asp-action="Delete" asp-route-id="@item.MaGT title="duyệt đơn" value="Duyệt">duyệt</button>
                                         </form>
-                                    </td>
+                                    </th>
                                 }
 
-                                }
+                            }
 
 
 
 
-                            </tr>
-                        }
+                        </tr>
+                    }
                 </tbody>
                 <p>Hiện có  @TempData["donmoi"] đơn mới</p>
 
             </table>
 
+            
+
+        </div>
+    </div>
 </div>
-</div>
+
+
+
+<div class="modal fade" id="CancelDontu" tabindex="-1" role="dialog" aria-labelledby="exaple">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form method="post">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="#exaple">Hủy đơn từ</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Đóng">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            </form>
+        </div>
+        <div class="modal-body">
+            <h2>bạn có chắc muốn từ chối đơn này</h2>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal">Đóng</button>
+        </div>
+    </div>
 </div>
